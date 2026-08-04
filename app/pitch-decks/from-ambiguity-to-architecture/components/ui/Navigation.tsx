@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import content from '../../data/content.json';
 
 const NAV_ITEMS = [
     { label: 'Problem', href: '#problem' },
@@ -22,6 +23,7 @@ export default function Navigation() {
     const observerRef = useRef<IntersectionObserver | null>(null);
     const isScrollingRef = useRef(false);
 
+    const pitchTitle = content.hero.title;
     useEffect(() => {
         // Setup IntersectionObserver for active section detection
         const sections = NAV_ITEMS.map(item =>
@@ -128,7 +130,10 @@ export default function Navigation() {
                     >
                         Alexandre de Andrade <span className="text-[13px] font-light text-[#4A5568] opacity-50">~Å~</span>
                     </Link>
-
+                    {/* Center: Pitch title (hidden on mobile) */}
+                    <div className="hidden md:block text-sm font-medium text-[#2D3748] opacity-60">
+                        {pitchTitle}
+                    </div>
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         {NAV_ITEMS.map((item) => (
@@ -137,8 +142,8 @@ export default function Navigation() {
                                 href={item.href}
                                 onClick={(e) => handleNavClick(e, item.href)}
                                 className={`text-sm font-medium transition-colors relative group ${isActive(item.href)
-                                        ? 'text-[#00B4A0]'
-                                        : 'text-[#2D3748] hover:text-[#00B4A0]'
+                                    ? 'text-[#00B4A0]'
+                                    : 'text-[#2D3748] hover:text-[#00B4A0]'
                                     }`}
                             >
                                 {item.label}
@@ -191,8 +196,8 @@ export default function Navigation() {
                                     href={item.href}
                                     onClick={(e) => handleNavClick(e, item.href)}
                                     className={`text-base font-medium transition-colors px-2 py-1 ${isActive(item.href)
-                                            ? 'text-[#00B4A0]'
-                                            : 'text-[#2D3748] hover:text-[#00B4A0]'
+                                        ? 'text-[#00B4A0]'
+                                        : 'text-[#2D3748] hover:text-[#00B4A0]'
                                         }`}
                                 >
                                     {item.label}
