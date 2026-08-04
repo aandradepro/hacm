@@ -1,0 +1,117 @@
+{
+    "site": {
+        "title": "HACM — From Ambiguity to Architecture",
+        "subtitle": "Structuring enterprise data for trust, governance, and AI-readiness",
+        "brand": "~Å~"
+    },
+    "hero": {
+        "title": "From Ambiguity to Architecture",
+        "subtitle": "Structuring enterprise data for trust, governance, and AI-readiness",
+        "brand": "~Å~"
+    },
+    "problem": {
+        "title": "The Hidden Cost of Semantic Ambiguity",
+        "points": [
+            "In complex enterprise landscapes, the primary source of analytical failure is not technical debt or tool limitations.",
+            "It is unresolved semantic ambiguity: undefined rules, unaligned definitions across business units, and unspoken assumptions about data.",
+            "This ambiguity creates organizational noise, leading to multiple versions of the truth, eroded executive trust, and AI initiatives that amplify inconsistencies rather than delivering predictive value."
+        ],
+        "sapPerspective": "SAP landscapes with long histories of global rollouts are particularly prone to semantic fragmentation across modules (FI, CO, SD, MM) and regions. Modernization initiatives (RISE, GROW) risk replicating this ambiguity unless semantic governance is addressed upfront."
+    },
+    "approach": {
+        "title": "A Semantic-First Architecture",
+        "intro": "The methodology is designed to be semantic-first, structuring architectural decisions around business meaning.",
+        "steps": [
+            {
+                "step": "Discovery",
+                "description": "Systematically map existing ambiguity by analyzing how different stakeholders define and consume critical data."
+            },
+            {
+                "step": "Definition",
+                "description": "Establish a formal 'contract of meaning' for all key entities (KPIs, master data, rules) before any technical modeling occurs."
+            },
+            {
+                "step": "Execution",
+                "description": "Translate the aligned semantic definition into a scalable, governable, and performant data architecture."
+            },
+            {
+                "step": "Consistency",
+                "description": "Ensure every technical layer (from raw ingestion to analytical consumption) is built on a foundation of shared understanding."
+            }
+        ],
+        "sapPerspective": "SAP's semantic layer (InfoObjects, BEx Queries, CDS Views) provides a powerful foundation, but its value is often underutilized. A semantic-first strategy ensures that SAP investments deliver consistency rather than complexity, supporting both brownfield (RISE) and greenfield (GROW) modernization paths."
+    },
+    "results": {
+        "title": "Delivering Governance and Stability at Scale",
+        "cards": [
+            {
+                "icon": "🛡️",
+                "title": "Global Standardization",
+                "description": "Harmonized a fragmented reporting landscape across multiple LATAM countries, establishing a single source of truth for executive reporting sustained for over four years.",
+                "impact": "Data Governance | Trust",
+                "metric": "4+ Years",
+                "metricLabel": "Global Reporting"
+            },
+            {
+                "icon": "🚀",
+                "title": "High-Impact Modernization",
+                "description": "Managed the technical strategy and execution of a multi-country data platform migration, achieving zero downtime and a +60% performance gain.",
+                "impact": "Scalability | Risk Mitigation",
+                "metric": "+60%",
+                "metricLabel": "Performance Gain"
+            },
+            {
+                "icon": "⚙️",
+                "title": "Operational Efficiency",
+                "description": "Architected a centralized 'calculation engine' that standardized and processed over 1,800 corporate KPIs, eliminating analytical fragmentation.",
+                "impact": "Cost Savings | Decision Quality",
+                "metric": "1,800+",
+                "metricLabel": "KPIs Standardized"
+            }
+        ],
+        "sapPerspective": "The global standardization was executed on SAP BW. The migration was a BW on HANA upgrade across 5 countries. The calculation engine was built entirely within SAP BW, proving that large-scale KPI governance (1,800+ indicators) is achievable using native SAP capabilities."
+    },
+    "bridge": {
+        "title": "A Foundation for Cloud, Data Products, and AI",
+        "intro": "Modern technologies (cloud data warehouses, data fabrics, AI platforms) are key enablers, but their success depends on the semantic clarity of underlying data.",
+        "points": [
+            "Experience in structuring and stabilizing complex legacy data environments is a critical asset for modernization programs.",
+            "A semantic-first approach ensures that Data Products are defined with deep understanding of lineage and business value, not simply replicated."
+        ],
+        "legacyLabel": "Legacy / Fragmented",
+        "governanceLabel": "Semantic Governance Layer",
+        "modernLabel": "Modern Cloud & AI",
+        "sapPerspective": "SAP's modernization stack (Business Data Cloud, Datasphere, SAC) is designed to unify and govern data across SAP and non-SAP sources. The key to success is defining and curating Data Products within this ecosystem—requiring deep understanding of both source systems (ECC/S/4HANA) and target analytical models."
+    },
+    "cta": {
+        "title": "Enable a Future-Ready Analytics Foundation",
+        "pillars": [
+            {
+                "icon": "🧭",
+                "title": "Modernization Roadmaps",
+                "description": "Assess semantic and governance maturity to de-risk migration paths and accelerate time-to-value for cloud data and analytics initiatives."
+            },
+            {
+                "icon": "🌍",
+                "title": "Global Enterprises",
+                "description": "Establish global reporting standards that respect local realities, providing a framework for harmonizing data across diverse operating units."
+            },
+            {
+                "icon": "👥",
+                "title": "Architecture Teams",
+                "description": "Translate technical complexity into clear, actionable data governance and design principles, ensuring architectural decisions are sustainable and business-aligned."
+            }
+        ],
+        "sapPerspective": "RISE with SAP Programs: Provide structured semantic analysis and KPI harmonization as a prerequisite for a clean core. Business Data Cloud (BDC) Adoption: Guide the definition of Data Products and semantic layers within Datasphere for trusted data from day one. Hybrid Analytics Environments: Bridge SAP and non-SAP tools by establishing clear, shared definitions that enable self-service analytics without sacrificing governance.",
+        "contact": {
+            "email": "aandradepro@aandradepro.com",
+            "linkedin": "https://www.linkedin.com/in/aandradepro/",
+            "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+        }
+    },
+    "footer": {
+        "brand": "~Å~",
+        "copyright": "© 2026 Alexandre Andrade. All rights reserved.",
+        "version": "v1.0.0"
+    }
+}

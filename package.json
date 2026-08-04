@@ -1,28 +1,38 @@
 {
-  "name": "hacm",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "framer-motion": "^12.42.2",
-    "next": "16.2.11",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.11",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "name": "hacm",
+    "version": "1.0.0",
+    "private": true,
+    "description": "HACM — From Ambiguity to Architecture. A semantic-first pitch site for enterprise data architecture.",
+    "author": "Alexandre Andrade",
+    "license": "MIT",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "framer-motion": "^11.3.31",
+        "html2canvas": "^1.4.1",
+        "html2pdf.js": "^0.14.0",
+        "jspdf": "^4.2.1",
+        "next": "14.2.5",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "^20.14.10",
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
+        "autoprefixer": "^10.4.19",
+        "eslint": "^8.57.0",
+        "eslint-config-next": "14.2.5",
+        "postcss": "^8.4.39",
+        "tailwindcss": "^3.4.7",
+        "typescript": "^5.5.3"
+    },
+    "engines": {
+        "node": ">=18.17.0"
+    }
 }

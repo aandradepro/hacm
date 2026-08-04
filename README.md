@@ -1,36 +1,174 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HACM — From Ambiguity to Architecture
+
+**Structuring enterprise data for trust, governance, and AI-readiness.**
+
+---
+
+## Overview
+
+HACM is a one-page, interactive pitch site designed for enterprise data architects and executives. It presents a semantic-first approach to data architecture, bridging legacy systems to modern cloud, data products, and AI platforms.
+
+The site is built with:
+
+- **Next.js 14** — React framework with App Router
+- **TypeScript** — Type-safe code
+- **Tailwind CSS** — Utility-first styling
+- **Framer Motion** — Smooth scroll animations
+
+---
+
+## Key Features
+
+### Content
+
+- **Centralized Content**: All text is stored in `app/data/content.json` for easy updates
+- **Semantic-First Narrative**: 6 sections that tell a coherent story
+- **SAP Perspective**: Each section includes a dedicated SAP ecosystem view
+
+### User Experience
+
+- **Smooth Scroll Snapping**: Each section fills the viewport for slide-like navigation
+- **Reveal Animations**: Content fades in as the user scrolls
+- **Fixed Navigation**: Menu stays at the top for quick section access
+- **Responsive Design**: Optimized for desktop, tablet, and mobile
+- **Resolution Badge**: Shows current screen size as evidence of responsiveness
+
+### Export
+
+- **Markdown Export**: Download all content as a `.md` file for LLMs or documentation
+- **JSON Export**: Structured data format (via lib)
+- **HTML Export**: Clean, printable version (via lib)
+
+### Accessibility
+
+- High contrast colors (WCAG AA compliant)
+- Keyboard navigation support
+- Reduced motion support for accessibility preferences
+
+---
+
+## Color Palette
+
+| Color          | HEX       | Usage                    |
+| -------------- | --------- | ------------------------ |
+| Deep Blue      | `#0F4C8A` | Primary, titles, headers |
+| Modern Teal    | `#00B4A0` | Accents, highlights      |
+| Pure White     | `#FFFFFF` | Backgrounds              |
+| Technical Gray | `#2D3748` | Secondary text           |
+| Subtle Gold    | `#FFD700` | Special details          |
+| Light Gray     | `#E8EEF4` | Secondary backgrounds    |
+
+---
+
+## Project Structure
+
+The project follows a clean Next.js 14 App Router structure:
+
+- `app/components/sections/` — Each main section (Hero, Problem, Approach, Results, Bridge, CTA, Footer)
+- `app/components/ui/` — Reusable UI components (Navigation, ExportButton, ResolutionBadge, AnimatedSection)
+- `app/data/` — Centralized content JSON
+- `app/lib/` — Utility functions for export and general use
+- `app/styles/` — Global CSS with Tailwind
+- `app/public/` — Static assets (images, fonts, favicon)
+- Root configuration files for Next.js, TypeScript, Tailwind, and PostCSS
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.17.0 or later
+- npm, yarn, or pnpm
+
+### Installation
+
+Navigate to the project folder, install dependencies, and start the development server:
 
 ```bash
+cd HACM
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Build for Production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The output will be in the `out` folder, ready for static hosting.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Vercel (Recommended)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push the code to a GitHub repository
+2. Import the repository in Vercel
+3. Deploy — it works automatically with Next.js
 
-## Deploy on Vercel
+### Static Hosting
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Run `npm run build`
+2. Upload the `out` folder to any static hosting service (Netlify, Cloudflare Pages, AWS S3, etc.)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Content Management
+
+All content is centralized in `app/data/content.json`. To update the site:
+
+1. Edit the JSON file
+2. Changes reflect immediately in development
+3. Rebuild for production
+
+This makes it easy to update the pitch without touching component code.
+
+---
+
+## Export Functionality
+
+The site includes a fixed export button (bottom-right corner) that downloads the entire content as a Markdown file. This is useful for:
+
+- Sharing content with recruiters or clients
+- Feeding content to LLMs for analysis
+- Creating documentation
+- Archiving the pitch content
+
+Additional export formats (JSON, HTML) are available via the `app/lib/export.ts` utility.
+
+---
+
+## Responsiveness Evidence
+
+The site includes a Resolution Badge (bottom-left corner) that displays:
+
+- Current device type (Mobile, Tablet, Desktop, Large Desktop)
+- Screen dimensions (width × height)
+- A visual "Responsive" confirmation
+
+This serves as immediate evidence of responsive design when viewed by recruiters or executives.
+
+---
+
+## License
+
+MIT
+
+---
+
+## Author
+
+Alexandre Andrade
+
+---
+
+## Brand
+
+**~Å~** — Precision with Care
+
+---
+
+*Built with Next.js, Tailwind CSS, and Framer Motion.*
