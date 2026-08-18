@@ -1,14 +1,9 @@
-// ============================================================
-// FILE: app/components/ui/ExportButton.tsx
-// PURPOSE: Export the actual site as PDF using html2canvas + jsPDF
-// SOLUTION: Fix html2canvas dimensions to capture full wrapper
-// ============================================================
-
 'use client';
 
 import { useState } from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { Content } from '@/types';
 
 // A4 dimensions in points
 const A4_WIDTH_PT = 595.28;
@@ -17,7 +12,11 @@ const A4_HEIGHT_PT = 841.89;
 // Content width - matches max-w-6xl from Tailwind
 const CONTENT_WIDTH = 1152;
 
-export default function ExportButton() {
+interface ExportButtonProps {
+    content: Content;
+}
+
+export default function ExportButton({ content }: ExportButtonProps) {
     const [isExporting, setIsExporting] = useState(false);
     const [progress, setProgress] = useState(0);
 
@@ -42,6 +41,12 @@ export default function ExportButton() {
 
             // Clone the snap container
             const clone = snapContainer.cloneNode(true) as HTMLElement;
+
+            // ── CRITICAL: Remove any footer from the clone ──────────────────────
+            const footerInsideClone = clone.querySelector('footer');
+            if (footerInsideClone) {
+                footerInsideClone.remove();
+            }
 
             // Remove fixed elements
             const fixedElements = clone.querySelectorAll('.fixed');
@@ -156,7 +161,7 @@ export default function ExportButton() {
             wrapper.style.display = 'block';
             wrapper.appendChild(clone);
 
-            // ── Add footer to wrapper ─────────────────────────────────────────────
+            // ── Add footer to wrapper (ONLY ONCE) ─────────────────────────────────
             if (footerElement) {
                 const footerClone = footerElement.cloneNode(true) as HTMLElement;
                 Object.assign(footerClone.style, {
@@ -189,7 +194,6 @@ export default function ExportButton() {
             setProgress(40);
 
             // ── Capture ──────────────────────────────────────────────────────────
-            // CRITICAL: Use wrapper.scrollHeight to capture full content
             const captureHeight = wrapper.scrollHeight;
 
             console.log(`📐 Capture: ${CONTENT_WIDTH}×${captureHeight}px`);
@@ -198,7 +202,7 @@ export default function ExportButton() {
                 scale: 2,
                 useCORS: true,
                 allowTaint: false,
-                logging: true, // Enable logging to see what's happening
+                logging: true,
                 windowWidth: CONTENT_WIDTH,
                 windowHeight: captureHeight,
                 height: captureHeight,
@@ -212,7 +216,6 @@ export default function ExportButton() {
                         (el as HTMLElement).style.opacity = '1';
                         (el as HTMLElement).style.overflow = 'visible';
                     });
-                    // Ensure wrapper is fully visible
                     const wrapperClone = clonedDoc.querySelector('div');
                     if (wrapperClone) {
                         (wrapperClone as HTMLElement).style.height = 'auto';

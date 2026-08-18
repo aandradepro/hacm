@@ -1,0 +1,126 @@
+{
+    "page": {
+        "title": "Alexandre de Andrade",
+        "description": "Enterprise Analytics Architect focused on architecture, governance, semantic consistency and modernization."
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Focus",
+                "href": "#focus"
+            },
+            {
+                "label": "Architecture",
+                "href": "#architecture"
+            },
+            {
+                "label": "Pitch Decks",
+                "href": "#pitch-decks"
+            },
+            {
+                "label": "Contact",
+                "href": "#contact"
+            }
+        ]
+    },
+    "hero": {
+        "heading": "Enterprise Analytics Architect",
+        "title": "Enterprise Analytics Architecture for a Changing Data Landscape",
+        "subtitle": "Designing governed, scalable analytics environments across legacy and modern enterprise platforms.",
+        "credentials": "20+ years in SAP Analytics",
+        "author": "Alexandre de Andrade",
+        "tags": [
+            "Architecture",
+            "Governance",
+            "Semantic Consistency",
+            "Modernization"
+        ]
+    },
+    "focus": {
+        "title": "Where architecture creates leverage",
+        "items": [
+            {
+                "icon": "🛡️",
+                "title": "Governed Analytics",
+                "description": "Establishing ownership, standards and decision frameworks that make analytics trustworthy."
+            },
+            {
+                "icon": "🔗",
+                "title": "Semantic Consistency",
+                "description": "Aligning business meaning, KPIs and analytical assets across teams and platforms."
+            },
+            {
+                "icon": "🚀",
+                "title": "Sustainable Modernization",
+                "description": "Connecting established data foundations with evolving cloud, analytics and AI capabilities."
+            }
+        ],
+        "columns": 3
+    },
+    "architecture": {
+        "title": "Architecture creates balance",
+        "subtitle": "Analytics needs architecture that bridges technology, governance, and business meaning.",
+        "points": [
+            "Connect technology to business meaning, ensuring that platforms, data products and analytics remain grounded in shared definitions and business objectives.",
+            "Make governance an enabler, establishing the ownership, standards and decision boundaries needed to scale analytics without creating unnecessary friction.",
+            "Design for continuous evolution, modernizing progressively, preserving trusted foundations while creating room for new platforms, capabilities and use cases."
+        ],
+        "architecture_balance": {
+            "left": {
+                "label": "Technology",
+                "items": [
+                    "Cloud Platforms",
+                    "AI & Analytics",
+                    "Data Products",
+                    "Integration"
+                ]
+            },
+            "right": {
+                "label": "Architecture",
+                "items": [
+                    "Business Meaning",
+                    "Governance",
+                    "Trust",
+                    "Lifecycle"
+                ]
+            },
+            "center": "Architecture coordinates both worlds",
+            "balancePoint": "Business Value"
+        }
+    },
+    "pitch_decks": {
+        "title": "Selected Perspectives",
+        "subtitle": "Architectural perspectives on enterprise analytics, modernization and governance.",
+        "items": [
+            {
+                "icon": "",
+                "metric": "",
+                "metricLabel": "",
+                "title": "Coordinating Enterprise Analytics",
+                "description": "An architectural perspective on semantic consistency, governance and modernization.",
+                "impact": "View Pitch Deck",
+                "href": "/pitch-decks/coordinating-enterprise-analytics"
+            },
+            {
+                "icon": "",
+                "metric": "",
+                "metricLabel": "",
+                "title": "From Ambiguity to Architecture",
+                "description": "An architectural approach for building trusted, governed, AI-ready enterprise analytics.",
+                "impact": "View Pitch Deck",
+                "href": "/pitch-decks/from-ambiguity-to-architecture"
+            }
+        ],
+        "columns": 2
+    },
+    "contact": {
+        "badge": "Contact",
+        "title": "Discuss an architecture challenge",
+        "description": "For conversations about enterprise analytics architecture, modernization or SAP Analytics initiatives.",
+        "contact": {
+            "email": "aandradepro@aandradepro.com",
+            "linkedin": "https://www.linkedin.com/in/aandradepro/",
+            "calendar": "https://koalendar.com/e/reuniao-aandradepro"
+        }
+    }
+}

@@ -5,17 +5,23 @@
 
 'use client';
 
-import content from '../../data/content.json';
-import AnimatedSection from '../ui/AnimatedSection';
+import AnimatedSection from '@/components/ui/AnimatedSection';
+import SAPPerspective from '@/components/ui/SAPPerspective';
+import Pills from '@/components/ui/Pills';
+import Points from '@/components/ui/Points';
+import { Content } from '../../data';
 
-export default function Problem() {
+interface ProblemProps {
+    content: Content;
+}
+export default function Problem({ content }: ProblemProps) {
     const { problem } = content;
 
     return (
         <div className="w-full max-w-6xl mx-auto px-4">
             <AnimatedSection direction="up" delay={0}>
                 <span className="text-sm font-semibold text-[#00B4A0] tracking-widest uppercase">
-                    The Challenge
+                    {problem.badge}
                 </span>
             </AnimatedSection>
 
@@ -26,34 +32,15 @@ export default function Problem() {
             </AnimatedSection>
 
             <AnimatedSection direction="up" delay={300}>
-                <div className="space-y-4 max-w-4xl">
-                    {problem.points.map((point: string, index: number) => (
-                        <p key={index} className="body-text text-[#2D3748]">
-                            {point}
-                        </p>
-                    ))}
-                </div>
+                <Points items={problem.points} />
             </AnimatedSection>
 
             <AnimatedSection direction="up" delay={450}>
-                <div className="sap-perspective">
-                    <div className="sap-perspective-label">SAP Perspective</div>
-                    <p className="sap-perspective-text">{problem.sapPerspective}</p>
-                </div>
+                <SAPPerspective text={problem.sapPerspective} />
             </AnimatedSection>
 
-            <AnimatedSection direction="up" delay={600}>
-                <div className="mt-8 flex items-center gap-4 text-sm text-[#4A5568]">
-                    <span className="px-3 py-1 bg-[#E8EEF4] rounded-full text-xs font-medium text-[#0F4C8A]">
-                        Ambiguity → Noise
-                    </span>
-                    <span className="px-3 py-1 bg-[#E8EEF4] rounded-full text-xs font-medium text-[#0F4C8A]">
-                        Multiple Versions of Truth
-                    </span>
-                    <span className="px-3 py-1 bg-[#E8EEF4] rounded-full text-xs font-medium text-[#0F4C8A]">
-                        Eroded Trust
-                    </span>
-                </div>
+            <AnimatedSection direction="up" delay={550}>
+                <Pills items={problem.pill} />
             </AnimatedSection>
         </div>
     );

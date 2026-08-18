@@ -5,17 +5,22 @@
 
 'use client';
 
-import content from '../../data/content.json';
-import AnimatedSection from '../ui/AnimatedSection';
+import AnimatedSection from '@/components/ui/AnimatedSection';
+import Cards from '@/components/ui/Cards';
+import SAPPerspective from '@/components/ui/SAPPerspective';
+import { Content } from '../../data';
 
-export default function Results() {
+interface ResultsProps {
+    content: Content;
+}
+export default function Results({ content }: ResultsProps) {
     const { results } = content;
 
     return (
         <div className="w-full max-w-6xl mx-auto px-4">
             <AnimatedSection direction="up" delay={0}>
                 <span className="text-sm font-semibold text-[#00B4A0] tracking-widest uppercase">
-                    Proven Impact
+                    {results.badge}
                 </span>
             </AnimatedSection>
 
@@ -26,27 +31,11 @@ export default function Results() {
             </AnimatedSection>
 
             <AnimatedSection direction="up" delay={300}>
-                <div className="card-grid">
-                    {results.cards.map((card: any, index: number) => (
-                        <div key={index} className="card">
-                            <span className="card-icon">{card.icon}</span>
-                            <span className="card-metric">{card.metric}</span>
-                            <span className="text-xs font-medium text-[#4A5568] block mb-2">
-                                {card.metricLabel}
-                            </span>
-                            <h3 className="card-title">{card.title}</h3>
-                            <p className="card-description">{card.description}</p>
-                            <p className="card-impact">{card.impact}</p>
-                        </div>
-                    ))}
-                </div>
+                <Cards items={results.cards} />
             </AnimatedSection>
 
             <AnimatedSection direction="up" delay={450}>
-                <div className="sap-perspective">
-                    <div className="sap-perspective-label">SAP Perspective</div>
-                    <p className="sap-perspective-text">{results.sapPerspective}</p>
-                </div>
+                <SAPPerspective text={results.sapPerspective} />
             </AnimatedSection>
         </div>
     );

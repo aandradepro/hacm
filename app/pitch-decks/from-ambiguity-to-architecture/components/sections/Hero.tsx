@@ -5,10 +5,15 @@
 
 'use client';
 
-import content from '../../data/content.json';
-import AnimatedSection from '../ui/AnimatedSection';
+import AnimatedSection from '@/components/ui/AnimatedSection';
+import Tags from '@/components/ui/Tags';
+import { Content } from '../../data';
 
-export default function Hero() {
+interface HeroProps {
+    content: Content;
+}
+
+export default function Hero({ content }: HeroProps) {
     const { hero } = content;
 
     return (
@@ -29,28 +34,36 @@ export default function Hero() {
                 <div className="mt-8 flex items-center justify-center gap-4">
                     <div className="w-12 h-0.5 bg-[#00B4A0]" />
                     <span className="text-sm font-medium text-[#00B4A0] tracking-widest uppercase">
-                        Enterprise Data Architecture
+                        {hero.heading}
                     </span>
                     <div className="w-12 h-0.5 bg-[#00B4A0]" />
                 </div>
             </AnimatedSection>
 
-            <AnimatedSection direction="up" delay={600}>
-                <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm text-[#4A5568]">
-                    <span className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#00B4A0]" />
-                        Semantic-First
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#00B4A0]" />
-                        Governance at Scale
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#00B4A0]" />
-                        AI-Ready Foundation
-                    </span>
-                </div>
+            <AnimatedSection direction="up" delay={550}>
+                <Tags items={hero.tags} />
             </AnimatedSection>
+
+            {hero.author && (
+                <AnimatedSection direction="up" delay={450}>
+                    <div className="mt-6 text-[#4A5568]">
+                        <p className="text-lg font-medium text-[#0F4C8A]">{hero.author}</p>
+                        <p className="text-sm">{hero.role}</p>
+                        <p className="text-sm opacity-70">{hero.experience}</p>
+                    </div>
+                </AnimatedSection>
+            )}
+            {hero.role && (
+                <AnimatedSection direction="up" delay={600}>
+                    <div className="mt-8 flex items-center justify-center gap-4">
+                        <div className="w-12 h-0.5 bg-[#00B4A0]" />
+                        <span className="text-sm font-medium text-[#00B4A0] tracking-widest uppercase">
+                            {hero.role}
+                        </span>
+                        <div className="w-12 h-0.5 bg-[#00B4A0]" />
+                    </div>
+                </AnimatedSection>
+            )}
         </div>
     );
 }

@@ -1,0 +1,240 @@
+{
+    "hero": {
+        "title": "Coordinating Enterprise Analytics",
+        "subtitle": "An architectural perspective on semantic consistency, governance and modernization",
+        "heading": "Enterprise Data Architecture",
+        "tags": [
+            "Semantic Consistency",
+            "Governance",
+            "Modernization"
+        ],
+        "brand": "~Å~"
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Problem",
+                "href": "#problem"
+            },
+            {
+                "label": "Thesis",
+                "href": "#thesis"
+            },
+            {
+                "label": "Evidence",
+                "href": "#evidence"
+            },
+            {
+                "label": "Architecture",
+                "href": "#architecture"
+            },
+            {
+                "label": "Value",
+                "href": "#value"
+            },
+            {
+                "label": "Contact",
+                "href": "#cta"
+            }
+        ]
+    },
+    "problem": {
+        "badge": "The Challenge",
+        "title": "Enterprise analytics rarely fail because of technology.",
+        "subtitle": "They fail because organizations lose control over meaning.",
+        "list": [
+            "As organizations grow, analytical capabilities evolve independently.",
+            "Business units create different KPIs.",
+            "Projects implement different business rules.",
+            "Platforms evolve at different speeds.",
+            "Governance becomes fragmented.",
+            "Technology continues to scale.",
+            "Business trust does not."
+        ],
+        "message": "Architecture exists to coordinate meaning before systems coordinate data.",
+        "sapPerspective": "The same challenge appears during SAP modernization initiatives involving BW, Datasphere and Business Data Cloud, but it is fundamentally an enterprise architecture problem rather than a product problem.",
+        "convergence": {
+            "center": "Enterprise Meaning",
+            "nodes": [
+                "Business Units",
+                "Analytics Teams",
+                "Regional Operations",
+                "Cloud Platforms",
+                "AI",
+                "Partners"
+            ]
+        }
+    },
+    "thesis": {
+        "badge": "The Architectural Thesis",
+        "title": "Architectural coordination comes before platform selection.",
+        "subtitle": "Every analytical architecture should answer four questions before selecting technology.",
+        "list": [
+            {
+                "text": "Who owns business meaning?"
+            },
+            {
+                "text": "Which analytical assets should become reusable?"
+            },
+            {
+                "text": "Which decisions should remain centralized?"
+            },
+            {
+                "text": "Which trade-offs are intentional?",
+                "subitems": [
+                    "Consistency versus Local Autonomy",
+                    "Governance versus Agility",
+                    "Performance versus Maintainability",
+                    "Standardization versus Innovation"
+                ]
+            }
+        ],
+        "message": "Good architecture makes organizational decisions explicit before technical decisions become permanent.",
+        "sapPerspective": "Capabilities such as Business Data Cloud, Datasphere and Data Products deliver greater value when architectural decisions already exist.",
+        "vertFlow": {
+            "title": "Architectural Path",
+            "steps": [
+                "Business Strategy",
+                "Business Semantics",
+                "Governance",
+                "Reusable Analytical Assets",
+                "Technology Platform"
+            ]
+        }
+    },
+    "evidence": {
+        "badge": "Evidence",
+        "title": "Architecture proves itself through organizational permanence.",
+        "cards": [
+            {
+                "icon": "🌎",
+                "title": "SAP Global Template with Local Adaptations",
+                "metric": "9",
+                "metricLabel": "LATAM countries integrated",
+                "industry": "Construction and Materials",
+                "description": "Nine Latin American countries running the same regional Data Analytics system, sharing data definitions.",
+                "impact": "Global Template | Local Adaptation | Scale"
+            },
+            {
+                "icon": "📊",
+                "title": "Self-Service Analytics Architecture",
+                "metric": "50+",
+                "metricLabel": "field users enabled",
+                "industry": "Chemical Industry",
+                "description": "Field teams needed off-line access to customer and sales data.",
+                "impact": "Self-Service | Agility | Autonomy"
+            },
+            {
+                "icon": "🔄",
+                "title": "System Decommissioning with Business Continuity",
+                "metric": "100%",
+                "metricLabel": "business continuity preserved",
+                "industry": "Chemical Industry",
+                "description": "Data Analytics environments had to be decommissioned while preserving historical business knowledge.",
+                "impact": "Continuity | Compliance | Preservation"
+            }
+        ],
+        "message": "Sustainable architecture survives organizational change.",
+        "sapPerspective": "Although implemented in SAP environments, these architectural decisions are platform-independent and applicable across enterprise analytics ecosystems."
+    },
+    "architecture": {
+        "badge": "Modern Architecture",
+        "title": "Modern technology increases architectural leverage.",
+        "subtitle": "Architectural responsibility remains essential.",
+        "relationship": {
+            "subject": {
+                "label": "Technology",
+                "items": [
+                    "Artificial Intelligence",
+                    "Lakehouse",
+                    "Data Products",
+                    "Cloud Analytics",
+                    "Zero-copy Integration",
+                    "Semantic Layers",
+                    "Data Fabric",
+                    "Data Mesh"
+                ]
+            },
+            "verb": "amplifies",
+            "object": {
+                "label": "Architecture",
+                "items": [
+                    "Business Ownership",
+                    "Shared Semantics",
+                    "Governance",
+                    "Trust",
+                    "Lifecycle Management",
+                    "Architectural Decisions"
+                ]
+            },
+            "meaning": "Modern technology increases the leverage of architectural decisions."
+        },
+        "message": "Modern technology increases architectural leverage. It does not eliminate architectural responsibility.",
+        "sapPerspective": "SAP Business Data Cloud, Datasphere and SAP Analytics Cloud strengthen governed analytical assets, semantic reuse and business ownership—but none replaces enterprise architecture."
+    },
+    "value": {
+        "badge": "Business Value",
+        "title": "Enabling sustainable modernization.",
+        "subtitle": "Organizations rarely need another implementation.",
+        "emphasis": "They need architectural coordination.",
+        "orbitDiagram": {
+            "center": "Architecture",
+            "nodes": [
+                {
+                    "icon": "🏛️",
+                    "title": "Structure",
+                    "description": "Design enterprise analytical operating models and strengthen governance across distributed organizations."
+                },
+                {
+                    "icon": "🔗",
+                    "title": "Semantics",
+                    "description": "Establish shared definitions, reduce semantic fragmentation, and transform local assets into enterprise-wide capabilities."
+                },
+                {
+                    "icon": "🗺️",
+                    "title": "Evolution",
+                    "description": "Connect legacy investments to modern platforms through clear roadmaps and architectural decisions."
+                }
+            ],
+            "outcome": "Governed Enterprise Analytics",
+            "cycleText": "Continuous Modernization"
+        },
+        "message": "Technology modernization succeeds only when organizational architecture evolves at the same pace.",
+        "sapPerspective": "Equally applicable to SAP and non-SAP ecosystems, including hybrid environments combining Business Data Cloud, Datasphere and third-party analytical platforms."
+    },
+    "cta": {
+        "badge": "Next Steps",
+        "title": "Coordinate Your Enterprise Analytics",
+        "pillars": [
+            {
+                "icon": "🏛️",
+                "title": "Architectural Governance",
+                "description": "Define and strengthen the governance structures that keep analytics aligned with business strategy."
+            },
+            {
+                "icon": "🔗",
+                "title": "Semantic Coordination",
+                "description": "Reduce fragmentation and establish shared meaning across business units and analytical platforms."
+            },
+            {
+                "icon": "🗺️",
+                "title": "Modernization Roadmaps",
+                "description": "Connect legacy investments to modern platforms through clear, actionable architectural planning."
+            }
+        ],
+        "sapPerspective": [
+            "Modernization programs benefit from structured semantic analysis and KPI harmonization as a prerequisite for a clean core.",
+            "Data Products and semantic layers are defined within the architecture before platforms are selected.",
+            "Hybrid analytics environments bridge SAP and non-SAP tools through shared definitions that enable self-service analytics without sacrificing governance."
+        ],
+        "contact": {
+            "email": "aandradepro@aandradepro.com",
+            "linkedin": "https://www.linkedin.com/in/aandradepro/",
+            "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+        }
+    },
+    "footer": {
+        "text": "Enterprise Analytics Architecture · Semantic Governance · SAP Transformation",
+        "brand": "~Å~"
+    }
+}
