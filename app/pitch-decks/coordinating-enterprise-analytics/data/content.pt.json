@@ -1,15 +1,4 @@
 {
-    "hero": {
-        "title": "Coordenando Analytics Empresarial",
-        "subtitle": "Uma perspectiva arquitetural sobre consistência semântica, governança e modernização",
-        "heading": "Arquitetura de Dados Empresarial",
-        "tags": [
-            "Consistência Semântica",
-            "Governança",
-            "Modernização"
-        ],
-        "brand": "~Å~"
-    },
     "nav": {
         "items": [
             {
@@ -38,6 +27,17 @@
             }
         ]
     },
+    "hero": {
+        "title": "Coordenando Analytics Empresarial",
+        "subtitle": "Uma perspectiva arquitetural sobre consistência semântica, governança e modernização",
+        "heading": "Arquitetura de Dados Empresarial",
+        "tags": [
+            "Consistência Semântica",
+            "Governança",
+            "Modernização"
+        ],
+        "brand": "~Å~"
+    },
     "problem": {
         "badge": "O Desafio",
         "title": "Analytics empresarial raramente falha por causa da tecnologia.",
@@ -52,7 +52,9 @@
             "A confiança do negócio não."
         ],
         "message": "Arquitetura existe para coordenar significado antes que os sistemas coordenem dados.",
-        "sapPerspective": "O mesmo desafio aparece durante iniciativas de modernização SAP envolvendo BW, Datasphere e Business Data Cloud, mas é fundamentalmente um problema de arquitetura empresarial, não um problema de produto.",
+        "sapPerspective": [
+            "O mesmo desafio aparece durante iniciativas de modernização SAP envolvendo BW, Datasphere e Business Data Cloud, mas é fundamentalmente um problema de arquitetura empresarial, não um problema de produto."
+        ],
         "convergence": {
             "center": "Significado Empresarial",
             "nodes": [
@@ -90,7 +92,9 @@
             }
         ],
         "message": "A tecnologia deve implementar essas respostas. Não defini-las.",
-        "sapPerspective": "Capacidades como Business Data Cloud, Datasphere e Data Products entregam maior valor quando as decisões arquiteturais já existem.",
+        "sapPerspective": [
+            "Capacidades como Business Data Cloud, Datasphere e Data Products entregam maior valor quando as decisões arquiteturais já existem."
+        ],
         "vertFlow": {
             "title": "Caminho Arquitetural",
             "steps": [
@@ -135,7 +139,9 @@
             }
         ],
         "message": "Arquitetura sustentável sobrevive à mudança organizacional.",
-        "sapPerspective": "Embora implementadas em ambientes SAP, essas decisões arquiteturais são independentes de plataforma e aplicáveis em ecossistemas analíticos empresariais."
+        "sapPerspective": [
+            "Embora implementadas em ambientes SAP, essas decisões arquiteturais são independentes de plataforma e aplicáveis em ecossistemas analíticos empresariais."
+        ]
     },
     "architecture": {
         "badge": "Arquitetura Moderna",
@@ -170,14 +176,16 @@
             "meaning": "A tecnologia moderna aumenta a alavancagem das decisões arquiteturais."
         },
         "quote": "A tecnologia moderna aumenta a alavancagem arquitetural. Ela não elimina a responsabilidade arquitetural.",
-        "sapPerspective": "SAP Business Data Cloud, Datasphere e SAP Analytics Cloud fortalecem ativos analíticos governados, reuso semântico e propriedade de negócio — mas nenhum substitui a arquitetura empresarial."
+        "sapPerspective": [
+            "SAP Business Data Cloud, Datasphere e SAP Analytics Cloud fortalecem ativos analíticos governados, reuso semântico e propriedade de negócio — mas nenhum substitui a arquitetura empresarial."
+        ]
     },
     "value": {
         "badge": "Valor de Negócio",
         "title": "Habilitando modernização sustentável.",
         "subtitle": "Organizações raramente precisam de outra implementação.",
         "emphasis": "Elas precisam de coordenação arquitetural.",
-        "orbitDiagram": {
+        "orbit": {
             "center": "Arquitetura",
             "nodes": [
                 {
@@ -199,8 +207,10 @@
             "outcome": "Analytics Empresarial Governado",
             "cycleText": "Modernização Contínua"
         },
-        "quote": "A modernização da tecnologia só é bem-sucedida quando a arquitetura organizacional evolui no mesmo ritmo.",
-        "sapPerspective": "Igualmente aplicável a ecossistemas SAP e não SAP, incluindo ambientes híbridos que combinam Business Data Cloud, Datasphere e plataformas analíticas de terceiros."
+        "message": "A modernização da tecnologia só é bem-sucedida quando a arquitetura organizacional evolui no mesmo ritmo.",
+        "sapPerspective": [
+            "Igualmente aplicável a ecossistemas SAP e não SAP, incluindo ambientes híbridos que combinam Business Data Cloud, Datasphere e plataformas analíticas de terceiros."
+        ]
     },
     "cta": {
         "badge": "Próximos Passos",

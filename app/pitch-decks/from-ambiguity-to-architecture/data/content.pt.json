@@ -1,9 +1,4 @@
 {
-    "site": {
-        "title": "Da Ambiguidade à Arquitetura",
-        "subtitle": "Uma abordagem arquitetural para construir analytics corporativo confiável, governado e preparado para IA",
-        "brand": "~Å~"
-    },
     "nav": {
         "items": [
             {
@@ -51,7 +46,7 @@
             "Ambientes SAP com longos históricos de implantações globais são especialmente suscetíveis à fragmentação semântica entre módulos (FI, CO, SD, MM) e regiões.",
             "Iniciativas de modernização (RISE, GROW) tendem a reproduzir essa ambiguidade caso a governança semântica não seja tratada desde o início."
         ],
-        "pill": [
+        "pills": [
             "Ambiguidade → Ruído",
             "Múltiplas Versões da Verdade",
             "Confiança Desgastada"
@@ -122,25 +117,34 @@
             "A arquitetura de cálculo foi construída integralmente em SAP BW, demonstrando que a governança de mais de 1.800 indicadores corporativos pode ser alcançada utilizando recursos nativos da plataforma."
         ]
     },
-    "continuity": {
+    "architecture": {
         "badge": "A Transição",
         "title": "Uma Base para Cloud, Data Products e IA",
+        "subtitle": "Plataformas em nuvem e IA expandem as capacidades arquiteturais, mas não podem compensar a inconsistência do significado de negócio.",
         "intro": "Plataformas em nuvem e IA ampliam as capacidades arquiteturais, mas não compensam inconsistências no significado do negócio.",
         "points": [
             "Experiência em estruturar e estabilizar ambientes legados complexos é um ativo essencial para programas de modernização.",
             "Data Products bem definidos surgem da compreensão arquitetural da semântica, da linhagem e da governança dos dados — não apenas da tecnologia."
         ],
-        "existingEyebrow": "Existente",
-        "architectureEyebrow": "Arquitetura",
-        "evolvingEyebrow": "Evolução",
-        "existingLabel": "Complexo & Fragmentado",
-        "architectureLabel": "Arquitetura Primeiro-Semântica",
-        "evolvingLabel": "Cloud, Data Products e IA",
-        "capabilities": [
-            "Governança",
-            "Semantica",
-            "Escalabilidade"
-        ],
+        "foundation": {
+            "left": {
+                "eyebrow": "Existente",
+                "label": "Complexo & Fragmentado"
+            },
+            "center": {
+                "eyebrow": "Arquitetura",
+                "label": "Arquitetura Semântica-First",
+                "capabilities": [
+                    "Governança",
+                    "Semântica",
+                    "Escalabilidade"
+                ]
+            },
+            "right": {
+                "eyebrow": "Evolução",
+                "label": "Cloud, Produtos de Dados & IA"
+            }
+        },
         "sapPerspective": [
             "O ecossistema de modernização da SAP (Business Data Cloud, Datasphere e SAC) foi concebido para unificar e governar dados provenientes de ambientes SAP e não SAP.",
             "O sucesso depende da definição e curadoria de Data Products dentro desse ecossistema, exigindo profundo entendimento tanto dos sistemas de origem (ECC/S/4HANA) quanto dos modelos analíticos de destino."

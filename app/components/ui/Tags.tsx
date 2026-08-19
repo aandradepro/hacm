@@ -1,7 +1,7 @@
 'use client';
 
 interface TagsProps {
-    items: string[];
+    items?: string[];
     className?: string;
     delay?: number;
 }

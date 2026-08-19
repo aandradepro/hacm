@@ -15,7 +15,9 @@ interface ResultsProps {
 }
 export default function Results({ content }: ResultsProps) {
     const { results } = content;
-
+    if (!results) {
+        return null;
+    }
     return (
         <div className="w-full max-w-6xl mx-auto px-4">
             <AnimatedSection direction="up" delay={0}>

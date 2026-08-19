@@ -1,12 +1,17 @@
 'use client';
 
-import { Language } from '@/types'; // ← Tipo compartilhado
+import { Language } from '@/types';
 
 interface LanguageSelectorProps {
     currentLang: Language;
     onLanguageChange: (lang: Language) => void;
-    languages: { code: Language; label: string }[]; // ← Recebe via prop
+    languages: Language[];
 }
+
+const LANGUAGE_LABELS: Record<Language, string> = {
+    en: 'EN',
+    pt: 'PT',
+};
 
 export default function LanguageSelector({
     currentLang,
@@ -17,18 +22,18 @@ export default function LanguageSelector({
         <div className="flex items-center gap-1">
             {languages.map((lang) => (
                 <button
-                    key={lang.code}
-                    onClick={() => onLanguageChange(lang.code)}
+                    key={lang}
+                    onClick={() => onLanguageChange(lang)}
                     className={`
             px-3 py-1 text-xs font-medium rounded-md transition-all
-            ${currentLang === lang.code
+            ${currentLang === lang
                             ? 'bg-[#0F4C8A] text-white'
                             : 'text-[#4A5568] hover:bg-[#E8EEF4]'
                         }
           `}
-                    aria-label={`Switch to ${lang.label}`}
+                    aria-label={`Switch to ${LANGUAGE_LABELS[lang]}`}
                 >
-                    {lang.label}
+                    {LANGUAGE_LABELS[lang]}
                 </button>
             ))}
         </div>

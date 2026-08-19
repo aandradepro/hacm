@@ -16,7 +16,9 @@ interface CTAProps {
 }
 export default function CTA({ content }: CTAProps) {
     const { cta } = content;
-
+    if (!cta) {
+        return null;
+    }
     return (
         <div className="w-full max-w-6xl mx-auto px-4">
             <AnimatedSection direction="up" delay={0}>

@@ -65,7 +65,7 @@
             "Make governance an enabler, establishing the ownership, standards and decision boundaries needed to scale analytics without creating unnecessary friction.",
             "Design for continuous evolution, modernizing progressively, preserving trusted foundations while creating room for new platforms, capabilities and use cases."
         ],
-        "architecture_balance": {
+        "balance": {
             "left": {
                 "label": "Technology",
                 "items": [

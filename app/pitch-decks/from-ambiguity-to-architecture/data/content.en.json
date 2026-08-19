@@ -1,9 +1,4 @@
 {
-    "site": {
-        "title": "From Ambiguity to Architecture",
-        "subtitle": "An architectural approach for building trusted, governed, AI-ready enterprise analytics",
-        "brand": "~Å~"
-    },
     "nav": {
         "items": [
             {
@@ -19,8 +14,8 @@
                 "href": "#results"
             },
             {
-                "label": "Continuity",
-                "href": "#continuity"
+                "label": "Architecture",
+                "href": "#architecture"
             },
             {
                 "label": "Contact",
@@ -51,7 +46,7 @@
             "SAP landscapes with long histories of global rollouts are particularly prone to semantic fragmentation across modules (FI, CO, SD, MM) and regions.",
             "Modernization initiatives (RISE, GROW) risk replicating this ambiguity unless semantic governance is addressed upfront."
         ],
-        "pill": [
+        "pills": [
             "Ambiguity → Noise",
             "Multiple Versions of Truth",
             "Eroded Trust"
@@ -122,25 +117,34 @@
             "The calculation engine was built entirely within SAP BW, proving that large-scale KPI governance (1,800+ indicators) is achievable using native SAP capabilities."
         ]
     },
-    "continuity": {
+    "architecture": {
         "badge": "The Transition",
         "title": "A Foundation for Cloud, Data Products, and AI",
+        "subtitle": "Cloud platforms and AI expand architectural capabilities, but they cannot compensate for inconsistent business meaning.",
         "intro": "Cloud platforms and AI expand architectural capabilities, but they cannot compensate for inconsistent business meaning.",
         "points": [
             "Experience in structuring and stabilizing complex legacy data environments is a critical asset for modernization programs.",
             "Well-defined Data Products emerge from architectural understanding of business semantics, lineage, and governance rather than technology alone."
         ],
-        "existingEyebrow": "Existing",
-        "architectureEyebrow": "Architecture",
-        "evolvingEyebrow": "Evolving",
-        "existingLabel": "Complex & Fragmented",
-        "architectureLabel": "Semantic-First Architecture",
-        "evolvingLabel": "Cloud, Data Products & AI",
-        "capabilities": [
-            "Governance",
-            "Semantics",
-            "Scalability"
-        ],
+        "foundation": {
+            "left": {
+                "eyebrow": "Existing",
+                "label": "Complex & Fragmented"
+            },
+            "center": {
+                "eyebrow": "Architecture",
+                "label": "Semantic-First Architecture",
+                "capabilities": [
+                    "Governance",
+                    "Semantics",
+                    "Scalability"
+                ]
+            },
+            "right": {
+                "eyebrow": "Evolving",
+                "label": "Cloud, Data Products & AI"
+            }
+        },
         "sapPerspective": [
             "SAP's modernization stack (Business Data Cloud, Datasphere, SAC) is designed to unify and govern data across SAP and non-SAP sources.",
             "The key to success is defining and curating Data Products within this ecosystem, requiring deep understanding of both source systems (ECC and S/4HANA) and target analytical models."

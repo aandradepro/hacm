@@ -231,7 +231,7 @@ body {
 /* ============================================================
    ARCHITECTURE MODEL
    ============================================================ */
-.architecture-model-container {
+.foundation-diagram-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -241,7 +241,7 @@ body {
     padding: 28px 0;
 }
 
-.architecture-model-eyebrow {
+.foundation-diagram-eyebrow {
     display: block;
     margin-bottom: 6px;
     font-size: 0.7rem;
@@ -251,13 +251,13 @@ body {
     text-transform: uppercase;
 }
 
-.architecture-model-label {
+.foundation-diagram-label {
     font-size: 1.05rem;
     font-weight: 700;
     line-height: 1.35;
 }
 
-.architecture-model-existing {
+.foundation-diagram-left {
     flex: 1;
     padding: 20px 24px;
     text-align: center;
@@ -268,15 +268,15 @@ body {
     border-radius: 8px 0 0 8px;
 }
 
-.architecture-model-existing .architecture-model-eyebrow {
+.foundation-diagram-left .foundation-diagram-eyebrow {
     color: rgba(255, 255, 255, 0.55);
 }
 
-.architecture-model-existing .architecture-model-label {
+.foundation-diagram-left .foundation-diagram-label {
     color: var(--color-white);
 }
 
-.architecture-model-architecture {
+.foundation-diagram-center {
     flex: 1.5;
     align-self: stretch;
     padding: 28px 28px;
@@ -293,11 +293,11 @@ body {
     box-shadow: 0 4px 20px rgba(15, 76, 138, 0.12);
 }
 
-.architecture-model-architecture .architecture-model-eyebrow {
+.foundation-diagram-architecture .foundation-diagram-eyebrow {
     color: var(--color-secondary);
 }
 
-.architecture-model-capabilities {
+.foundation-diagram-capabilities {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -305,7 +305,7 @@ body {
     margin-top: 12px;
 }
 
-.architecture-model-capabilities span {
+.foundation-diagram-capabilities span {
     position: relative;
     font-size: 0.68rem;
     font-weight: 600;
@@ -313,7 +313,7 @@ body {
     color: var(--color-gray-dark);
 }
 
-.architecture-model-capabilities span:not(:last-child)::after {
+.foundation-diagram-capabilities span:not(:last-child)::after {
     content: "•";
     position: absolute;
     right: -9px;
@@ -321,7 +321,7 @@ body {
     opacity: 0.7;
 }
 
-.architecture-model-mark {
+.foundation-diagram-mark {
     display: block;
     font-size: 0.72rem;
     color: var(--color-gold);
@@ -329,7 +329,7 @@ body {
     letter-spacing: 0.05em;
 }
 
-.architecture-model-evolving {
+.foundation-diagram-right {
     flex: 1;
     padding: 20px 24px;
     text-align: center;
@@ -342,37 +342,37 @@ body {
     border-radius: 0 8px 8px 0;
 }
 
-.architecture-model-evolving .architecture-model-eyebrow {
+.foundation-diagram-right .foundation-diagram-eyebrow {
     color: rgba(255, 255, 255, 0.55);
 }
 
-.architecture-model-evolving .architecture-model-label {
+.foundation-diagram-right .foundation-diagram-label {
     color: var(--color-white);
 }
 
 /* Responsive */
 
 @media (max-width: 768px) {
-    .architecture-model-container {
+    .foundation-diagram-container {
         flex-direction: column;
         padding: 20px 16px;
     }
 
-    .architecture-model-existing {
+    .foundation-diagram-left {
         width: 100%;
         border-right: 1px solid #637B86;
         border-bottom: none;
         border-radius: 8px 8px 0 0;
     }
 
-    .architecture-model-architecture {
+    .foundation-diagram-center {
         width: 100%;
         align-self: auto;
         border-top: 3px solid rgba(255, 215, 0, 0.85);
         border-bottom: 1px solid rgba(255, 215, 0, 0.4);
     }
 
-    .architecture-model-evolving {
+    .foundation-diagram-right {
         width: 100%;
         border-left: 1px solid rgba(0, 180, 160, 0.3);
         border-top: none;

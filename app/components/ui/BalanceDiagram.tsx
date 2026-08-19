@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-interface ArchitectureBalanceProps {
+interface BalanceDiagramProps {
     data: {
         left: { label: string; items: string[] };
         right: { label: string; items: string[] };
@@ -12,7 +12,7 @@ interface ArchitectureBalanceProps {
     className?: string;
 }
 
-export default function ArchitectureBalance({ data, className = '' }: ArchitectureBalanceProps) {
+export default function BalanceDiagram({ data, className = '' }: BalanceDiagramProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const centerRef = useRef<HTMLDivElement>(null);
     const leftRef = useRef<HTMLDivElement>(null);

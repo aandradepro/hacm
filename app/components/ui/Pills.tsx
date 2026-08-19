@@ -1,7 +1,7 @@
 'use client';
 
 interface PillsProps {
-    items: string[];
+    items?: string[];
     className?: string;
 }
 

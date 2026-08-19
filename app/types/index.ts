@@ -1,88 +1,65 @@
-export interface ListItem {
-    text: string;
-    subitems?: string[];
-}
+// app/types/index.ts
+
+// ============================================
+// TIPOS COMPARTILHADOS (Base)
+// ============================================
 
 export interface NavItem {
     label: string;
     href: string;
 }
 
-export interface OrbitNode {
+export interface Tag {
+    label: string;
+}
+
+export interface Point {
+    text: string;
+    subitems?: string[];
+}
+
+export interface Pill {
+    text: string;
+}
+
+export interface ContactInfo {
+    email: string;
+    linkedin: string;
+    calendar: string;
+}
+
+export interface Footer {
+    text: string;
+    brand: string;
+}
+
+// ============================================
+// TIPOS DA LANDING PAGE
+// ============================================
+
+export interface Hero {
+    heading: string;
+    title: string;
+    subtitle: string;
+    credentials?: string;
+    author?: string;
+    tags?: string[];
+    brand?: string;
+}
+
+export interface FocusItem {
     icon: string;
     title: string;
     description: string;
 }
 
-export interface CardItem {
-    icon?: string;
+export interface Focus {
     title: string;
-    description: string;
-    impact: string;
-    metric: string;
-    metricLabel: string;
-    industry?: string;
-    href?: string; // Para landing page cards que são links
+    items: FocusItem[];
+    columns?: number;
 }
 
-export interface Pillar {
-    icon?: string;
-    title: string;
-    description: string;
-}
-
-export interface EvidenceCase {
-    title: string;
-    problem?: string;
-    decision?: string;
-    outcome?: string;
-    metric?: string | null;
-    metricLabel?: string | null;
-    description?: string;
-    impact?: string;
-}
-
-export interface Step {
-    step: string;
-    description: string;
-}
-
-export type Language = 'en' | 'pt';
-
-export const languages: { code: Language; label: string }[] = [
-    { code: 'en', label: 'English' },
-    { code: 'pt', label: 'Português' },
-];
-
-// ── Landing Page Content ──────────────────────────────────────────────────────
-
-export interface LandingAction {
-    label: string;
-    href: string;
-}
-
-export interface LandingHeroContent {
-    heading: string;
-    title: string;
-    subtitle: string;
-    credentials: string;
-    author: string;
-    tags: string[];
-    actions: LandingAction[];
-}
-
-export interface LandingPerspectiveContent {
-    badge: string;
-    text: string;
-}
-
-export interface LandingFocusContent {
-    title: string;
-    items: Pillar[];
-    columns: number;
-}
-
-export interface LandingArchitectureBalanceContent {
+export interface Balance {
     left: {
         label: string;
         items: string[];
@@ -95,310 +72,264 @@ export interface LandingArchitectureBalanceContent {
     balancePoint: string;
 }
 
-export interface LandingPitchDecksContent {
+export interface PitchDeckItem {
+    icon: string;
+    metric: string;
+    metricLabel: string;
     title: string;
-    subtitle: string;
-    items: CardItem[];
-    columns: number;
+    description: string;
+    impact: string;
+    href: string;
 }
 
-export interface LandingContactContent {
+export interface PitchDecks {
+    title: string;
+    subtitle: string;
+    items: PitchDeckItem[];
+    columns?: number;
+}
+
+export interface Contact {
     badge: string;
     title: string;
     description: string;
-    contact: {
-        email: string;
-        linkedin: string;
-        calendar: string;
+    contact: ContactInfo;
+}
+
+// ============================================
+// TIPOS DO PITCH DECK (Coordinating Enterprise Analytics)
+// ============================================
+
+export interface Convergence {
+    center: string;
+    nodes: string[];
+}
+
+export interface Problem {
+    badge: string;
+    title: string;
+    subtitle: string;
+    message: string;
+
+    // Campos do Coordinating Enterprise Analytics
+    list?: string[];
+    convergence?: Convergence;
+    sapPerspective?: string[];
+
+    // Campos do From Ambiguity to Architecture
+    points?: string[];
+    pills?: string[];
+}
+
+export interface ThesisListItem {
+    text: string;
+    subitems?: string[];
+}
+
+export interface VertFlow {
+    title: string;
+    steps: string[];
+}
+
+export interface Thesis {
+    badge: string;
+    title: string;
+    subtitle: string;
+    list: ThesisListItem[];
+    message: string;
+    sapPerspective: string[];
+    vertFlow: VertFlow;
+}
+
+export interface EvidenceCard {
+    icon: string;
+    title: string;
+    metric: string;
+    metricLabel: string;
+    industry: string;
+    description: string;
+    impact: string;
+}
+
+export interface Evidence {
+    badge: string;
+    title: string;
+    cards: EvidenceCard[];
+    message: string;
+    sapPerspective: string[];
+}
+
+export interface Relationship {
+    subject: {
+        label: string;
+        items: string[];
+    };
+    verb: string;
+    object: {
+        label: string;
+        items: string[];
+    };
+    meaning: string;
+}
+
+export interface OrbitNode {
+    icon: string;
+    title: string;
+    description: string;
+}
+
+export interface Orbit {
+    center: string;
+    nodes: OrbitNode[];
+    outcome: string;
+    cycleText: string;
+}
+
+export interface Value {
+    badge: string;
+    title: string;
+    subtitle: string;
+    emphasis: string;
+    orbit: Orbit; // ← Nome atualizado
+    message: string;
+    sapPerspective: string[];
+}
+
+export interface CTAPillar {
+    icon: string;
+    title: string;
+    description: string;
+}
+
+export interface CTA {
+    badge: string;
+    title: string;
+    pillars: CTAPillar[];
+    sapPerspective: string[];
+    contact: ContactInfo;
+}
+
+// ============================================
+// TIPOS DO PITCH DECK (From Ambiguity to Architecture)
+// ============================================
+
+export interface ApproachStep {
+    step: string;
+    description: string;
+}
+
+export interface Approach {
+    badge: string;
+    title: string;
+    intro: string;
+    steps: ApproachStep[];
+    sapPerspective: string[];
+}
+
+export interface ResultCard {
+    icon: string;
+    title: string;
+    description: string;
+    impact: string;
+    metric: string;
+    industry: string;
+    metricLabel: string;
+}
+
+export interface Results {
+    badge: string;
+    title: string;
+    cards: ResultCard[];
+    sapPerspective: string[];
+}
+
+export interface Foundation {
+    left: {
+        eyebrow: string;
+        label: string;
+    };
+    center: {
+        eyebrow: string;
+        label: string;
+        capabilities: string[];
+    };
+    right: {
+        eyebrow: string;
+        label: string;
     };
 }
 
-export interface LandingContent {
-    page: {
-        title: string;
-        description: string;
-    };
-    navigation: {
-        component: string;
-        content: {
-            hero: {
-                title: string;
-            };
-            nav: NavItem[];
-        };
-    };
-    hero: {
-        component: string;
-        content: LandingHeroContent;
-    };
-    perspective: {
-        component: string;
-        content: LandingPerspectiveContent;
-    };
-    focus: {
-        component: string;
-        content: LandingFocusContent;
-    };
-    architecture_balance: {
-        component: string;
-        content: LandingArchitectureBalanceContent;
-    };
-    pitch_decks: {
-        component: string;
-        content: LandingPitchDecksContent;
-    };
-    contact: {
-        component: string;
-        content: LandingContactContent;
-    };
+// ============================================
+// TIPO UNIFICADO: Architecture
+// ============================================
+
+/**
+ * Architecture unificado que combina todos os campos possíveis das três páginas:
+ * - Landing page: points, balance
+ * - Coordinating Enterprise Analytics: relationship
+ * - From Ambiguity to Architecture: foundation, points (string[])
+ */
+export interface Architecture {
+    // Campos obrigatórios (presentes em TODOS os arquivos JSON)
+    badge: string;
+    title: string;
+    subtitle: string;
+    message?: string; // Presente nos pitch decks, não na landing page
+
+    // Campos da Landing Page (opcionais)
+    points?: string[]; // Landing page usa array de strings
+    balance?: Balance; // ← Nome atualizado
+
+    // Campos do Coordinating Enterprise Analytics (opcionais)
+    relationship?: Relationship;
+    sapPerspective?: string[]; // Coordinating tem string
+
+    // Campos do From Ambiguity to Architecture (opcionais)
+    foundation?: Foundation; // ← Nome atualizado
+    intro?: string; // Ambiguity tem intro
+
 }
 
-// ── Pitch Deck Content ──────────────────────────────────────────────────────
+// ============================================
+// TIPO UNIFICADO (Content)
+// ============================================
 
 export interface Content {
-    // ── Campos compartilhados ──────────────────────────────────────────────
+    // Campos OBRIGATÓRIOS (todas as páginas)
     nav: {
         items: NavItem[];
     };
+    hero: Hero;
 
-    hero: {
+    // Campos OPCIONAIS
+    page?: {
         title: string;
-        subtitle?: string;
-        heading?: string;
-        tags?: string[];
-        brand?: string;
-        author?: {
-            name: string;
-            role: string;
-            experience?: string;
-        };
-        contact?: {
-            email: string;
-            linkedin: string;
-        };
+        description: string;
     };
+    footer?: Footer;
 
-    footer?: {
-        text: string;
-        brand: string;
-    };
+    // Landing page
+    focus?: Focus;
+    pitch_decks?: PitchDecks;
+    contact?: Contact;
 
-    // ── From Ambiguity to Architecture ──────────────────────────────────────
-    problem?: {
-        badge: string;
-        title: string;
-        subtitle?: string;
-        list?: string[];
-        points?: string[];
-        sapPerspective: string | string[];
-        quote?: string;
-        message?: string;
-        pill?: string[];
-        diagram?: {
-            center?: string;
-            nodes?: string[];
-            steps?: string[];
-        };
-        convergence?: {
-            center: string;
-            nodes: string[];
-        };
-    };
+    // Architecture unificado (funciona para todas as páginas)
+    architecture?: Architecture;
 
-    approach?: {
-        badge: string;
-        title: string;
-        intro: string;
-        steps: Step[];
-        sapPerspective: string | string[];
-        quote?: string;
-        message?: string;
-        tradeoffs?: string[];
-        principle?: string;
-        diagram?: {
-            center?: string;
-            nodes?: string[];
-            steps?: string[];
-        };
-        pill?: string[];
-    };
+    // Pitch Deck 1 (From Ambiguity to Architecture)
+    problem?: Problem;
+    approach?: Approach;
+    results?: Results;
+    cta?: CTA;
 
-    results?: {
-        badge: string;
-        title: string;
-        cards: CardItem[];
-        sapPerspective: string | string[];
-        quote?: string;
-        message?: string;
-        pill?: string[];
-        diagram?: {
-            center?: string;
-            nodes?: string[];
-            steps?: string[];
-        };
-    };
-
-    continuity?: {
-        badge: string;
-        title: string;
-        intro: string;
-        sapPerspective: string | string[];
-        existingLabel: string;
-        architectureLabel: string;
-        evolvingLabel: string;
-        existingEyebrow?: string;
-        architectureEyebrow?: string;
-        evolvingEyebrow?: string;
-        capabilities?: string[];
-        quote?: string;
-        message?: string;
-        technology?: string[];
-        architecture?: string[];
-        center?: string;
-        points?: string[];
-        pill?: string[];
-    };
-
-    cta?: {
-        badge: string;
-        title: string;
-        pillars: Pillar[];
-        sapPerspective: string | string[];
-        contact: {
-            email: string;
-            linkedin: string;
-            calendar?: string;
-        };
-        quote?: string;
-        intro?: string;
-        emphasis?: string;
-        pill?: string[];
-        closing?: {
-            title: string;
-            statement: string;
-            author: string;
-            role: string;
-        };
-    };
-
-    // ── Coordinating Enterprise Analytics ──────────────────────────────────
-    thesis?: {
-        badge: string;
-        title: string;
-        subtitle: string;
-        points?: string[];
-        list?: ListItem[];
-        tradeoffs?: string[][];
-        vertFlow?: {
-            title?: string;
-            steps: string[];
-        };
-        compactPoints?: string[];
-        sapPerspective: string | string[];
-        quote?: string;
-        message?: string;
-        pill?: string[];
-        diagram?: {
-            center?: string;
-            nodes?: string[];
-            steps?: string[];
-        };
-    };
-
-    evidence?: {
-        badge: string;
-        title: string;
-        subtitle?: string;
-        cases?: EvidenceCase[];
-        cards?: CardItem[];
-        sapPerspective: string | string[];
-        quote?: string;
-        message?: string;
-        pill?: string[];
-        diagram?: {
-            center?: string;
-            nodes?: string[];
-            steps?: string[];
-        };
-    };
-
-    architecture?: {
-        badge: string;
-        title: string;
-        subtitle: string;
-        relationship?: {
-            subject: {
-                label: string;
-                items: string[];
-            };
-            verb: string;
-            object: {
-                label: string;
-                items: string[];
-            };
-            meaning: string;
-        };
-        sapPerspective: string | string[];
-        quote?: string;
-        message?: string;
-        pill?: string[];
-        diagram?: {
-            center?: string;
-            nodes?: string[];
-            steps?: string[];
-        };
-    };
-
-    value?: {
-        badge: string;
-        title: string;
-        subtitle: string;
-        emphasis?: string;
-        pillars?: Pillar[];
-        orbitDiagram?: {
-            center: string;
-            nodes: OrbitNode[];
-            outcome?: string;
-            cycleText?: string;
-        };
-        sapPerspective: string | string[];
-        quote?: string;
-        message?: string;
-        pill?: string[];
-        diagram?: {
-            center?: string;
-            nodes?: string[];
-            steps?: string[];
-        };
-    };
-
-    closing?: {
-        badge: string;
-        title: string;
-        message: string;
-        contact: {
-            email: string;
-            linkedin: string;
-        };
-        quote?: string;
-        pill?: string[];
-    };
-
-    // ── Bridge (legado para coordinating em hold) ──────────────────────────
-    bridge?: {
-        badge: string;
-        title: string;
-        intro: string;
-        sapPerspective: string | string[];
-        legacyLabel: string;
-        governanceLabel: string;
-        modernLabel: string;
-        quote?: string;
-        message?: string;
-        technology?: string[];
-        architecture?: string[];
-        center?: string;
-        points?: string[];
-        pill?: string[];
-    };
+    // Pitch Deck 2 (Coordinating Enterprise Analytics)
+    thesis?: Thesis;
+    evidence?: Evidence;
+    value?: Value;
 }
+
+// ============================================
+// TIPOS DE UTILIDADE
+// ============================================
+
+export type Language = 'en' | 'pt';

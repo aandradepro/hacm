@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './styles/globals.css';  // ← Estilos globais (todos os componentes usam)
 
@@ -16,14 +16,13 @@ export const metadata: Metadata = {
     creator: 'Alexandre Andrade',
     icons: {
         icon: '/favicon.ico',
-    },
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 5,
-    },
+    }
 };
-
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+};
 export default function RootLayout({
     children,
 }: Readonly<{

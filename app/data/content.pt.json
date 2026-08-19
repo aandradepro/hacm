@@ -65,7 +65,7 @@
             "Fazer da governança um elemento habilitador, estabelecendo o ownership, os padrões e os limites de decisão necessários para escalar analytics sem criar fricção desnecessária.",
             "Projetar para a evolução contínua, modernizando progressivamente e preservando fundações confiáveis enquanto se cria espaço para novas plataformas, capacidades e casos de uso."
         ],
-        "architecture_balance": {
+        "balance": {
             "left": {
                 "label": "Tecnologia",
                 "items": [

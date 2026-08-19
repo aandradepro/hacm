@@ -16,7 +16,9 @@ interface ProblemProps {
 }
 export default function Problem({ content }: ProblemProps) {
     const { problem } = content;
-
+    if (!problem) {
+        return null;
+    }
     return (
         <div className="w-full max-w-6xl mx-auto px-4">
             <AnimatedSection direction="up" delay={0}>
@@ -32,15 +34,15 @@ export default function Problem({ content }: ProblemProps) {
             </AnimatedSection>
 
             <AnimatedSection direction="up" delay={300}>
-                <Points items={problem.points} />
+                {problem.points && <Points items={problem.points} />}
             </AnimatedSection>
 
             <AnimatedSection direction="up" delay={450}>
-                <SAPPerspective text={problem.sapPerspective} />
+                {problem.sapPerspective && <SAPPerspective text={problem.sapPerspective} />}
             </AnimatedSection>
 
             <AnimatedSection direction="up" delay={550}>
-                <Pills items={problem.pill} />
+                {problem.pills && <Pills items={problem.pills} />}
             </AnimatedSection>
         </div>
     );

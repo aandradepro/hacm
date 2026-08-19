@@ -1,15 +1,4 @@
 {
-    "hero": {
-        "title": "Coordinating Enterprise Analytics",
-        "subtitle": "An architectural perspective on semantic consistency, governance and modernization",
-        "heading": "Enterprise Data Architecture",
-        "tags": [
-            "Semantic Consistency",
-            "Governance",
-            "Modernization"
-        ],
-        "brand": "~Å~"
-    },
     "nav": {
         "items": [
             {
@@ -38,6 +27,17 @@
             }
         ]
     },
+    "hero": {
+        "title": "Coordinating Enterprise Analytics",
+        "subtitle": "An architectural perspective on semantic consistency, governance and modernization",
+        "heading": "Enterprise Data Architecture",
+        "tags": [
+            "Semantic Consistency",
+            "Governance",
+            "Modernization"
+        ],
+        "brand": "~Å~"
+    },
     "problem": {
         "badge": "The Challenge",
         "title": "Enterprise analytics rarely fail because of technology.",
@@ -52,7 +52,9 @@
             "Business trust does not."
         ],
         "message": "Architecture exists to coordinate meaning before systems coordinate data.",
-        "sapPerspective": "The same challenge appears during SAP modernization initiatives involving BW, Datasphere and Business Data Cloud, but it is fundamentally an enterprise architecture problem rather than a product problem.",
+        "sapPerspective": [
+            "The same challenge appears during SAP modernization initiatives involving BW, Datasphere and Business Data Cloud, but it is fundamentally an enterprise architecture problem rather than a product problem."
+        ],
         "convergence": {
             "center": "Enterprise Meaning",
             "nodes": [
@@ -90,7 +92,9 @@
             }
         ],
         "message": "Good architecture makes organizational decisions explicit before technical decisions become permanent.",
-        "sapPerspective": "Capabilities such as Business Data Cloud, Datasphere and Data Products deliver greater value when architectural decisions already exist.",
+        "sapPerspective": [
+            "Capabilities such as Business Data Cloud, Datasphere and Data Products deliver greater value when architectural decisions already exist."
+        ],
         "vertFlow": {
             "title": "Architectural Path",
             "steps": [
@@ -135,7 +139,9 @@
             }
         ],
         "message": "Sustainable architecture survives organizational change.",
-        "sapPerspective": "Although implemented in SAP environments, these architectural decisions are platform-independent and applicable across enterprise analytics ecosystems."
+        "sapPerspective": [
+            "Although implemented in SAP environments, these architectural decisions are platform-independent and applicable across enterprise analytics ecosystems."
+        ]
     },
     "architecture": {
         "badge": "Modern Architecture",
@@ -170,14 +176,16 @@
             "meaning": "Modern technology increases the leverage of architectural decisions."
         },
         "message": "Modern technology increases architectural leverage. It does not eliminate architectural responsibility.",
-        "sapPerspective": "SAP Business Data Cloud, Datasphere and SAP Analytics Cloud strengthen governed analytical assets, semantic reuse and business ownership—but none replaces enterprise architecture."
+        "sapPerspective": [
+            "SAP Business Data Cloud, Datasphere and SAP Analytics Cloud strengthen governed analytical assets, semantic reuse and business ownership—but none replaces enterprise architecture."
+        ]
     },
     "value": {
         "badge": "Business Value",
         "title": "Enabling sustainable modernization.",
         "subtitle": "Organizations rarely need another implementation.",
         "emphasis": "They need architectural coordination.",
-        "orbitDiagram": {
+        "orbit": {
             "center": "Architecture",
             "nodes": [
                 {
@@ -200,7 +208,9 @@
             "cycleText": "Continuous Modernization"
         },
         "message": "Technology modernization succeeds only when organizational architecture evolves at the same pace.",
-        "sapPerspective": "Equally applicable to SAP and non-SAP ecosystems, including hybrid environments combining Business Data Cloud, Datasphere and third-party analytical platforms."
+        "sapPerspective": [
+            "Equally applicable to SAP and non-SAP ecosystems, including hybrid environments combining Business Data Cloud, Datasphere and third-party analytical platforms."
+        ]
     },
     "cta": {
         "badge": "Next Steps",

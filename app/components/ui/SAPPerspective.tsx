@@ -1,7 +1,7 @@
 'use client';
 
 interface SAPPerspectiveProps {
-    text: string | string[];
+    text?: string | string[];
     className?: string;
 }
 

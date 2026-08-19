@@ -1,7 +1,7 @@
 'use client';
 
 interface PointsProps {
-    items: string[];
+    items?: string[];
     className?: string;
 }
 
