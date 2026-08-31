@@ -1,4 +1,11 @@
 {
+    "page": {
+        "id": "from-ambiguity-to-architecture",
+        "pageType": "pitch-deck",
+        "language": "pt",
+        "title": "Da Ambiguidade à Arquitetura",
+        "filename": "da-ambiguidade-a-arquitetura"
+    },
     "nav": {
         "items": [
             {
@@ -14,8 +21,8 @@
                 "href": "#results"
             },
             {
-                "label": "Continuidade",
-                "href": "#continuity"
+                "label": "Arquitetura",
+                "href": "#architecture"
             },
             {
                 "label": "Contato",
@@ -23,166 +30,257 @@
             }
         ]
     },
-    "hero": {
-        "title": "Da Ambiguidade à Arquitetura",
-        "subtitle": "Uma abordagem arquitetural para construir analytics corporativo confiável, governado e preparado para IA",
-        "heading": "Arquitetura de Dados Empresarial",
-        "tags": [
-            "Primeiro-Semântica",
-            "Governança em Escala",
-            "Base para IA"
-        ],
-        "brand": "~Å~"
-    },
-    "problem": {
-        "badge": "O Desafio",
-        "title": "Analytics Corporativo Falha Antes da Tecnologia",
-        "points": [
-            "Em ambientes corporativos complexos, a principal causa de falhas analíticas não é dívida técnica nem limitação das ferramentas.",
-            "Ela está na ambiguidade semântica não resolvida: regras indefinidas, conceitos desalinhados entre áreas de negócio e premissas implícitas sobre os dados.",
-            "Essa ambiguidade gera ruído organizacional, produz múltiplas versões da verdade, reduz a confiança dos executivos e limita o valor que analytics moderno e IA conseguem entregar."
-        ],
-        "sapPerspective": [
-            "Ambientes SAP com longos históricos de implantações globais são especialmente suscetíveis à fragmentação semântica entre módulos (FI, CO, SD, MM) e regiões.",
-            "Iniciativas de modernização (RISE, GROW) tendem a reproduzir essa ambiguidade caso a governança semântica não seja tratada desde o início."
-        ],
-        "pills": [
-            "Ambiguidade → Ruído",
-            "Múltiplas Versões da Verdade",
-            "Confiança Desgastada"
-        ]
-    },
-    "approach": {
-        "badge": "A Metodologia",
-        "title": "Uma Arquitetura Orientada pela Semântica",
-        "intro": "Esta abordagem arquitetural parte do significado do negócio antes da tecnologia, garantindo que governança, analytics e modernização evoluam a partir de uma semântica corporativa compartilhada.",
-        "steps": [
-            {
-                "step": "Descoberta",
-                "description": "Mapear sistematicamente as ambiguidades existentes analisando como diferentes stakeholders definem e utilizam os dados críticos."
-            },
-            {
-                "step": "Definição",
-                "description": "Estabelecer um contrato formal de significado para todas as entidades relevantes (KPIs, dados mestres e regras de negócio) antes de qualquer modelagem técnica."
-            },
-            {
-                "step": "Execução",
-                "description": "Transformar o significado compartilhado do negócio em uma arquitetura analítica escalável, governável e independente de tecnologia."
-            },
-            {
-                "step": "Consistência",
-                "description": "Garantir que todas as camadas técnicas, da ingestão de dados ao consumo analítico, sejam construídas sobre uma base comum de entendimento."
-            }
-        ],
-        "sapPerspective": [
-            "A camada semântica do SAP (InfoObjects, BEx Queries e CDS Views) oferece uma base poderosa, mas frequentemente subutilizada.",
-            "Uma estratégia orientada pela semântica garante que os investimentos em SAP produzam consistência em vez de complexidade, apoiando tanto modernizações brownfield (RISE) quanto implantações greenfield (GROW)."
-        ]
-    },
-    "results": {
-        "badge": "Impacto Comprovado",
-        "title": "Entregando Governança e Estabilidade em Escala",
-        "cards": [
-            {
-                "icon": "🛡️",
-                "title": "Padronização Global",
-                "description": "Projetei e implementei uma base compartilhada de reporting para diversos países da América Latina, mantendo consistência executiva por mais de quatro anos.",
-                "impact": "Governança de Dados | Confiança",
-                "metric": "4+ Anos",
-                "industry": "Construção e Materiais",
-                "metricLabel": "Reporting Global"
-            },
-            {
-                "icon": "🚀",
-                "title": "Modernização de Alto Impacto",
-                "description": "Liderei a estratégia arquitetural para a modernização de uma plataforma analítica em múltiplos países, com indisponibilidade zero e aumento superior a 60% no desempenho.",
-                "impact": "Escalabilidade | Mitigação de Riscos",
-                "metric": "+60%",
-                "industry": "Construção e Materiais",
-                "metricLabel": "Ganho de Performance"
-            },
-            {
-                "icon": "⚙️",
-                "title": "Eficiência Operacional",
-                "description": "Projetei uma arquitetura corporativa de cálculo responsável pela governança de mais de 1.800 KPIs por meio de regras semânticas compartilhadas.",
-                "impact": "Redução de Custos | Qualidade das Decisões",
-                "metric": "1.800+",
-                "industry": "Construção e Materiais",
-                "metricLabel": "KPIs Padronizados"
-            }
-        ],
-        "sapPerspective": [
-            "A padronização global foi implementada em SAP BW.",
-            "A modernização correspondeu a uma migração para BW on HANA envolvendo cinco países.",
-            "A arquitetura de cálculo foi construída integralmente em SAP BW, demonstrando que a governança de mais de 1.800 indicadores corporativos pode ser alcançada utilizando recursos nativos da plataforma."
-        ]
-    },
-    "architecture": {
-        "badge": "A Transição",
-        "title": "Uma Base para Cloud, Data Products e IA",
-        "subtitle": "Plataformas em nuvem e IA expandem as capacidades arquiteturais, mas não podem compensar a inconsistência do significado de negócio.",
-        "intro": "Plataformas em nuvem e IA ampliam as capacidades arquiteturais, mas não compensam inconsistências no significado do negócio.",
-        "points": [
-            "Experiência em estruturar e estabilizar ambientes legados complexos é um ativo essencial para programas de modernização.",
-            "Data Products bem definidos surgem da compreensão arquitetural da semântica, da linhagem e da governança dos dados — não apenas da tecnologia."
-        ],
-        "foundation": {
-            "left": {
-                "eyebrow": "Existente",
-                "label": "Complexo & Fragmentado"
-            },
-            "center": {
-                "eyebrow": "Arquitetura",
-                "label": "Arquitetura Semântica-First",
-                "capabilities": [
-                    "Governança",
-                    "Semântica",
-                    "Escalabilidade"
-                ]
-            },
-            "right": {
-                "eyebrow": "Evolução",
-                "label": "Cloud, Produtos de Dados & IA"
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "title": "Da Ambiguidade à Arquitetura",
+                "subtitle": "Uma abordagem arquitetural para construir analytics corporativo confiável, governado e preparado para IA",
+                "heading": "Arquitetura de Dados Empresarial",
+                "brand": "~Å~",
+                "tags": {
+                    "componentType": "tags",
+                    "content": {
+                        "items": [
+                            "Primeiro-Semântica",
+                            "Governança em Escala",
+                            "Base para IA"
+                        ]
+                    }
+                }
             }
         },
-        "sapPerspective": [
-            "O ecossistema de modernização da SAP (Business Data Cloud, Datasphere e SAC) foi concebido para unificar e governar dados provenientes de ambientes SAP e não SAP.",
-            "O sucesso depende da definição e curadoria de Data Products dentro desse ecossistema, exigindo profundo entendimento tanto dos sistemas de origem (ECC/S/4HANA) quanto dos modelos analíticos de destino."
-        ]
-    },
-    "cta": {
-        "badge": "Próximos Passos",
-        "title": "Leve Clareza Arquitetural ao Analytics Corporativo",
-        "pillars": [
-            {
-                "icon": "🧭",
-                "title": "Roadmaps de Modernização",
-                "description": "Oriente programas de modernização alinhando arquitetura, governança e semântica de negócio antes do início da transformação tecnológica."
-            },
-            {
-                "icon": "🌍",
-                "title": "Empresas Globais",
-                "description": "Coordene modelos corporativos de reporting entre diferentes países preservando as particularidades operacionais locais."
-            },
-            {
-                "icon": "👥",
-                "title": "Times de Arquitetura",
-                "description": "Fortaleça equipes de arquitetura conectando implementação técnica a decisões sustentáveis de negócio."
+        {
+            "id": "problem",
+            "content": {
+                "badge": "O Desafio",
+                "title": "Analytics Corporativo Falha Antes da Tecnologia",
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Em ambientes corporativos complexos, a principal causa de falhas analíticas não é dívida técnica nem limitação das ferramentas.",
+                            "Ela está na ambiguidade semântica não resolvida: regras indefinidas, conceitos desalinhados entre áreas de negócio e premissas implícitas sobre os dados.",
+                            "Essa ambiguidade gera ruído organizacional, produz múltiplas versões da verdade, reduz a confiança dos executivos e limita o valor que analytics moderno e IA conseguem entregar."
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "Ambientes SAP com longos históricos de implantações globais são especialmente suscetíveis à fragmentação semântica entre módulos (FI, CO, SD, MM) e regiões.",
+                            "Iniciativas de modernização (RISE, GROW) tendem a reproduzir essa ambiguidade caso a governança semântica não seja tratada desde o início."
+                        ]
+                    }
+                },
+                "pills": {
+                    "componentType": "pills",
+                    "content": {
+                        "items": [
+                            "Ambiguidade → Ruído",
+                            "Múltiplas Versões da Verdade",
+                            "Confiança Desgastada"
+                        ]
+                    }
+                }
             }
-        ],
-        "sapPerspective": [
-            "Programas RISE with SAP: conduzir análises semânticas estruturadas e harmonização de KPIs como pré-requisito para um Clean Core.",
-            "Adoção do Business Data Cloud (BDC): apoiar a definição de Data Products e camadas semânticas no Datasphere desde o primeiro dia.",
-            "Ambientes Analíticos Híbridos: conectar ferramentas SAP e não SAP por meio de definições compartilhadas que viabilizem self-service analytics sem abrir mão da governança."
-        ],
-        "contact": {
-            "email": "aandradepro@aandradepro.com",
-            "linkedin": "https://www.linkedin.com/in/aandradepro/",
-            "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+        },
+        {
+            "id": "approach",
+            "content": {
+                "badge": "A Metodologia",
+                "title": "Uma Arquitetura Orientada pela Semântica",
+                "intro": "Esta abordagem arquitetural parte do significado do negócio antes da tecnologia, garantindo que governança, analytics e modernização evoluam a partir de uma semântica corporativa compartilhada.",
+                "steps": {
+                    "componentType": "steps",
+                    "content": {
+                        "items": [
+                            {
+                                "step": "Descoberta",
+                                "description": "Mapear sistematicamente a ambiguidade existente, analisando como diferentes stakeholders definem e consomem dados críticos."
+                            },
+                            {
+                                "step": "Definição",
+                                "description": "Estabelecer um 'contrato de significado' formal para todas as entidades-chave (KPIs, dados mestre, regras) antes de qualquer modelagem técnica."
+                            },
+                            {
+                                "step": "Execução",
+                                "description": "Transformar o significado de negócio compartilhado em uma arquitetura analítica escalável, governável e independente de tecnologia."
+                            },
+                            {
+                                "step": "Consistência",
+                                "description": "Garantir que cada camada técnica (da ingestão bruta ao consumo analítico) seja construída sobre uma base de entendimento compartilhado."
+                            }
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "A camada semântica do SAP (InfoObjects, BEx Queries e CDS Views) oferece uma base poderosa, mas frequentemente subutilizada.",
+                            "Uma estratégia orientada pela semântica garante que os investimentos em SAP produzam consistência em vez de complexidade, apoiando tanto modernizações brownfield (RISE) quanto implantações greenfield (GROW)."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "results",
+            "content": {
+                "badge": "Impacto Comprovado",
+                "title": "Entregando Governança e Estabilidade em Escala",
+                "subtitle": "Três exemplos de decisões arquiteturais que geraram resultados de negócio duradouros.",
+                "cards": {
+                    "componentType": "cards",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "🛡️",
+                                "title": "Padronização Global",
+                                "description": "Arquitetou e estabeleceu uma base de relatórios compartilhada em múltiplos países da América Latina, mantendo consistência nos relatórios executivos por mais de quatro anos.",
+                                "impact": "Governança de Dados | Confiança",
+                                "metric": "4+ Anos",
+                                "industry": "Construção e Materiais",
+                                "metricLabel": "Relatórios Globais"
+                            },
+                            {
+                                "icon": "🚀",
+                                "title": "Modernização de Alto Impacto",
+                                "description": "Liderou a estratégia arquitetural para uma modernização de plataforma em múltiplos países, entregando zero downtime enquanto aumentava a performance analítica em mais de 60%.",
+                                "impact": "Escalabilidade | Mitigação de Riscos",
+                                "metric": "+60%",
+                                "industry": "Construção e Materiais",
+                                "metricLabel": "Ganho de Performance"
+                            },
+                            {
+                                "icon": "⚙️",
+                                "title": "Eficiência Operacional",
+                                "description": "Projetou uma arquitetura de cálculo empresarial governando mais de 1.800 KPIs através de regras semânticas compartilhadas.",
+                                "impact": "Economia de Custos | Qualidade de Decisão",
+                                "metric": "1.800+",
+                                "industry": "Construção e Materiais",
+                                "metricLabel": "KPIs Padronizados"
+                            }
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "A padronização global foi implementada em SAP BW.",
+                            "A modernização correspondeu a uma migração para BW on HANA envolvendo cinco países.",
+                            "A arquitetura de cálculo foi construída integralmente em SAP BW, demonstrando que a governança de mais de 1.800 indicadores corporativos pode ser alcançada utilizando recursos nativos da plataforma."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "architecture",
+            "content": {
+                "badge": "A Transição",
+                "title": "Uma Base para Cloud, Data Products e IA",
+                "subtitle": "Plataformas em nuvem e IA expandem as capacidades arquiteturais, mas não podem compensar a inconsistência do significado de negócio.",
+                "intro": "Plataformas em nuvem e IA ampliam as capacidades arquiteturais, mas não compensam inconsistências no significado do negócio.",
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Experiência em estruturar e estabilizar ambientes legados complexos é um ativo essencial para programas de modernização.",
+                            "Data Products bem definidos surgem da compreensão arquitetural da semântica, da linhagem e da governança dos dados — não apenas da tecnologia."
+                        ]
+                    }
+                },
+                "dialectic": {
+                    "componentType": "foundationDiagram",
+                    "content": {
+                        "left": {
+                            "eyebrow": "Existente",
+                            "label": "Complexo & Fragmentado"
+                        },
+                        "center": {
+                            "eyebrow": "Arquitetura",
+                            "label": "Arquitetura Semântica-First",
+                            "capabilities": [
+                                "Governança",
+                                "Semântica",
+                                "Escalabilidade"
+                            ]
+                        },
+                        "right": {
+                            "eyebrow": "Evolução",
+                            "label": "Cloud, Produtos de Dados & IA"
+                        }
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "O ecossistema de modernização da SAP (Business Data Cloud, Datasphere e SAC) foi concebido para unificar e governar dados provenientes de ambientes SAP e não SAP.",
+                            "O sucesso depende da definição e curadoria de Data Products dentro desse ecossistema, exigindo profundo entendimento tanto dos sistemas de origem (ECC/S/4HANA) quanto dos modelos analíticos de destino."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "cta",
+            "content": {
+                "badge": "Próximos Passos",
+                "title": "Leve Clareza Arquitetural ao Analytics Corporativo",
+                "subtitle": "Aplicando pensamento arquitetural à modernização, governança e analytics empresarial.",
+                "pillars": {
+                    "componentType": "pillars",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "🧭",
+                                "title": "Roteiros de Modernização",
+                                "description": "Guiar programas de modernização alinhando arquitetura, governança e semântica de negócio antes do início da transformação tecnológica."
+                            },
+                            {
+                                "icon": "🌍",
+                                "title": "Empresas Globais",
+                                "description": "Coordenar modelos de relatórios empresariais entre países, preservando as realidades operacionais locais."
+                            },
+                            {
+                                "icon": "👥",
+                                "title": "Times de Arquitetura",
+                                "description": "Fortalecer times de arquitetura conectando implementação técnica com decisões de negócio sustentáveis."
+                            }
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "Programas RISE with SAP: conduzir análises semânticas estruturadas e harmonização de KPIs como pré-requisito para um Clean Core.",
+                            "Adoção do Business Data Cloud (BDC): apoiar a definição de Data Products e camadas semânticas no Datasphere desde o primeiro dia.",
+                            "Ambientes Analíticos Híbridos: conectar ferramentas SAP e não SAP por meio de definições compartilhadas que viabilizem self-service analytics sem abrir mão da governança."
+                        ]
+                    }
+                },
+                "contact": {
+                    "componentType": "contactButtons",
+                    "content": {
+                        "email": "aandradepro@aandradepro.com",
+                        "linkedin": "https://www.linkedin.com/in/aandradepro/",
+                        "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+                    }
+                }
+            }
+        },
+        {
+            "id": "footer",
+            "content": {
+                "text": "Arquitetura para Analytics Corporativo · Governança Semântica · Transformação SAP",
+                "brand": "~Å~"
+            }
         }
-    },
-    "footer": {
-        "text": "Arquitetura para Analytics Corporativo · Governança Semântica · Transformação SAP",
-        "brand": "~Å~"
-    }
+    ]
 }

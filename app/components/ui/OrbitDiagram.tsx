@@ -3,21 +3,49 @@
 import { useEffect, useRef, useState } from 'react';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
-interface OrbitNode {
-    icon: string;
-    title: string;
-    description: string;
-}
+// interface OrbitNode {
+//     icon: string;
+//     title: string;
+//     description: string;
+// }
 
 interface OrbitDiagramProps {
     center: string;
-    nodes: OrbitNode[];
+    nodes: OrbitDiagramNode[];
     outcome?: string;
     cycleText?: string;
     className?: string;
 }
 
 interface Pos { x: number; y: number; }
+
+
+import { z } from 'zod';
+import { ComponentBaseSchema } from '@/content-model/common';
+
+export const OrbitDiagramNodeSchema = z.object({
+    icon: z.string().optional().default(''),
+    title: z.string(),
+    description: z.string(),
+});
+
+export type OrbitDiagramNode = z.infer<typeof OrbitDiagramNodeSchema>;
+
+export const OrbitDiagramContentSchema = z.object({
+    center: z.string(),
+    nodes: z.array(OrbitDiagramNodeSchema),
+    outcome: z.string(),
+    cycleText: z.string().optional(),
+});
+
+export type OrbitDiagramContent = z.infer<typeof OrbitDiagramContentSchema>;
+
+export const OrbitDiagramComponentSchema = ComponentBaseSchema.extend({
+    componentType: z.literal('orbitDiagram'),
+    content: OrbitDiagramContentSchema,
+});
+
+export type OrbitDiagramComponent = z.infer<typeof OrbitDiagramComponentSchema>;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function wrapText(text: string, maxChars: number): string[] {
@@ -82,14 +110,26 @@ export default function OrbitDiagram({
     };
 
     // ── Node box geometry ─────────────────────────────────────────────────────
+    // Verificar se o nó tem ícone
+    const hasIcon = (node: OrbitDiagramNode) => node.icon && node.icon.trim() !== '';
+
+    // Altura do ícone (0 se não tiver ícone)
+    const getIconHeight = (node: OrbitDiagramNode) => hasIcon(node) ? iconFontSize : 0;
+
     const nodeW = Math.min(width * 0.28, 155);
     const descChars = Math.floor(nodeW / (descFont * 0.56));
     const descLines = (desc: string) => wrapText(desc, descChars);
-    const nodeH = (desc: string) => {
-        const dl = descLines(desc).length;
-        return iconFontSize + titleFont * 1.6 + dl * descLineH + 22;
+    const nodeH = (node: OrbitDiagramNode) => {
+        const dl = descLines(node.description).length;
+        const iconH = getIconHeight(node);
+        // Se tiver ícone: iconFontSize + titleFont*1.6 + desc + padding
+        // Se não tiver ícone: apenas titleFont*1.6 + desc + padding (sem espaço para ícone)
+        const titleSpace = titleFont * 1.6;
+        const padding = 22;
+        const iconSpace = iconH > 0 ? iconH + 4 : 0; // 4px de gap se tiver ícone
+        return iconSpace + titleSpace + dl * descLineH + padding;
     };
-    const maxNodeH = Math.max(...nodes.map(n => nodeH(n.description)));
+    const maxNodeH = Math.max(...nodes.map(n => nodeH(n)));
 
     // ── Orbit ellipse ─────────────────────────────────────────────────────────
     const orbitRx = width * 0.3255;
@@ -102,8 +142,8 @@ export default function OrbitDiagram({
     const centerW = Math.min(width * 0.32, 160);
     const centerH = Math.max(width * 0.12, 52);
     const centerPad = Math.sqrt(centerW * centerW + centerH * centerH) / 2 + 6;
-    const nodePadFn = (desc: string) => {
-        const h = nodeH(desc);
+    const nodePadFn = (node: OrbitDiagramNode) => {
+        const h = nodeH(node);
         return Math.sqrt(nodeW * nodeW + h * h) / 2 + 4;
     };
 
@@ -124,7 +164,7 @@ export default function OrbitDiagram({
         const angle = angles[i];
         const nx = orbitRx * Math.cos(angle);
         const ny = orbitRy * Math.sin(angle);
-        const h = nodeH(nodes[i].description);
+        const h = nodeH(nodes[i]);
         rawMinX = Math.min(rawMinX, nx - nodeW / 2 - pad);
         rawMaxX = Math.max(rawMaxX, nx + nodeW / 2 + pad);
         rawMinY = Math.min(rawMinY, ny - h / 2 - pad);
@@ -152,7 +192,7 @@ export default function OrbitDiagram({
                 <div className="od-mobile-grid">
                     {nodes.map((n, i) => (
                         <div key={i} className="od-mobile-node">
-                            <span className="od-mobile-icon">{n.icon}</span>
+                            {hasIcon(n) && <span className="od-mobile-icon">{n.icon}</span>}
                             <div className="od-mobile-title">{n.title}</div>
                             <div className="od-mobile-desc">{n.description}</div>
                         </div>
@@ -262,7 +302,7 @@ export default function OrbitDiagram({
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         const ux = dx / dist;
                         const uy = dy / dist;
-                        const np = nodePadFn(nodes[i].description);
+                        const np = nodePadFn(nodes[i]);
                         return (
                             <line
                                 key={i}
@@ -287,14 +327,24 @@ export default function OrbitDiagram({
                     {/* ── Orbit nodes ── */}
                     {nodes.map((node, i) => {
                         const { x, y } = nodePositions[i];
-                        const h = nodeH(node.description);
+                        const h = nodeH(node);
                         const dLines = descLines(node.description);
                         const isHov = hovered === i;
+                        const hasNodeIcon = hasIcon(node);
+                        const iconH = getIconHeight(node);
 
+                        // Posicionamento: se tiver ícone, começa com ele; senão, começa direto com o título
                         const innerTop = y - h / 2 + 10;
-                        const iconY = innerTop + iconFontSize * 0.8;
-                        const titleY = iconY + titleFont * 1.7;
-                        const descStartY = titleY + titleFont * 0.6 + descFont;
+                        let currentY = innerTop;
+
+                        // Só adiciona espaço para ícone se existir
+                        const iconY = hasNodeIcon ? currentY + iconH * 0.8 : currentY;
+                        if (hasNodeIcon) currentY += iconH + 4;
+
+                        const titleY = currentY + titleFont * 0.8;
+                        currentY += titleFont * 1.6;
+
+                        const descStartY = currentY + descFont * 0.4;
 
                         return (
                             <g
@@ -319,9 +369,12 @@ export default function OrbitDiagram({
                                     strokeWidth={isHov ? 1.5 : 1}
                                 />
 
-                                <text x={x} y={iconY} textAnchor="middle" fontSize={iconFontSize}>
-                                    {node.icon}
-                                </text>
+                                {/* Ícone - só renderiza se existir */}
+                                {hasNodeIcon && (
+                                    <text x={x} y={iconY} textAnchor="middle" fontSize={iconFontSize}>
+                                        {node.icon}
+                                    </text>
+                                )}
 
                                 <text
                                     x={x} y={titleY}

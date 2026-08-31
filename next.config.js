@@ -6,7 +6,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     // Enable static export for deployment on Vercel or any static host
-    //    output: 'export',
+    // output: 'export',
 
     // Image optimization settings
     images: {

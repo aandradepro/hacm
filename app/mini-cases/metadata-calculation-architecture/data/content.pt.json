@@ -1,0 +1,344 @@
+{
+    "page": {
+        "id": "moving-kpi-processing-out-of-the-reporting-layer",
+        "pageType": "case-study-overview",
+        "language": "pt",
+        "title": "Movendo o Processamento de KPIs para Fora da Camada de Relatórios"
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Problema",
+                "href": "#problem"
+            },
+            {
+                "label": "Decisão",
+                "href": "#decision"
+            },
+            {
+                "label": "Metadados",
+                "href": "#metadata"
+            },
+            {
+                "label": "Resultados",
+                "href": "#results"
+            },
+            {
+                "label": "Conclusão",
+                "href": "#takeaway"
+            },
+            {
+                "label": "Contato",
+                "href": "#cta"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "badge": "Hero",
+                "title": "Movendo o Processamento de KPIs para Fora da Camada de Relatórios",
+                "subtitle": "Como uma arquitetura orientada por metadados reduziu o processamento em tempo de execução e criou uma camada reutilizável de KPIs dentro do SAP BW.",
+                "heading": "Caso de estudo de analytics empresarial",
+                "brand": "~Å~",
+                "tags": {
+                    "componentType": "tags",
+                    "content": {
+                        "items": [
+                            "SAP BW / NetWeaver",
+                            "~1.800 KPIs corporativos",
+                            "Arquitetura orientada por metadados"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "problem",
+            "content": {
+                "badge": "O Problema",
+                "title": "Quando todo relatório calcula a mesma lógica de negócio",
+                "subtitle": "À medida que os relatórios cresciam, os BEx Workbooks acumulavam múltiplas consultas, KPIs, MultiProviders e filtros.",
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "A camada de relatórios havia se tornado responsável por processamento demais."
+                    }
+                },
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Fórmulas complexas de KPI estavam embutidas em BEx Queries.",
+                            "As fórmulas eram replicadas em diferentes MultiProviders.",
+                            "Cada execução de relatório repetia parte do mesmo trabalho de seleção e cálculo.",
+                            "Uma quantidade significativa de processamento estava concentrada no momento da execução do relatório."
+                        ]
+                    }
+                },
+                "actual": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Atual",
+                        "steps": [
+                            "Fontes",
+                            "InfoCubes",
+                            "MultiProviders",
+                            "BEx Queries",
+                            "BEx Workbooks"
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "O gargalo estava onde o processamento acontecia."
+                    }
+                }
+            }
+        },
+        {
+            "id": "decision",
+            "content": {
+                "badge": "A Decisão Arquitetural",
+                "title": "Mover o trabalho para upstream",
+                "subtitle": "A arquitetura moveu o máximo de processamento possível para fora da execução de relatórios e introduziu uma camada dedicada de KPI entre a persistência do SAP BW e os relatórios.",
+                "before": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Antes",
+                        "steps": [
+                            "Persistência BW",
+                            "BEx Queries",
+                            "Relatórios"
+                        ]
+                    }
+                },
+                "after": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Depois",
+                        "steps": [
+                            "Persistência BW",
+                            "Motor de Cálculo",
+                            "Camada KPI",
+                            "BEx Queries",
+                            "Relatórios"
+                        ]
+                    }
+                },
+                "common": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Persistência BW",
+                        "steps": [
+                            "Fontes",
+                            "InfoCubes",
+                            "MultiProviders"
+                        ]
+                    }
+                },
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "Calcule uma vez. Reutilize em todos os relatórios."
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "A solução foi desenvolvida inteiramente no ambiente SAP BW, usando capacidades do SAP NetWeaver. Nenhuma plataforma externa foi introduzida para implementar o motor, armazenar os KPIs ou gerenciar suas definições."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "metadata",
+            "content": {
+                "badge": "A Decisão de Metadados",
+                "title": "A nova camada precisava de uma forma escalável para definir KPIs",
+                "subtitle": "Uma vez que o processamento foi movido para upstream, a próxima questão arquitetural era como definir e executar milhares de indicadores sem criar uma implementação independente para cada KPI.",
+                "orbit": {
+                    "componentType": "orbitDiagram",
+                    "content": {
+                        "center": "Metadados KPI",
+                        "nodes": [
+                            {
+                                "icon": "",
+                                "title": "Fórmula",
+                                "description": "Define como o KPI é calculado a partir de outros indicadores."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Dependências",
+                                "description": "Define a hierarquia de indicadores e a ordem de processamento."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Filtros",
+                                "description": "Define as seleções de negócio usadas pelo indicador."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Drill-downs",
+                                "description": "Define as dimensões disponíveis para análise analítica."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Perspectivas de Tempo",
+                                "description": "Suporta Mês, Ano Fiscal, Acumulado do Ano e outras visões temporais relevantes."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Nível de Processamento",
+                                "description": "Determina quando o indicador pode ser calculado a partir de suas dependências."
+                            }
+                        ],
+                        "outcome": "Motor de Cálculo → Resultados KPI"
+                    }
+                },
+                "cards": {
+                    "componentType": "cards",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Uma exceção deliberada",
+                                "description": "Os indicadores de Nível 0 foram obtidos através de BEx Queries especificamente estruturadas. Esses indicadores continham apenas filtros sobre os InfoCubes. A partir desse ponto, o Motor de Cálculo interpretava os metadados e calculava os níveis subsequentes.",
+                                "impact": ""
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Os metadados também se tornaram legíveis por humanos",
+                                "description": "A Árvore de Cálculo fornecia uma representação gráfica em HTML da fórmula, dependências e seleções de um KPI, permitindo que analistas inspecionassem e validassem sua definição.",
+                                "impact": ""
+                            }
+                        ],
+                        "columns": 2
+                    }
+                }
+            }
+        },
+        {
+            "id": "results",
+            "content": {
+                "badge": "Resultados",
+                "title": "Uma nova camada de processamento mudou o modelo operacional",
+                "cards": {
+                    "componentType": "cards",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Arquitetura comum de KPI",
+                                "description": "A solução centralizou a definição e o processamento de aproximadamente 1.800 indicadores corporativos.",
+                                "impact": "Todos os relatórios da plataforma usavam a camada KPI."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Adoção em toda a plataforma",
+                                "description": "A nova camada KPI tornou-se a fonte comum para relatórios em toda a plataforma.",
+                                "impact": "Os resultados calculados podiam ser reutilizados entre consumidores."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Manutenção mais simples de KPIs",
+                                "description": "Alterações em KPIs de nível superior não exigiam mais modificações em BEx Queries.",
+                                "impact": "O caminho de manutenção mudou de objetos de apresentação para metadados."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Implantação mais simples",
+                                "description": "Alterações em KPIs de nível superior não exigiam mais o transporte de alterações de BEx Query entre ambientes.",
+                                "impact": "O rastreamento de atualizações tornou-se baseado em KPI."
+                            }
+                        ],
+                        "columns": 2
+                    }
+                },
+                "improvements": {
+                    "title": "Melhorias observadas",
+                    "listImprovements": {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Melhoria considerável no tempo de execução de relatórios.",
+                                "Melhoria considerável no tempo total de processamento.",
+                                "Redução considerável no número de consultas exigidas pelos relatórios.",
+                                "Redução considerável no processamento realizado pela camada BEx.",
+                                "Redução considerável no esforço necessário para alterar e manter KPIs."
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "takeaway",
+            "content": {
+                "badge": "Conclusão Arquitetural",
+                "title": "A lição mais profunda",
+                "subtitle": "Quando a lógica analítica é executada repetidamente no momento do consumo, a arquitetura deve questionar se esse processamento pertence a esse local.",
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Mova o processamento recorrente para upstream quando os resultados calculados puderem ser amplamente reutilizados.",
+                            "Use uma camada analítica dedicada para separar o processamento do consumo.",
+                            "Use metadados para escalar regras de negócio sem criar uma implementação independente para cada KPI.",
+                            "Torne as definições de negócio úteis tanto para máquinas quanto para pessoas."
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "A tecnologia original era SAP BW/NetWeaver. O princípio arquitetural se estende além da plataforma: determine onde a computação pertence, identifique o que pode ser reutilizado e represente as regras de negócio em uma forma sustentável."
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "A arquitetura determina onde a complexidade analítica vive."
+                    }
+                }
+            }
+        },
+        {
+            "id": "cta",
+            "content": {
+                "badge": "Caso de Estudo Completo",
+                "title": "Quer os detalhes arquiteturais?",
+                "subtitle": "Leia o caso de estudo completo cobrindo o problema, alternativas, trade-offs, implementação e resultados organizacionais.",
+                "button": {
+                    "label": "Leia o caso de estudo completo",
+                    "href": "/mini-cases/metadata-calculation-architecture/case-study"
+                }
+            }
+        },
+        {
+            "id": "footer",
+            "content": {
+                "text": "Arquitetura de Analytics Empresarial",
+                "brand": "~Å~"
+            }
+        }
+    ]
+}

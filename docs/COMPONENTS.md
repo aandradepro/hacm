@@ -1,498 +1,212 @@
-# Componentes do Pitch Deck — HACM
+# Biblioteca de Componentes de UI — Guia de Seleção para IA
 
-Este documento descreve todos os componentes reutilizáveis disponíveis no projeto, com suas funcionalidades, formatos e critérios de uso. Ele foi criado para auxiliar na análise de novos pitch decks e na escolha dos componentes adequados para cada tipo de conteúdo.
-
----
-
-## Sumário
-
-- AnimatedSection
-- ArchitectureBalance
-- ArchitectureModel
-- Cards
-- CompactPoints
-- ContactButtons
-- ConvergenceDiagram
-- Diagram
-- EvidenceCases
-- ExportButton
-- Flow (VertFlow)
-- LanguageSelector
-- List
-- Message
-- Navigation
-- OrbitDiagram
-- Pillars
-- Pills
-- Points
-- Quote
-- RelationshipDiagram
-- ResolutionBadge
-- SAPPerspective
-- Steps
-- Tags
-- Tradeoffs
+Este documento descreve cada componente disponível de forma que uma IA possa decidir qual usar para cada parte de um texto, com base no tipo de conteúdo, propósito narrativo e estrutura dos dados a apresentar.
 
 ---
 
-## AnimatedSection
+## Como usar este guia
 
-**Propósito:** Envolve conteúdo para animação de entrada (fade-in, slide-up) quando a seção entra no viewport durante o scroll.
-
-**Formato:** Componente wrapper que aceita conteúdo filho e aplica animação com delay configurável.
-
-**Quando usar:** Sempre que um elemento precisa aparecer gradualmente ao rolar a página.
-
-**Props:**
-- children: Conteúdo a ser animado
-- className: Classes CSS adicionais
-- delay: Delay em milissegundos antes da animação (padrão: 0)
-- direction: Direção da animação ('up', 'down', 'left', 'right', 'none') (padrão: 'up')
-- threshold: Percentual do elemento visível para disparar a animação (padrão: 0.15)
+Para cada bloco de conteúdo do texto, a IA deve responder: **"O que este trecho está fazendo?"** e cruzar com as categorias abaixo. Cada descrição inclui:
+- **O que é** — forma visual e comportamento
+- **Quando usar** — gatilhos narrativos e estrutura de dados esperada
+- **Quando NÃO usar** — casos de confusão frequente com outros componentes
+- **Props principais** — o que o componente recebe
 
 ---
 
-## ArchitectureBalance
+## INFRAESTRUTURA (Componentes de página — não selecionar por conteúdo)
 
-**Propósito:** Exibe um diagrama de balança entre dois lados (ex: Technology vs Architecture) com um ponto de equilíbrio central.
+### `Navigation`
+Barra de navegação fixa no topo da página. Rastreia automaticamente qual seção está visível e destaca o item correspondente. Suporta menu mobile (hambúrguer). Lê os links de navegação e o título da seção hero diretamente do objeto `content`.
+> **Uso:** Sempre presente, uma vez por página. Não é uma escolha por conteúdo.
 
-**Formato:** Duas colunas com tags e um centro com texto de equilíbrio.
+### `AnimatedSection`
+Wrapper invisível que aplica animação de entrada (fade + slide) quando o elemento entra na viewport. Pode animar de cima, baixo, esquerda, direita ou só com fade. Suporta `delay` em ms para escalonar entradas de elementos irmãos.
+> **Uso:** Envolver qualquer bloco de conteúdo que deve aparecer com animação ao scrollar. Não exibe conteúdo próprio — apenas anima o que estiver dentro.
 
-**Conteúdo esperado:**
-- left: { label: string; items: string[] }
-- right: { label: string; items: string[] }
-- center: string
-- balancePoint: string
+### `ExportButton`
+Botão que captura toda a página como imagem e gera um PDF A4 de múltiplas páginas. Mostra progresso percentual durante a geração. Exclui a si mesmo e elementos de navegação do PDF.
+> **Uso:** Presente na interface quando o usuário precisa exportar o site como documento. Não relacionado a conteúdo narrativo.
 
-**Quando usar:** Para contrastar dois conceitos com um ponto de equilíbrio entre eles.
+### `LanguageSelector`
+Botões de alternância de idioma (ex: EN / PT). Exibe o idioma ativo destacado.
+> **Uso:** Infraestrutura de i18n. Não é uma escolha por conteúdo.
 
----
-
-## ArchitectureModel
-
-**Propósito:** Exibe um modelo de arquitetura de três colunas (Existente → Arquitetura → Em Evolução) com capacidades listadas no centro.
-
-**Formato:** Três blocos horizontais (ou verticais em mobile). O bloco central contém uma lista de capacidades e a marca ~Å~.
-
-**Conteúdo esperado:**
-- existingLabel: Rótulo do bloco existente
-- architectureLabel: Rótulo do bloco de arquitetura
-- evolvingLabel: Rótulo do bloco em evolução
-- capabilities: Lista de capacidades (opcional)
-- existingEyebrow: Título do bloco existente (i18n)
-- architectureEyebrow: Título do bloco de arquitetura (i18n)
-- evolvingEyebrow: Título do bloco em evolução (i18n)
-
-**Quando usar:** Para representar visualmente um modelo de transição arquitetural.
+### `ResolutionBadge`
+Badge informativo (geralmente para demo/portfólio) que exibe a resolução atual da janela e o tipo de dispositivo (Mobile / Tablet / Desktop etc.) com um indicador colorido.
+> **Uso:** Evidência técnica de responsividade. Usar em seções que demonstram qualidade técnica do próprio site.
 
 ---
 
-## Cards
+## TEXTO E NARRATIVA
 
-**Propósito:** Exibe uma lista de cards com métricas, ícones, títulos, descrições e impactos.
+### `Quote`
+Blockquote centralizado com aspas, fundo suave e tipografia em destaque. Para **uma única frase** de alto impacto.
+> **Quando usar:** O texto contém uma afirmação central, posicionamento ou declaração que merece destaque visual isolado — uma "frase de efeito". Ex: a tese principal de uma seção, uma citação de cliente, um insight condensado em uma frase.
+> **Quando NÃO usar:** Listas, múltiplos itens, ou frases que são apenas parte de uma sequência.
+> **Props:** `text: string`
 
-**Formato:** Grid responsivo com cards individuais. Cada card contém: ícone, métrica, rótulo da métrica, título, descrição, impacto.
+### `Message`
+Pílula/badge centralizado com fundo azul escuro. Para **uma frase curta** que funciona como chamada de ação, status ou conclusão pontual.
+> **Quando usar:** Final de seção com um convite ("Vamos conversar?"), confirmação de proposta ou rótulo de encerramento. Mais curto e funcional que `Quote`.
+> **Quando NÃO usar:** Frases longas, argumentos ou listas.
+> **Props:** `text: string`
 
-**Conteúdo esperado:** Array de objetos com icon, metric, metricLabel, title, description, impact, industry (opcional).
-
-**Quando usar:** Para apresentar resultados, evidências ou casos de sucesso com métricas quantificáveis.
-
-**Props:**
-- items: Array de objetos com dados dos cards (obrigatório)
-- className: Classes CSS adicionais
-- columns: Número de colunas em desktop (2, 3 ou 4) (padrão: 3)
-
----
-
-## CompactPoints
-
-**Propósito:** Exibe uma lista de pontos em formato compacto (texto menor) com capitular na primeira letra.
-
-**Formato:** Lista vertical com texto em tamanho pequeno e primeira letra em destaque.
-
-**Conteúdo esperado:** Array de strings.
-
-**Quando usar:** Para listas de pontos secundários ou complementares.
-
-**Props:**
-- items: Array de strings com os pontos (obrigatório)
-- className: Classes CSS adicionais
+### `SAPPerspective`
+Box com rótulo "SAP Perspective" e texto centralizado. Aceita uma string ou array de strings separadas por bullet (•). Tem estilo próprio de caixa de destaque editorial.
+> **Quando usar:** O texto contém uma **observação técnica de nicho** — uma visão especializada sobre o ecossistema SAP que não se encaixa no fluxo geral mas precisa de destaque. Funciona como "nota do especialista".
+> **Quando NÃO usar:** Conteúdo genérico ou aplicável a outras tecnologias.
+> **Props:** `text: string | string[]`
 
 ---
 
-## ContactButtons
+## LISTAS E PONTOS
 
-**Propósito:** Exibe botões de contato (email, LinkedIn, agendamento).
+### `List`
+Lista vertical com bullet configurável (• disc, ◦ dash, ou nenhum). Suporta **subitens** (indentados abaixo de cada item principal). Itens podem ser strings simples ou objetos `{ text, subitems[] }`.
+> **Quando usar:** Enumeração de características, responsabilidades, habilidades, benefícios — qualquer lista onde os itens são frases completas ou semi-completas que podem ter detalhamento. Preferir quando há subitens.
+> **Quando NÃO usar:** Itens muito curtos (use `Pills` ou `Tags`); quando os itens têm destaque visual especial na primeira letra (use `Points`).
+> **Props:** `items: string[] | { text, subitems[] }[]`, `bullet: 'disc' | 'dash' | 'none'`
 
-**Formato:** Botões horizontais (ou verticais em mobile) com ícones e textos.
+### `Points`
+Lista vertical onde **a primeira letra de cada item é destacada** com tipografia maior e negrito. Sem bullets tradicionais.
+> **Quando usar:** Lista de argumentos, diferenciais ou princípios onde cada item começa com uma palavra-chave forte que já serve como ancora visual. Efeito editorial — a primeira letra age como "título embutido".
+> **Quando NÃO usar:** Itens que não foram escritos pensando nesse efeito (a primeira letra precisa fazer sentido destacada). Sem subitens.
+> **Props:** `items: string[]`
 
-**Conteúdo esperado:** Objeto com email, linkedin, calendar (opcional).
+### `CompactPoints`
+Variante de `Points` com espaçamento menor (`text-sm`, `space-y-2`). Mesma lógica de destaque da primeira letra, mas mais denso visualmente.
+> **Quando usar:** Versão compacta de `Points` para contextos com muitos itens ou espaço limitado.
+> **Props:** `items: string[]`
 
-**Quando usar:** Na seção de contato (CTA) para fornecer meios de contato.
+### `Pills`
+Tags arredondadas (pill-shaped) dispostas em linha, com fundo azul claro e borda sutil. Layout em `flex-wrap`.
+> **Quando usar:** Lista de **termos curtos sem hierarquia** — tecnologias dominadas, palavras-chave de habilidades, atributos de uma pessoa ou produto. Ideal para "o que eu sei fazer" ou "ferramentas usadas".
+> **Quando NÃO usar:** Frases completas; itens com descrição associada; quando a relação entre os itens importa (use diagrama ou lista).
+> **Props:** `items: string[]`
 
-**Props:**
-- contact: Objeto com dados de contato (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## ConvergenceDiagram
-
-**Propósito:** Exibe um diagrama orbital onde vários nós convergem para um centro.
-
-**Formato:** SVG com centro e nós distribuídos em órbita, com linhas de conexão.
-
-**Conteúdo esperado:**
-- center: string
-- nodes: string[]
-
-**Quando usar:** Para mostrar que múltiplos elementos convergem para um ponto central.
-
-**Props:**
-- center: Texto central (obrigatório)
-- nodes: Array de strings (obrigatório)
-- className: Classes CSS adicionais
+### `Tags`
+Tags com ponto verde (•) antes de cada item. Layout espaçado em linha. Mais discreto visualmente que `Pills`.
+> **Quando usar:** Lista de características, valores ou atributos em rodapé de seção, como complemento a outro componente principal. Funciona como "também sou / também faço".
+> **Quando NÃO usar:** Quando os itens precisam de destaque — prefira `Pills`. Não use como componente principal de seção.
+> **Props:** `items: string[]`
 
 ---
 
-## Diagram
+## CARDS E PAINÉIS
 
-**Propósito:** Exibe um diagrama simples com centro, nós (tags) e/ou fluxo de passos.
+### `Cards`
+Grade de cards (2, 3 ou 4 colunas) com estrutura rich: ícone opcional, **métrica destacada** (número grande), label da métrica, título, descrição e texto de impacto (que pode ser um link). Badge de indústria opcional no canto.
+> **Quando usar:** Casos de uso, projetos, resultados — conteúdo que combina **dado quantitativo + contexto qualitativo**. A métrica é o âncora visual; o restante explica o que ela significa.
+> **Quando NÃO usar:** Conteúdo sem métricas; conceitos abstratos sem resultado mensurável; listas simples de características (use `Pillars`).
+> **Props:** `items: { icon?, metric, metricLabel, title, description, impact, industry?, href? }[]`, `columns: 2|3|4`
 
-**Formato:** Bloco com fundo suave contendo center (texto centralizado com linhas), nodes (tags/badges em linha), steps (fluxo com setas).
+### `Pillars`
+Grade de cards (2, 3 ou 4 colunas) com estrutura simples: ícone opcional, título e descrição. Sem métricas.
+> **Quando usar:** Apresentar **pilares conceituais, áreas de atuação ou competências** — conteúdo onde o nome e a explicação já são suficientes. Ex: "Os três eixos da minha atuação", "Princípios que guiam meu trabalho".
+> **Quando NÃO usar:** Quando há dados quantitativos — prefira `Cards`. Quando os itens têm uma progressão narrativa — prefira `Steps` ou `EvidenceCases`.
+> **Props:** `items: { icon?, title, description }[]`, `columns: 2|3|4`
 
-**Conteúdo esperado:** Objeto com center (opcional), nodes (opcional), steps (opcional).
+### `Steps`
+Grade de cards numerados sequencialmente (número em círculo azul + título + descrição). Ordem importa.
+> **Quando usar:** **Processos, metodologias, jornadas** onde a sequência é o ponto central. Ex: "Como eu trabalho", "Etapas de uma migração", "Fases do projeto".
+> **Quando NÃO usar:** Itens sem ordem natural; competências paralelas (use `Pillars`).
+> **Props:** `items: { step: string, description: string }[]`, `columns: 2|3|4`
 
-**Quando usar:** Para representar visualmente conceitos, relacionamentos ou fluxos de processo de forma simplificada.
+### `EvidenceCases`
+Grade de cards narrativos (Case 1, Case 2…) com estrutura fixa de três blocos: **Problema → Decisão Arquitetural → Resultado de Negócio**. Métrica opcional no cabeçalho.
+> **Quando usar:** **Casos reais ou hipotéticos** onde a narrativa problema-solução-impacto é o argumento central. Ideal para portfólio técnico, validação de experiência, demonstração de raciocínio decisório.
+> **Quando NÃO usar:** Conteúdo sem progressão narrativa clara; listas de habilidades ou projetos genéricos (use `Cards` ou `Pillars`).
+> **Props:** `cases: { title, problem, decision, outcome, metric?, metricLabel? }[]`
 
----
-
-## EvidenceCases
-
-**Propósito:** Exibe casos de evidência com estrutura Problem → Architectural Decision → Business Outcome.
-
-**Formato:** Cards com três seções (Problem, Decision, Outcome) conectadas por linhas.
-
-**Conteúdo esperado:** Array de objetos com title, problem, decision, outcome, metric (opcional), metricLabel (opcional).
-
-**Quando usar:** Especificamente para a seção Evidence do Coordinating Enterprise Analytics.
-
-**Props:**
-- cases: Array de objetos (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## ExportButton
-
-**Propósito:** Exporta o conteúdo da página como PDF.
-
-**Formato:** Botão fixo no canto inferior direito que, ao ser clicado, gera e baixa um PDF.
-
-**Conteúdo esperado:** Recebe content para referência.
-
-**Quando usar:** Em qualquer página que precise ser exportável como PDF.
-
-**Props:**
-- content: Conteúdo do pitch deck (obrigatório)
+### `Tradeoffs`
+Grade de pares lado a lado separados por "↔". Cada par mostra dois termos em tensão ou complementaridade.
+> **Quando usar:** Quando o texto discute **equilíbrios, compensações ou dualidades** — ex: "Velocidade ↔ Governança", "Custo ↔ Qualidade", "Legado ↔ Modernização". Faz o leitor reconhecer que o autor entende as tensões reais.
+> **Quando NÃO usar:** Itens sem relação de tensão entre si; mais de 2 elementos por item.
+> **Props:** `items: [string, string][]`
 
 ---
 
-## Flow (VertFlow)
+## CONTATOS E AÇÕES
 
-**Propósito:** Exibe um fluxo vertical de passos com caixas e setas.
-
-**Formato:** Caixas em sequência vertical com setas entre elas.
-
-**Conteúdo esperado:**
-- title: string (opcional)
-- steps: string[]
-
-**Quando usar:** Para mostrar uma sequência de passos ou fluxo de processo.
-
-**Props:**
-- steps: Array de strings (obrigatório)
-- title: Título opcional
-- className: Classes CSS adicionais
+### `ContactButtons`
+Grupo de botões de contato: email (abre mailto), LinkedIn (abre em nova aba) e calendário opcional (abre em nova aba). Cada botão com cor e estilo próprios.
+> **Quando usar:** Seção de encerramento / CTA — quando o texto termina com um convite ao contato. Sempre no final da narrativa.
+> **Props:** `contact: { email, linkedin, calendar? }`
 
 ---
 
-## LanguageSelector
+## DIAGRAMAS SIMPLES
 
-**Propósito:** Permite alternar entre os idiomas disponíveis.
+### `Diagram`
+Diagrama básico de texto/mono-espaçado dentro de um box. Pode mostrar: um título central destacado, nós como badges/tags em linha, e/ou uma sequência de passos com setas (→).
+> **Quando usar:** Representações esquemáticas simples que não justificam um componente especializado — ex: lista de tecnologias relacionadas a um centro, fluxo linear rápido de 3-5 etapas. Componente "coringa" para visualizações leves.
+> **Quando NÃO usar:** Quando houver relações visuais complexas, comparações estruturadas ou hierarquias — usar os diagramas especializados abaixo.
+> **Props:** `data: { center?, nodes?: string[], steps?: string[] }`
 
-**Formato:** Botões pequenos (EN/PT) no canto superior direito.
+### `FoundationDiagram`
+Layout de três colunas (esquerda, centro, direita) com rótulo eyebrow, label principal e, no centro, uma lista opcional de capacidades. Representa uma estrutura em "tríptico" — dois elementos laterais sustentando ou relacionando-se ao central.
+> **Quando usar:** Quando o texto apresenta uma **proposta de valor de três vias** — ex: "O que tenho (BW) + O que sou (Arquiteto) + O que entrego (Datasphere)". A marca `~Å~` é renderizada no centro, tornando-o específico ao posicionamento do Alexandre.
+> **Quando NÃO usar:** Mais ou menos de três elementos; quando os elementos não têm uma relação centro-lateral.
+> **Props:** `data: { left: {label, eyebrow?}, center: {label, eyebrow?, capabilities?[]}, right: {label, eyebrow?} }`
 
-**Conteúdo esperado:** Recebe languages (código e label), currentLang, onLanguageChange.
+### `RelationshipDiagram`
+Diagrama sujeito-verbo-objeto. Dois painéis laterais (cada um com uma "parede de tijolos" de pills/tags) conectados por um verbo central com linha horizontal e uma frase de significado abaixo.
+> **Quando usar:** Quando o texto articula uma **relação direta entre duas entidades** — ex: "Minha experiência CONECTA o BW legado ao Datasphere moderno". O verbo é o posicionamento; os painéis são os mundos conectados.
+> **Quando NÃO usar:** Mais de duas entidades principais; relações circulares ou múltiplas.
+> **Props:** `subject: {label, items[]}`, `verb: string`, `object: {label, items[]}`, `meaning: string`
 
-**Quando usar:** Em páginas com suporte a múltiplos idiomas.
+### `ConvergenceDiagram`
+Diagrama SVG responsivo de convergência: múltiplos nós posicionados ao redor com linhas apontando para um **centro único**. Os nós se posicionam automaticamente dependendo da quantidade.
+> **Quando usar:** Quando o texto apresenta **múltiplas entradas ou fontes que convergem para um resultado ou papel central** — ex: várias habilidades/experiências que apontam para uma única proposta de valor. Ideal para seções de síntese.
+> **Quando NÃO usar:** Quando os elementos são paralelos e independentes (use `Pillars`); quando há uma sequência (use `Steps` ou `VertFlow`).
+> **Props:** `center: string`, `nodes: string[]`
 
-**Props:**
-- currentLang: Idioma atualmente selecionado (obrigatório)
-- onLanguageChange: Função para mudar o idioma (obrigatório)
-- languages: Lista de idiomas disponíveis (obrigatório)
+### `OrbitDiagram`
+Diagrama SVG interativo de órbita elíptica: um **nó central** com múltiplos nós satélite ao redor, conectados por linhas tracejadas. Cada nó satélite tem ícone, título e descrição. Hover destaca o nó. Suporta um badge de "outcome" abaixo, conectado por funil de chevrons.
+> **Quando usar:** Quando o texto descreve um **elemento central que orbita ou sustenta múltiplas capacidades/dimensões**, e cada dimensão merece nome, ícone e breve descrição. Mais rico que `ConvergenceDiagram` — usar quando os nós precisam de descrição própria.
+> **Quando NÃO usar:** Quando os nós são apenas labels curtos sem descrição (prefira `ConvergenceDiagram`); quando não há um elemento central dominante.
+> **Props:** `center: string`, `nodes: { icon, title, description }[]`, `outcome?: string`, `cycleText?: string`
 
----
-
-## List
-
-**Propósito:** Exibe uma lista de itens com suporte a subitens indentados.
-
-**Formato:** Lista vertical com bullets. Itens podem ter subitens (indentados, com bullet diferente).
-
-**Conteúdo esperado:** Array de objetos com text e subitems (opcional) OU array de strings.
-
-**Quando usar:** Para listas onde itens precisam de subitens aninhados.
-
-**Props:**
-- items: Array de objetos ou strings (obrigatório)
-- className: Classes CSS adicionais
-- bullet: 'disc' | 'dash' | 'none' (padrão: 'disc')
-
----
-
-## Message
-
-**Propósito:** Exibe uma mensagem de destaque como badge centralizado.
-
-**Formato:** Texto em fundo azul escuro, arredondado, centralizado.
-
-**Conteúdo esperado:** String.
-
-**Quando usar:** Para mensagens de conclusão, resumo ou destaque no final de uma seção.
-
-**Props:**
-- text: Texto da mensagem (obrigatório)
-- className: Classes CSS adicionais
+### `BalanceDiagram`
+Diagrama SVG de balança: um box central no topo (ponto de equilíbrio + descrição) com braço horizontal conectando dois painéis de pills abaixo (esquerda e direita). Linhas SVG calculadas a partir das posições reais dos elementos.
+> **Quando usar:** Quando o texto descreve um **papel mediador ou de equilíbrio entre dois mundos** — ex: "Conheço o BW (legado) E o Datasphere (futuro), e isso me coloca no centro". A visualização de balança comunica ponte/mediação.
+> **Quando NÃO usar:** Mais de dois lados; quando não há um ponto central de equilíbrio explícito.
+> **Props:** `data: { left: {label, items[]}, right: {label, items[]}, center: string, balancePoint: string }`
 
 ---
 
-## Navigation
+## FLUXOS E SEQUÊNCIAS
 
-**Propósito:** Navegação fixa com links para as seções da página.
-
-**Formato:** Barra fixa no topo com nome do autor à esquerda, título do pitch centralizado e itens de navegação à direita.
-
-**Conteúdo esperado:** nav.items (label e href), hero.title.
-
-**Quando usar:** Em qualquer página com múltiplas seções.
-
-**Props:**
-- content: Conteúdo do pitch deck (obrigatório)
-- lang: Idioma atual (obrigatório)
+### `VertFlow`
+Fluxo em zigue-zague: os passos são distribuídos em pares por linha (esquerdo / direito), com setas horizontais entre eles e setas verticais para baixo ao final de cada linha. Cria um caminho visual que serpenteia.
+> **Quando usar:** **Sequências de 4 a 8 etapas** onde o zigue-zague ajuda a mostrar que é uma jornada com múltiplas dimensões — ex: camadas de uma arquitetura, fases de uma metodologia complexa. Mais visual e interessante que uma lista linear.
+> **Quando NÃO usar:** Menos de 4 itens (prefira `Steps`); quando a ordem não importa (prefira `Pillars`).
+> **Props:** `steps: string[]`, `title?: string`
 
 ---
 
-## OrbitDiagram
-
-**Propósito:** Diagrama orbital com centro, nós orbitando, ciclo externo e resultado.
-
-**Formato:** SVG com centro em destaque, nós distribuídos em órbita, anel externo com texto de ciclo, e badge de resultado.
-
-**Conteúdo esperado:**
-- center: string
-- nodes: Array de { icon, title, description }
-- outcome: string (opcional)
-- cycleText: string (opcional)
-
-**Quando usar:** Na seção Value para mostrar arquitetura no centro coordenando pilares.
-
-**Props:**
-- center: Texto central (obrigatório)
-- nodes: Array de objetos (obrigatório)
-- outcome: Texto de resultado (opcional)
-- cycleText: Texto do ciclo externo (opcional)
-- className: Classes CSS adicionais
-
----
-
-## Pillars
-
-**Propósito:** Exibe pilares de valor como cards com ícones, títulos e descrições.
-
-**Formato:** Grid responsivo sem métricas. Cada card contém: ícone, título, descrição.
-
-**Conteúdo esperado:** Array de objetos com icon, title, description.
-
-**Quando usar:** Para apresentar pilares de atuação, áreas de valor ou serviços oferecidos.
-
-**Props:**
-- items: Array de pilares (obrigatório)
-- className: Classes CSS adicionais
-- columns: Número de colunas em desktop (2, 3 ou 4) (padrão: 3)
-
----
-
-## Pills
-
-**Propósito:** Exibe tags/pills no final de uma seção como palavras-chave ou conceitos.
-
-**Formato:** Tags arredondadas em linha com fundo claro.
-
-**Conteúdo esperado:** Array de strings.
-
-**Quando usar:** Para listar palavras-chave, conceitos ou tópicos relacionados.
-
-**Props:**
-- items: Array de strings (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## Points
-
-**Propósito:** Exibe uma lista de pontos principais com capitular na primeira letra.
-
-**Formato:** Lista vertical com primeira letra em destaque (semibold, ligeiramente maior).
-
-**Conteúdo esperado:** Array de strings.
-
-**Quando usar:** Para listas de argumentos principais ou pontos centrais de uma seção.
-
-**Props:**
-- items: Array de strings com os pontos (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## Quote
-
-**Propósito:** Exibe uma citação/destaque em formato de blockquote.
-
-**Formato:** Texto centralizado com aspas, em fundo cinza claro.
-
-**Conteúdo esperado:** String.
-
-**Quando usar:** Para destacar uma frase, citação ou insight importante.
-
-**Props:**
-- text: Texto da citação (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## RelationshipDiagram
-
-**Propósito:** Exibe um diagrama de relação entre Subject e Object com Verb no centro.
-
-**Formato:** Três colunas: Subject (esquerda) → Verb (centro) → Object (direita), com itens como tags.
-
-**Conteúdo esperado:**
-- subject: { label: string; items: string[] }
-- verb: string
-- object: { label: string; items: string[] }
-- meaning: string
-
-**Quando usar:** Para mostrar relação entre dois conceitos (ex: Technology amplifies Architecture).
-
-**Props:**
-- subject: Objeto com label e items (obrigatório)
-- verb: String (obrigatório)
-- object: Objeto com label e items (obrigatório)
-- meaning: String (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## ResolutionBadge
-
-**Propósito:** Exibe a resolução atual da tela como evidência de responsividade.
-
-**Formato:** Badge fixo no canto inferior esquerdo com informações de tamanho e dispositivo.
-
-**Conteúdo esperado:** Nenhum (detecta automaticamente).
-
-**Quando usar:** Em qualquer página para demonstrar responsividade.
-
-**Props:** Nenhuma.
-
----
-
-## SAPPerspective
-
-**Propósito:** Exibe a perspectiva SAP sobre o conteúdo da seção.
-
-**Formato:** Bloco com fundo claro, borda à esquerda em teal, com label "SAP Perspective".
-
-**Conteúdo esperado:** String ou array de strings (exibido em linha única separado por bullet).
-
-**Quando usar:** Para fornecer contexto SAP específico sobre qualquer tópico.
-
-**Props:**
-- text: Texto ou array de textos (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## Steps
-
-**Propósito:** Exibe uma lista de passos ou etapas em formato de cards numerados.
-
-**Formato:** Grid responsivo com cards. Cada card contém: número, título do passo e descrição.
-
-**Conteúdo esperado:** Array de objetos com step (título) e description.
-
-**Quando usar:** Para apresentar metodologias, processos ou fluxos de trabalho passo a passo.
-
-**Props:**
-- items: Array de steps (obrigatório)
-- className: Classes CSS adicionais
-- columns: Número de colunas em desktop (2, 3 ou 4) (padrão: 4)
-
----
-
-## Tags
-
-**Propósito:** Exibe tags no Hero com bullets.
-
-**Formato:** Lista em linha com bullets coloridos (teal).
-
-**Conteúdo esperado:** Array de strings.
-
-**Quando usar:** No Hero, para listar características ou atributos principais.
-
-**Props:**
-- items: Array de strings (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## Tradeoffs
-
-**Propósito:** Exibe trade-offs como pares de conceitos opostos.
-
-**Formato:** Grid com cada trade-off em um card, mostrando left ↔ right.
-
-**Conteúdo esperado:** Array de arrays [left, right].
-
-**Quando usar:** Para listar trade-offs arquiteturais (ex: Consistency vs Local Autonomy).
-
-**Props:**
-- items: Array de [left, right] (obrigatório)
-- className: Classes CSS adicionais
-
----
-
-## Resumo dos critérios de escolha
-
-| Componente          | Quando escolher                        |
-| ------------------- | -------------------------------------- |
-| Points              | Lista de argumentos principais         |
-| CompactPoints       | Lista de pontos secundários            |
-| List                | Lista com subitens aninhados           |
-| Cards               | Evidências com métricas                |
-| Pillars             | Pilares de valor (sem métricas)        |
-| Steps               | Processo/método passo a passo          |
-| Diagram             | Representação visual de conceitos      |
-| Quote               | Destaque/citação importante            |
-| Message             | Mensagem de conclusão                  |
-| Pills               | Palavras-chave/tags                    |
-| SAPPerspective      | Contexto SAP específico                |
-| ArchitectureModel   | Modelo de transição arquitetural       |
-| ArchitectureBalance | Contraste entre dois conceitos         |
-| RelationshipDiagram | Relação Subject → Verb → Object        |
-| OrbitDiagram        | Diagrama orbital com centro e pilares  |
-| ConvergenceDiagram  | Convergência de nós para um centro     |
-| Tradeoffs           | Pares de conceitos opostos             |
-| VertFlow            | Fluxo vertical de passos               |
-| EvidenceCases       | Casos com Problem → Decision → Outcome |
+## TABELA DE DECISÃO RÁPIDA
+
+| O texto está fazendo…                                     | Componente recomendado       |
+| --------------------------------------------------------- | ---------------------------- |
+| Apresentar uma frase de impacto / tese central            | `Quote`                      |
+| Convidar ao contato / encerrar com CTA curto              | `Message` + `ContactButtons` |
+| Observação técnica SAP de nicho                           | `SAPPerspective`             |
+| Listar habilidades curtas / tecnologias                   | `Pills`                      |
+| Listar atributos discretos como complemento               | `Tags`                       |
+| Listar itens com frases completas (± subitens)            | `List`                       |
+| Listar argumentos onde 1ª palavra é âncora                | `Points` / `CompactPoints`   |
+| Apresentar pilares conceituais / áreas paralelas          | `Pillars`                    |
+| Apresentar resultados com métricas                        | `Cards`                      |
+| Apresentar processo / metodologia sequencial              | `Steps`                      |
+| Narrar casos reais problema → solução → resultado         | `EvidenceCases`              |
+| Mostrar tensões / trade-offs entre pares                  | `Tradeoffs`                  |
+| Mostrar múltiplas entradas convergindo para um centro     | `ConvergenceDiagram`         |
+| Mostrar um centro com satélites descritos (ícone + texto) | `OrbitDiagram`               |
+| Mostrar papel de equilíbrio / ponte entre dois mundos     | `BalanceDiagram`             |
+| Mostrar relação sujeito-verbo-objeto entre duas entidades | `RelationshipDiagram`        |
+| Apresentar proposta de valor em três vias (tríptico)      | `FoundationDiagram`          |
+| Mostrar sequência 4–8 etapas em zigue-zague               | `VertFlow`                   |
+| Representação esquemática leve sem componente específico  | `Diagram`                    |
+| Animar entrada de qualquer bloco ao scroll                | `AnimatedSection` (wrapper)  |

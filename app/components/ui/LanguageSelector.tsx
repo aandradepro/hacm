@@ -1,5 +1,6 @@
 'use client';
 
+
 import { Language } from '@/types';
 
 interface LanguageSelectorProps {

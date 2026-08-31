@@ -1010,3 +1010,73 @@ body {
         gap: 12px;
     }
 }
+
+/* app/globals.css - Adicione no final do arquivo */
+
+/* Estilos para impressão - otimizados para pdf */
+@media print {
+
+    /* Esconder elementos que não devem aparecer no PDF */
+    nav,
+    .fixed,
+    .print\:hidden,
+    .fixed\:top-4,
+    .fixed\:bottom-6,
+    footer,
+    .mt-12 .flex .gap-4 a,
+    .mt-12 .flex .gap-4 button {
+        display: none !important;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: white !important;
+    }
+
+    main {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    #case-study {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Quebras de página */
+    h1,
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    /* Cores consistentes na impressão */
+    .print-color-blue {
+        color: #0F4C8A !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .print-color-teal {
+        color: #00B4A0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .print-bg-light {
+        background-color: #F8FAFC !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .print-border {
+        border-color: #E8EEF4 !important;
+    }
+
+    .print-text-dark {
+        color: #2D3748 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

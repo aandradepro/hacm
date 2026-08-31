@@ -3,13 +3,20 @@
 interface PointsProps {
     items?: string[];
     className?: string;
+    align?: 'left' | 'center' | 'right';
 }
 
-export default function Points({ items, className = '' }: PointsProps) {
+export default function Points({ items, className = '', align = 'left' }: PointsProps) {
     if (!items || items.length === 0) return null;
 
+    const alignClass = {
+        left: 'text-left',
+        center: 'text-center',
+        right: 'text-right',
+    };
+
     return (
-        <div className={`space-y-4 max-w-4xl ${className}`}>
+        <div className={`space-y-4 max-w-4xl ${alignClass[align]} ${className}`}>
             {items.map((item, index) => {
                 // Pega a primeira letra e o resto do texto
                 const firstChar = item.charAt(0);

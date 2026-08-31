@@ -1,0 +1,344 @@
+{
+    "page": {
+        "id": "moving-kpi-processing-out-of-the-reporting-layer",
+        "pageType": "case-study-overview",
+        "language": "en",
+        "title": "Moving KPI Processing Out of the Reporting Layer"
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Problem",
+                "href": "#problem"
+            },
+            {
+                "label": "Decision",
+                "href": "#decision"
+            },
+            {
+                "label": "Metadata",
+                "href": "#metadata"
+            },
+            {
+                "label": "Results",
+                "href": "#results"
+            },
+            {
+                "label": "Takeaway",
+                "href": "#takeaway"
+            },
+            {
+                "label": "Contact",
+                "href": "#cta"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "badge": "Hero",
+                "title": "Moving KPI Processing Out of the Reporting Layer",
+                "subtitle": "How a metadata-driven architecture reduced report-time processing and created a reusable KPI layer inside SAP BW.",
+                "heading": "Enterprise analytics case study",
+                "brand": "~Å~",
+                "tags": {
+                    "componentType": "tags",
+                    "content": {
+                        "items": [
+                            "SAP BW / NetWeaver",
+                            "~1,800 corporate KPIs",
+                            "Metadata-driven architecture"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "problem",
+            "content": {
+                "badge": "The Problem",
+                "title": "When every report calculates the same business logic",
+                "subtitle": "As reports grew, BEx Workbooks accumulated multiple queries, KPIs, MultiProviders and filters.",
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "The reporting layer had become responsible for too much processing."
+                    }
+                },
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Complex KPI formulas were embedded in BEx Queries.",
+                            "Formulas were replicated across different MultiProviders.",
+                            "Each report execution repeated part of the same selection and calculation work.",
+                            "A significant amount of processing was concentrated at report execution time."
+                        ]
+                    }
+                },
+                "actual": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Actual",
+                        "steps": [
+                            "Sources",
+                            "InfoCubes",
+                            "MultiProviders",
+                            "BEx Queries",
+                            "BEx Workbooks"
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "The bottleneck was where the processing happened."
+                    }
+                }
+            }
+        },
+        {
+            "id": "decision",
+            "content": {
+                "badge": "The Architectural Decision",
+                "title": "Move the work upstream",
+                "subtitle": "The architecture moved as much processing as possible out of report execution and introduced a dedicated KPI layer between SAP BW persistence and reporting.",
+                "before": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Before",
+                        "steps": [
+                            "BW Persistence",
+                            "BEx Queries",
+                            "Reports"
+                        ]
+                    }
+                },
+                "after": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "After",
+                        "steps": [
+                            "BW Persistence",
+                            "Calculation Engine",
+                            "KPI Layer",
+                            "BEx Queries",
+                            "Reports"
+                        ]
+                    }
+                },
+                "common": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "BW Persistence",
+                        "steps": [
+                            "Sources",
+                            "InfoCubes",
+                            "MultiProviders"
+                        ]
+                    }
+                },
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "Calculate once. Reuse across reports."
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "The solution was developed entirely within the SAP BW environment, using SAP NetWeaver capabilities. No external platform was introduced to implement the engine, store the KPIs or manage their definitions."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "metadata",
+            "content": {
+                "badge": "The Metadata Decision",
+                "title": "The new layer needed a scalable way to define KPIs",
+                "subtitle": "Once processing was moved upstream, the next architectural question was how to define and execute thousands of indicators without creating one implementation for each KPI.",
+                "orbit": {
+                    "componentType": "orbitDiagram",
+                    "content": {
+                        "center": "KPI Metadata",
+                        "nodes": [
+                            {
+                                "icon": "",
+                                "title": "Formula",
+                                "description": "Defines how the KPI is calculated from other indicators."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Dependencies",
+                                "description": "Defines the indicator hierarchy and processing order."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Filters",
+                                "description": "Defines the business selections used by the indicator."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Drill-downs",
+                                "description": "Defines the dimensions available for analytical analysis."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Time Perspectives",
+                                "description": "Supports Month, Fiscal Year, YTD and other relevant time views."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Processing Level",
+                                "description": "Determines when the indicator can be calculated from its dependencies."
+                            }
+                        ],
+                        "outcome": "Calculation Engine → KPI Results"
+                    }
+                },
+                "cards": {
+                    "componentType": "cards",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "A deliberate exception",
+                                "description": "Level 0 indicators were obtained through specifically structured BEx Queries. These indicators contained only filters over the InfoCubes. From that point onward, the Calculation Engine interpreted the metadata and calculated subsequent levels.",
+                                "impact": ""
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "The metadata also became human-readable",
+                                "description": "The Calculation Tree provided a graphical HTML representation of a KPI's formula, dependencies and selections, allowing analysts to inspect and validate its definition.",
+                                "impact": ""
+                            }
+                        ],
+                        "columns": 2
+                    }
+                }
+            }
+        },
+        {
+            "id": "results",
+            "content": {
+                "badge": "Results",
+                "title": "A new processing layer changed the operating model",
+                "cards": {
+                    "componentType": "cards",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Common KPI architecture",
+                                "description": "The solution centralized the definition and processing of approximately 1,800 corporate indicators.",
+                                "impact": "All platform reports used the KPI layer."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Platform-wide adoption",
+                                "description": "The new KPI layer became the common source for reports across the platform.",
+                                "impact": "Calculated results could be reused across consumers."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Simpler KPI maintenance",
+                                "description": "Higher-level KPI changes no longer required modifications to BEx Queries.",
+                                "impact": "The maintenance path moved from presentation objects to metadata."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Simpler deployment",
+                                "description": "Higher-level KPI changes no longer required transporting BEx Query changes between environments.",
+                                "impact": "Update tracking became KPI-based."
+                            }
+                        ],
+                        "columns": 2
+                    }
+                },
+                "improvements": {
+                    "title": "Observed improvements",
+                    "listImprovements": {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Considerable improvement in report execution time.",
+                                "Considerable improvement in overall processing time.",
+                                "Considerable reduction in the number of queries required by reports.",
+                                "Considerable reduction in processing performed by the BEx layer.",
+                                "Considerable reduction in the effort required to change and maintain KPIs."
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "takeaway",
+            "content": {
+                "badge": "Architectural Takeaway",
+                "title": "The deeper lesson",
+                "subtitle": "When analytical logic is repeatedly executed at consumption time, the architecture should question whether that processing belongs there.",
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Move recurring processing upstream when calculated results can be broadly reused.",
+                            "Use a dedicated analytical layer to separate processing from consumption.",
+                            "Use metadata to scale business rules without creating an independent implementation for every KPI.",
+                            "Make business definitions useful to both machines and people."
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "The original technology was SAP BW/NetWeaver. The architectural principle extends beyond the platform: determine where computation belongs, identify what can be reused, and represent business rules in a sustainable form."
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "Architecture determines where analytical complexity lives."
+                    }
+                }
+            }
+        },
+        {
+            "id": "cta",
+            "content": {
+                "badge": "Full Case Study",
+                "title": "Want the architectural details?",
+                "subtitle": "Read the complete case study covering the problem, alternatives, trade-offs, implementation and organizational results.",
+                "button": {
+                    "label": "Read the full case study",
+                    "href": "/mini-cases/metadata-calculation-architecture/case-study"
+                }
+            }
+        },
+        {
+            "id": "footer",
+            "content": {
+                "text": "Enterprise Analytics Architecture",
+                "brand": "~Å~"
+            }
+        }
+    ]
+}

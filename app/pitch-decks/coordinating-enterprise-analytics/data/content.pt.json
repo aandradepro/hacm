@@ -1,4 +1,11 @@
 {
+    "page": {
+        "id": "coordinating-enterprise-analytics",
+        "pageType": "pitch-deck",
+        "language": "pt",
+        "title": "Coordenando Analytics Empresarial",
+        "filename": "coordenando-analytics-empresarial"
+    },
     "nav": {
         "items": [
             {
@@ -27,224 +34,336 @@
             }
         ]
     },
-    "hero": {
-        "title": "Coordenando Analytics Empresarial",
-        "subtitle": "Uma perspectiva arquitetural sobre consistência semântica, governança e modernização",
-        "heading": "Arquitetura de Dados Empresarial",
-        "tags": [
-            "Consistência Semântica",
-            "Governança",
-            "Modernização"
-        ],
-        "brand": "~Å~"
-    },
-    "problem": {
-        "badge": "O Desafio",
-        "title": "Analytics empresarial raramente falha por causa da tecnologia.",
-        "subtitle": "Falha porque as organizações perdem o controle sobre o significado.",
-        "list": [
-            "À medida que as organizações crescem, as capacidades analíticas evoluem de forma independente.",
-            "Unidades de negócio criam KPIs diferentes.",
-            "Projetos implementam regras de negócio diferentes.",
-            "Plataformas evoluem em velocidades diferentes.",
-            "A governança se torna fragmentada.",
-            "A tecnologia continua a escalar.",
-            "A confiança do negócio não."
-        ],
-        "message": "Arquitetura existe para coordenar significado antes que os sistemas coordenem dados.",
-        "sapPerspective": [
-            "O mesmo desafio aparece durante iniciativas de modernização SAP envolvendo BW, Datasphere e Business Data Cloud, mas é fundamentalmente um problema de arquitetura empresarial, não um problema de produto."
-        ],
-        "convergence": {
-            "center": "Significado Empresarial",
-            "nodes": [
-                "Unidades de Negócio",
-                "Times de Analytics",
-                "Operações Regionais",
-                "Plataformas Cloud",
-                "IA",
-                "Parceiros"
-            ]
-        }
-    },
-    "thesis": {
-        "badge": "A Tese Arquitetural",
-        "title": "A coordenação arquitetural vem antes da seleção de plataforma.",
-        "subtitle": "Toda arquitetura analítica deve responder a quatro perguntas antes de selecionar tecnologia.",
-        "list": [
-            {
-                "text": "Quem é o dono do significado de negócio?"
-            },
-            {
-                "text": "Quais ativos analíticos devem se tornar reutilizáveis?"
-            },
-            {
-                "text": "Quais decisões devem permanecer centralizadas?"
-            },
-            {
-                "text": "Quais trade-offs são intencionais?",
-                "subitems": [
-                    "Consistência versus Autonomia Local",
-                    "Governança versus Agilidade",
-                    "Performance versus Manutenibilidade",
-                    "Padronização versus Inovação"
-                ]
-            }
-        ],
-        "message": "A tecnologia deve implementar essas respostas. Não defini-las.",
-        "sapPerspective": [
-            "Capacidades como Business Data Cloud, Datasphere e Data Products entregam maior valor quando as decisões arquiteturais já existem."
-        ],
-        "vertFlow": {
-            "title": "Caminho Arquitetural",
-            "steps": [
-                "Estratégia de Negócio",
-                "Semântica de Negócio",
-                "Governança",
-                "Ativos Analíticos Reutilizáveis",
-                "Plataforma Tecnológica"
-            ]
-        }
-    },
-    "evidence": {
-        "badge": "Evidências",
-        "title": "Arquitetura se prova através da permanência organizacional.",
-        "cards": [
-            {
-                "icon": "🌎",
-                "title": "Template SAP Global com Adaptações Locais",
-                "metric": "9",
-                "metricLabel": "países da LATAM integrados",
-                "industry": "Construção e Materiais",
-                "description": "Nove países da América Latina operando o mesmo sistema regional de Data Analytics, compartilhando definições de dados.",
-                "impact": "Template Global | Adaptação Local | Escala"
-            },
-            {
-                "icon": "📊",
-                "title": "Arquitetura de Analytics Self-Service",
-                "metric": "50+",
-                "metricLabel": "usuários de campo habilitados",
-                "industry": "Indústria Química",
-                "description": "Equipes de campo precisavam de acesso off-line a dados de clientes e vendas.",
-                "impact": "Self-Service | Agilidade | Autonomia"
-            },
-            {
-                "icon": "🔄",
-                "title": "Descomissionamento com Continuidade de Negócio",
-                "metric": "100%",
-                "metricLabel": "continuidade de negócio preservada",
-                "industry": "Indústria Química",
-                "description": "Ambientes de Data Analytics precisavam ser descontinuados preservando conhecimento histórico de negócio.",
-                "impact": "Continuidade | Conformidade | Preservação"
-            }
-        ],
-        "message": "Arquitetura sustentável sobrevive à mudança organizacional.",
-        "sapPerspective": [
-            "Embora implementadas em ambientes SAP, essas decisões arquiteturais são independentes de plataforma e aplicáveis em ecossistemas analíticos empresariais."
-        ]
-    },
-    "architecture": {
-        "badge": "Arquitetura Moderna",
-        "title": "A tecnologia moderna aumenta a alavancagem arquitetural.",
-        "subtitle": "A responsabilidade arquitetural continua essencial.",
-        "relationship": {
-            "subject": {
-                "label": "Tecnologia",
-                "items": [
-                    "Inteligência Artificial",
-                    "Lakehouse",
-                    "Data Products",
-                    "Cloud Analytics",
-                    "Integração Zero-copy",
-                    "Camadas Semânticas",
-                    "Data Fabric",
-                    "Data Mesh"
-                ]
-            },
-            "verb": "amplifica",
-            "object": {
-                "label": "Arquitetura",
-                "items": [
-                    "Propriedade de Negócio",
-                    "Semântica Compartilhada",
-                    "Governança",
-                    "Confiança",
-                    "Gestão de Ciclo de Vida",
-                    "Decisões Arquiteturais"
-                ]
-            },
-            "meaning": "A tecnologia moderna aumenta a alavancagem das decisões arquiteturais."
-        },
-        "quote": "A tecnologia moderna aumenta a alavancagem arquitetural. Ela não elimina a responsabilidade arquitetural.",
-        "sapPerspective": [
-            "SAP Business Data Cloud, Datasphere e SAP Analytics Cloud fortalecem ativos analíticos governados, reuso semântico e propriedade de negócio — mas nenhum substitui a arquitetura empresarial."
-        ]
-    },
-    "value": {
-        "badge": "Valor de Negócio",
-        "title": "Habilitando modernização sustentável.",
-        "subtitle": "Organizações raramente precisam de outra implementação.",
-        "emphasis": "Elas precisam de coordenação arquitetural.",
-        "orbit": {
-            "center": "Arquitetura",
-            "nodes": [
-                {
-                    "icon": "🏛️",
-                    "title": "Estrutura",
-                    "description": "Projetar modelos operacionais analíticos empresariais e fortalecer a governança em organizações distribuídas."
-                },
-                {
-                    "icon": "🔗",
-                    "title": "Semântica",
-                    "description": "Estabelecer definições compartilhadas, reduzir a fragmentação semântica e transformar ativos locais em capacidades empresariais."
-                },
-                {
-                    "icon": "🗺️",
-                    "title": "Evolução",
-                    "description": "Conectar investimentos legados a plataformas modernas por meio de roadmaps claros e decisões arquiteturais."
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "title": "Coordenando Analytics Empresarial",
+                "subtitle": "Uma perspectiva arquitetural sobre consistência semântica, governança e modernização",
+                "heading": "Arquitetura de Dados Empresarial",
+                "brand": "~Å~",
+                "tags": {
+                    "componentType": "tags",
+                    "content": {
+                        "items": [
+                            "Consistência Semântica",
+                            "Governança",
+                            "Modernização"
+                        ]
+                    }
                 }
-            ],
-            "outcome": "Analytics Empresarial Governado",
-            "cycleText": "Modernização Contínua"
-        },
-        "message": "A modernização da tecnologia só é bem-sucedida quando a arquitetura organizacional evolui no mesmo ritmo.",
-        "sapPerspective": [
-            "Igualmente aplicável a ecossistemas SAP e não SAP, incluindo ambientes híbridos que combinam Business Data Cloud, Datasphere e plataformas analíticas de terceiros."
-        ]
-    },
-    "cta": {
-        "badge": "Próximos Passos",
-        "title": "Coordene Seus Analytics Empresariais",
-        "pillars": [
-            {
-                "icon": "🏛️",
-                "title": "Governança Arquitetural",
-                "description": "Definir e fortalecer as estruturas de governança que mantêm o analytics alinhado à estratégia de negócio."
-            },
-            {
-                "icon": "🔗",
-                "title": "Coordenação Semântica",
-                "description": "Reduzir a fragmentação e estabelecer significado compartilhado entre unidades de negócio e plataformas analíticas."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Roadmaps de Modernização",
-                "description": "Conectar investimentos legados a plataformas modernas por meio de planejamento arquitetural claro e acionável."
             }
-        ],
-        "sapPerspective": [
-            "Programas de modernização se beneficiam de análise semântica estruturada e harmonização de KPIs como pré-requisito para um core limpo.",
-            "Data Products e camadas semânticas são definidos na arquitetura antes da seleção de plataformas.",
-            "Ambientes analíticos híbridos conectam ferramentas SAP e não SAP por meio de definições compartilhadas que viabilizam self-service analytics sem abrir mão da governança."
-        ],
-        "contact": {
-            "email": "aandradepro@aandradepro.com",
-            "linkedin": "https://www.linkedin.com/in/aandradepro/",
-            "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+        },
+        {
+            "id": "problem",
+            "content": {
+                "badge": "O Desafio",
+                "title": "Analytics empresarial raramente falha por causa da tecnologia.",
+                "subtitle": "Falha porque as organizações perdem o controle sobre o significado.",
+                "list": {
+                    "componentType": "list",
+                    "content": {
+                        "items": [
+                            "À medida que as organizações crescem, as capacidades analíticas evoluem independentemente.",
+                            "Unidades de negócio criam KPIs diferentes.",
+                            "Projetos implementam regras de negócio diferentes.",
+                            "Plataformas evoluem em velocidades diferentes.",
+                            "A governança se torna fragmentada.",
+                            "A tecnologia continua a escalar.",
+                            "A confiança do negócio não."
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "A arquitetura existe para coordenar significado antes que os sistemas coordenem dados."
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "O mesmo desafio aparece durante iniciativas de modernização SAP envolvendo BW, Datasphere e Business Data Cloud, mas é fundamentalmente um problema de arquitetura empresarial, não um problema de produto."
+                        ]
+                    }
+                },
+                "convergence": {
+                    "componentType": "convergenceDiagram",
+                    "content": {
+                        "center": "Significado Empresarial",
+                        "nodes": [
+                            "Unidades de Negócio",
+                            "Times de Analytics",
+                            "Operações Regionais",
+                            "Plataformas Cloud",
+                            "IA",
+                            "Parceiros"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "thesis",
+            "content": {
+                "badge": "A Tese Arquitetural",
+                "title": "A coordenação arquitetural vem antes da seleção de plataforma.",
+                "subtitle": "Toda arquitetura analítica deve responder a quatro perguntas antes de selecionar tecnologia.",
+                "list": {
+                    "componentType": "list",
+                    "content": {
+                        "items": [
+                            "Quem é o dono do significado de negócio?",
+                            "Quais ativos analíticos devem se tornar reutilizáveis?",
+                            "Quais decisões devem permanecer centralizadas?",
+                            {
+                                "text": "Quais trade-offs são intencionais?",
+                                "subitems": [
+                                    "Consistência versus Autonomia Local",
+                                    "Governança versus Agilidade",
+                                    "Performance versus Manutenibilidade",
+                                    "Padronização versus Inovação"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "Uma boa arquitetura torna as decisões organizacionais explícitas antes que as decisões técnicas se tornem permanentes."
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "Capacidades como Business Data Cloud, Datasphere e Data Products entregam maior valor quando as decisões arquiteturais já existem."
+                        ]
+                    }
+                },
+                "flowVDiagram": {
+                    "componentType": "flowVDiagram",
+                    "content": {
+                        "title": "Caminho Arquitetural",
+                        "steps": [
+                            "Estratégia de Negócio",
+                            "Semântica de Negócio",
+                            "Governança",
+                            "Ativos Analíticos Reutilizáveis",
+                            "Plataforma Tecnológica"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "evidence",
+            "content": {
+                "badge": "Evidências",
+                "title": "A arquitetura se prova através da permanência organizacional.",
+                "cards": {
+                    "componentType": "cards",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "🌎",
+                                "title": "Template Global SAP com Adaptações Locais",
+                                "metric": "9",
+                                "metricLabel": "países LATAM integrados",
+                                "industry": "Construção e Materiais",
+                                "description": "Nove países da América Latina rodando o mesmo sistema regional de Data Analytics, compartilhando definições de dados.",
+                                "impact": "Template Global | Adaptação Local | Escala"
+                            },
+                            {
+                                "icon": "📊",
+                                "title": "Arquitetura de Analytics Self-Service",
+                                "metric": "50+",
+                                "metricLabel": "usuários de campo habilitados",
+                                "industry": "Indústria Química",
+                                "description": "Times de campo precisavam de acesso offline a dados de clientes e vendas.",
+                                "impact": "Self-Service | Agilidade | Autonomia"
+                            },
+                            {
+                                "icon": "🔄",
+                                "title": "Descomissionamento de Sistema com Continuidade de Negócio",
+                                "metric": "100%",
+                                "metricLabel": "continuidade de negócio preservada",
+                                "industry": "Indústria Química",
+                                "description": "Ambientes de Data Analytics precisavam ser descomissionados enquanto preservavam o conhecimento histórico de negócio.",
+                                "impact": "Continuidade | Compliance | Preservação"
+                            }
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "A arquitetura sustentável sobrevive à mudança organizacional."
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "Embora implementadas em ambientes SAP, essas decisões arquiteturais são independentes de plataforma e aplicáveis em ecossistemas de analytics empresarial."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "architecture",
+            "content": {
+                "badge": "Arquitetura Moderna",
+                "title": "A tecnologia moderna aumenta a alavancagem arquitetural.",
+                "subtitle": "A responsabilidade arquitetural permanece essencial.",
+                "relationship": {
+                    "componentType": "relationshipDiagram",
+                    "content": {
+                        "subject": {
+                            "label": "Tecnologia",
+                            "items": [
+                                "Inteligência Artificial",
+                                "Lakehouse",
+                                "Produtos de Dados",
+                                "Analytics em Cloud",
+                                "Integração Zero-copy",
+                                "Camadas Semânticas",
+                                "Data Fabric",
+                                "Data Mesh"
+                            ]
+                        },
+                        "verb": "amplifica",
+                        "object": {
+                            "label": "Arquitetura",
+                            "items": [
+                                "Propriedade de Negócio",
+                                "Semântica Compartilhada",
+                                "Governança",
+                                "Confiança",
+                                "Gerenciamento de Ciclo de Vida",
+                                "Decisões Arquiteturais"
+                            ]
+                        },
+                        "meaning": "A tecnologia moderna aumenta a alavancagem das decisões arquiteturais."
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "A tecnologia moderna aumenta a alavancagem arquitetural. Ela não elimina a responsabilidade arquitetural."
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "SAP Business Data Cloud, Datasphere e SAP Analytics Cloud fortalecem ativos analíticos governados, reuso semântico e propriedade de negócio — mas nenhum substitui a arquitetura empresarial."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "value",
+            "content": {
+                "badge": "Valor de Negócio",
+                "title": "Viabilizando modernização sustentável.",
+                "subtitle": "Organizações raramente precisam de outra implementação.",
+                "emphasis": "Elas precisam de coordenação arquitetural.",
+                "orbit": {
+                    "componentType": "orbitDiagram",
+                    "content": {
+                        "center": "Arquitetura",
+                        "nodes": [
+                            {
+                                "icon": "🏛️",
+                                "title": "Estrutura",
+                                "description": "Projetar modelos operacionais analíticos empresariais e fortalecer a governança em organizações distribuídas."
+                            },
+                            {
+                                "icon": "🔗",
+                                "title": "Semântica",
+                                "description": "Estabelecer definições compartilhadas, reduzir fragmentação semântica e transformar ativos locais em capacidades empresariais."
+                            },
+                            {
+                                "icon": "🗺️",
+                                "title": "Evolução",
+                                "description": "Conectar investimentos legados a plataformas modernas através de roteiros claros e decisões arquiteturais."
+                            }
+                        ],
+                        "outcome": "Analítica Empresarial Governada",
+                        "cycleText": "Modernização Contínua"
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "A modernização tecnológica só tem sucesso quando a arquitetura organizacional evolui no mesmo ritmo."
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "Igualmente aplicável a ecossistemas SAP e não-SAP, incluindo ambientes híbridos que combinam Business Data Cloud, Datasphere e plataformas analíticas de terceiros."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "cta",
+            "content": {
+                "badge": "Próximos Passos",
+                "title": "Coordene Seu Analytics Empresarial",
+                "pillars": {
+                    "componentType": "pillars",
+                    "content": {
+                        "items": [
+                            {
+                                "icon": "🏛️",
+                                "title": "Governança Arquitetural",
+                                "description": "Definir e fortalecer as estruturas de governança que mantêm a analítica alinhada com a estratégia de negócio."
+                            },
+                            {
+                                "icon": "🔗",
+                                "title": "Coordenação Semântica",
+                                "description": "Reduzir fragmentação e estabelecer significado compartilhado entre unidades de negócio e plataformas analíticas."
+                            },
+                            {
+                                "icon": "🗺️",
+                                "title": "Roteiros de Modernização",
+                                "description": "Conectar investimentos legados a plataformas modernas através de planejamento arquitetural claro e acionável."
+                            }
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "Programas de modernização se beneficiam de análise semântica estruturada e harmonização de KPIs como pré-requisito para um clean core.",
+                            "Produtos de Dados e camadas semânticas são definidos dentro da arquitetura antes que as plataformas sejam selecionadas.",
+                            "Ambientes analíticos híbridos conectam ferramentas SAP e não-SAP através de definições compartilhadas que permitem analytics self-service sem sacrificar a governança."
+                        ]
+                    }
+                },
+                "contact": {
+                    "email": "aandradepro@aandradepro.com",
+                    "linkedin": "https://www.linkedin.com/in/aandradepro/",
+                    "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+                }
+            }
+        },
+        {
+            "id": "footer",
+            "content": {
+                "text": "Arquitetura de Analytics Empresarial · Governança Semântica · Transformação SAP",
+                "brand": "~Å~"
+            }
         }
-    },
-    "footer": {
-        "text": "Coordenando Analytics Empresarial · Arquitetura · Governança · Modernização",
-        "brand": "~Å~"
-    }
+    ]
 }

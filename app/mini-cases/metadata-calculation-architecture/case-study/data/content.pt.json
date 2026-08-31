@@ -1,0 +1,252 @@
+{
+    "page": {
+        "id": "metadata-driven-kpi-calculation-architecture",
+        "pageType": "case-study-detail",
+        "language": "pt",
+        "title": "",
+        "filename": "arquitetura-kpi-calculo-orientado-metadado-detalhado"
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Caso de Estudo",
+                "href": "#case-study"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "badge": "Hero",
+                "title": "Arquitetura de Cálculo de KPIs Orientada por Metadados",
+                "subtitle": "Um caso de estudo sobre como mover o processamento de KPIs para fora da camada de relatórios.",
+                "heading": "Caso de estudo de analytics empresarial",
+                "brand": "~Å~",
+                "tags": []
+            }
+        },
+        {
+            "id": "1-organizational-context",
+            "content": {
+                "heading": "1. Contexto Organizacional",
+                "items": [
+                    "Uma plataforma corporativa de Business Intelligence, construída sobre SAP BW, era utilizada para produzir relatórios executivos para diferentes áreas de negócio e países.",
+                    "À medida que a plataforma evoluía, os relatórios acumulavam um número crescente de BEx Queries e KPIs. Um único workbook podia usar várias queries; cada query podia trabalhar com múltiplos KPIs, MultiProviders, InfoCubes e filtros.",
+                    "O modelo funcionava, mas a quantidade de processamento necessária para gerar os relatórios começou a resultar em altos tempos de resposta."
+                ]
+            }
+        },
+        {
+            "id": "2-the-real-problem",
+            "content": {
+                "heading": "2. O Problema Real",
+                "items": [
+                    "Os KPIs eram calculados principalmente durante a execução do relatório.",
+                    {
+                        "componentType": "flowHDiagram",
+                        "content": {
+                            "title": "",
+                            "steps": [
+                                "Fontes",
+                                "InfoCubes",
+                                "MultiProviders",
+                                "BEx Queries",
+                                "BEx Workbooks"
+                            ]
+                        }
+                    },
+                    "As BEx Queries lidavam com seleção de dados, filtragem e cálculos de KPI. Alguns KPIs continham fórmulas compostas por vários outros KPIs. Como a arquitetura usava múltiplos MultiProviders, essas fórmulas precisavam ser replicadas em diferentes queries.",
+                    "O problema tornou-se mais significativo porque cada relatório podia executar várias queries, com cada query repetindo parte das seleções e cálculos necessários.",
+                    "Como resultado, uma quantidade significativa de processamento estava concentrada no momento em que o usuário solicitava um relatório."
+                ]
+            }
+        },
+        {
+            "id": "3-architectural-ambiguity",
+            "content": {
+                "heading": "3. Ambiguidade Arquitetural",
+                "items": [
+                    "A principal decisão arquitetural dizia respeito a onde o processamento deveria ocorrer.",
+                    "Uma opção era continuar usando a camada BEx para realizar cálculos e seleções durante a execução do relatório.",
+                    "Outra opção era mover o máximo de processamento possível para um estágio anterior, criando uma nova camada entre os objetos de persistência do SAP BW e os objetos de apresentação.",
+                    "Esta segunda opção exigia a introdução de uma nova camada de dados persistente e a determinação de como seus dados seriam produzidos.",
+                    "O objetivo era reduzir o trabalho repetidamente realizado durante a execução de relatórios e tornar os dados já preparados para análise disponíveis para os consumidores."
+                ]
+            }
+        },
+        {
+            "id": "4-architectural-decision",
+            "content": {
+                "heading": "4. Decisão Arquitetural",
+                "items": [
+                    "Uma camada dedicada de KPI foi criada:",
+                    {
+                        "componentType": "flowHDiagram",
+                        "content": {
+                            "title": "",
+                            "steps": [
+                                "Fontes",
+                                "InfoCubes",
+                                "MultiProviders",
+                                "Motor de Cálculo",
+                                "InfoCube KPI",
+                                "MultiProvider KPI",
+                                "BEx Queries",
+                                "BEx Workbooks"
+                            ]
+                        }
+                    },
+                    "O InfoCube KPI armazenava dados pré-processados, contendo principalmente a identificação do indicador e seus valores, permitindo que a camada de apresentação trabalhasse com uma estrutura muito mais simples.",
+                    "A solução foi desenvolvida inteiramente no ambiente SAP BW, usando capacidades do SAP NetWeaver. Nenhuma plataforma externa foi introduzida para implementar o motor, armazenar os KPIs ou gerenciar suas definições.",
+                    "Após decidir criar esta nova camada, uma segunda questão arquitetural surgiu: como a nova camada poderia ser definida e povoada de forma sustentável?",
+                    "A abordagem selecionada foi uma arquitetura orientada por metadados."
+                ]
+            }
+        },
+        {
+            "id": "5-alternatives-considered",
+            "content": {
+                "heading": "5. Alternativas Consideradas",
+                "items": [
+                    "A nova camada poderia ter sido povoada através de implementações específicas para cada indicador, lógica codificada diretamente no motor, ou uma estrutura na qual as definições dos indicadores fossem mantidas independentemente de sua implementação.",
+                    "A primeira alternativa reproduziria progressivamente o problema de manutenção que existia na camada de relatórios.",
+                    "Codificar cada regra diretamente no motor central centralizaria a execução, mas as regras de negócio permaneceriam acopladas à implementação técnica.",
+                    "A solução selecionada armazenava as definições de KPI como metadados e fazia o Motor de Cálculo interpretar essas definições.",
+                    "Houve uma exceção deliberada para os indicadores de Nível 0. Esses indicadores continham apenas filtros sobre os InfoCubes e eram obtidos através de um conjunto específico de BEx Queries estruturadas para esse fim. A decisão de usar essas queries foi arquitetural e funcional; o Motor de Cálculo não precisava de acesso direto aos InfoCubes.",
+                    "A partir desses indicadores base, os demais KPIs eram calculados progressivamente de acordo com suas dependências."
+                ]
+            }
+        },
+        {
+            "id": "6-trade-offs-accepted",
+            "content": {
+                "heading": "6. Trade-offs Aceitos",
+                "items": [
+                    "A solução introduziu uma nova camada de processamento e persistência, aumentando a complexidade inicial da plataforma.",
+                    "O desenvolvimento dentro do ambiente SAP NetWeaver foi necessário para:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "estruturas para armazenar metadados de KPI",
+                                "o mecanismo de interpretação e execução de regras",
+                                "estruturas para armazenar resultados calculados",
+                                "uma aplicação de manutenção de KPIs",
+                                "um cockpit de monitoramento e controle de execução"
+                            ]
+                        }
+                    },
+                    "Este investimento foi aceito porque permitiu que o processamento fosse removido da execução de relatórios e que os resultados calculados fossem reutilizados por todos os consumidores.",
+                    "Também mudou o modelo de manutenção: alterações nas definições de KPI podiam ser feitas em metadados, reduzindo a necessidade de modificar objetos de apresentação."
+                ]
+            }
+        },
+        {
+            "id": "7-implemented-solution",
+            "content": {
+                "heading": "7. Solução Implementada",
+                "items": [
+                    "Cada KPI era representado através de uma definição estruturada contendo, entre outros elementos:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "fórmula",
+                                "indicadores componentes",
+                                "filtros e seleções",
+                                "dimensões de drill-down disponíveis",
+                                "perspectivas de tempo, como Mês, Ano Fiscal e Acumulado do Ano",
+                                "nível de processamento",
+                                "dependências entre indicadores"
+                            ]
+                        }
+                    },
+                    "O Motor de Cálculo processava os indicadores por nível.",
+                    "Primeiro, os indicadores de Nível 0 eram obtidos através das queries estruturadas para esse fim. O motor então calculava os indicadores nos níveis subsequentes usando as fórmulas armazenadas nos metadados.",
+                    "O nível de um indicador era determinado a partir de suas dependências: quando o nível mais alto entre seus componentes era n, o indicador era atribuído ao nível n + 1.",
+                    "Os resultados eram persistidos no InfoCube KPI e posteriormente disponibilizados através de um MultiProvider KPI para as BEx Queries de apresentação.",
+                    "A arquitetura também produziu um artefato adicional: a Árvore de Cálculo.",
+                    "Com base nos metadados, uma representação gráfica em HTML de cada KPI podia ser gerada, mostrando sua fórmula, componentes e seleções. Essa representação permitia que analistas inspecionassem a definição do KPI e a comparassem com sua implementação correspondente."
+                ]
+            }
+        },
+        {
+            "id": "8-organizational-results",
+            "content": {
+                "heading": "8. Resultados Organizacionais",
+                "items": [
+                    "A solução tornou-se a base para todos os relatórios da plataforma, substituindo o processamento distribuído de KPI por uma camada centralizada de KPI.",
+                    "Melhorias significativas foram observadas em:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "tempo de execução de relatórios",
+                                "tempo total de processamento",
+                                "número de queries exigidas pelos relatórios",
+                                "processamento realizado pela camada BEx",
+                                "esforço necessário para alterar e manter KPIs"
+                            ]
+                        }
+                    },
+                    "Um resultado particularmente relevante foi a mudança no processo de manutenção.",
+                    "Exceto para indicadores de Nível 0, as BEx Queries não precisavam mais ser modificadas quando um KPI era alterado. Isso eliminou a necessidade de transportar alterações de query entre ambientes de desenvolvimento e produção para esse tipo de mudança.",
+                    "Além disso, o rastreamento de atualizações tornou-se baseado em KPI, fornecendo um log diretamente associado ao objeto de negócio sendo processado, em vez de a BEx Queries individuais."
+                ]
+            }
+        },
+        {
+            "id": "9-architectural-lessons",
+            "content": {
+                "heading": "9. Lições Arquiteturais",
+                "items": [
+                    "A principal lição foi a importância de examinar onde o processamento ocorre, em vez de simplesmente otimizar o processamento existente.",
+                    "Quando a mesma regra é executada repetidamente por diferentes relatórios, há uma oportunidade arquitetural de mover esse processamento para um estágio anterior e tornar seu resultado reutilizável.",
+                    "A camada KPI abordou esse problema estruturalmente.",
+                    "A arquitetura orientada por metadados abordou um segundo desafio: como permitir que a camada escalasse sem transformar cada novo KPI em uma implementação independente.",
+                    "A arquitetura resultante estabeleceu uma separação mais clara entre:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "dados persistidos",
+                                "processamento e cálculo",
+                                "definição de KPI",
+                                "consumo analítico"
+                            ]
+                        }
+                    },
+                    "A Árvore de Cálculo também demonstrou que os mesmos metadados podiam suportar tanto a execução automatizada quanto o entendimento e a validação humana das regras de negócio."
+                ]
+            }
+        },
+        {
+            "id": "10-relevance-to-modern-architectures",
+            "content": {
+                "heading": "10. Relevância para Arquiteturas Modernas",
+                "items": [
+                    "O princípio arquitetural permanece aplicável a ambientes analíticos modernos.",
+                    "As plataformas atuais também precisam determinar quais transformações devem ocorrer sob demanda e quais devem ser materializadas antecipadamente, particularmente quando os mesmos dados e regras de negócio são consumidos repetidamente.",
+                    "Da mesma forma, arquiteturas modernas usam cada vez mais metadados para descrever modelos, dependências, regras e semântica de negócio.",
+                    "O projeto demonstra dois princípios que permanecem relevantes:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Mover o processamento recorrente para uma camada anterior pode reduzir o custo em tempo de consulta quando os dados resultantes são amplamente reutilizáveis.",
+                                "Representar regras de negócio como metadados pode reduzir o acoplamento entre semântica e implementação, suportando escala, manutenibilidade e governança."
+                            ]
+                        }
+                    },
+                    "A tecnologia original era SAP BW/NetWeaver. A decisão arquitetural, no entanto, aborda uma questão mais ampla: como estruturar uma arquitetura analítica para que o crescimento no número de KPIs e consumidores não produza crescimento proporcional em complexidade e processamento dentro da camada de consumo."
+                ]
+            }
+        }
+    ],
+    "backLabel": "Voltar para o caso de estudo",
+    "footer": {
+        "text": "Arquitetura de Analytics Empresarial",
+        "brand": "~Å~"
+    }
+}

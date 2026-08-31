@@ -2,7 +2,24 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { Content, Language } from '@/types';
+type Language = 'en' | 'pt';
+
+interface NavItem {
+    label: string;
+    href: string;
+}
+
+interface Content {
+    page?: {
+        title?: string;
+    };
+    hero?: {
+        title?: string;
+    };
+    nav?: {
+        items: NavItem[];
+    };
+}
 
 interface NavigationProps {
     content: Content;
@@ -16,8 +33,8 @@ export default function Navigation({ content, lang }: NavigationProps) {
     const isScrollingProgrammatically = useRef(false);
     const rafRef = useRef<number | null>(null);
 
-    const pitchTitle = content.hero.title;
-    const navItems = content.nav.items;
+    const pageTitle = content.page?.title || content.hero?.title || '';
+    const navItems = content.nav?.items || [];
 
     /**
      * Lógica central de decisão: qual seção está ativa agora?
@@ -159,7 +176,7 @@ export default function Navigation({ content, lang }: NavigationProps) {
                         onClick={handleTitleClick}
                         className="hidden md:block text-sm font-medium text-[#2D3748] opacity-60 hover:opacity-100 hover:text-[#0F4C8A] transition-all cursor-pointer"
                     >
-                        {pitchTitle}
+                        {pageTitle}
                     </a>
 
                     <div className="hidden md:flex items-center space-x-8">
@@ -169,8 +186,8 @@ export default function Navigation({ content, lang }: NavigationProps) {
                                 href={item.href}
                                 onClick={(e) => handleNavClick(e, item.href)}
                                 className={`text-sm font-medium transition-colors relative group ${isActive(item.href)
-                                        ? 'text-[#00B4A0]'
-                                        : 'text-[#2D3748] hover:text-[#00B4A0]'
+                                    ? 'text-[#00B4A0]'
+                                    : 'text-[#2D3748] hover:text-[#00B4A0]'
                                     }`}
                             >
                                 {item.label}
@@ -220,7 +237,7 @@ export default function Navigation({ content, lang }: NavigationProps) {
                                 onClick={handleTitleClick}
                                 className="text-sm font-medium text-[#2D3748] opacity-60 hover:opacity-100 hover:text-[#0F4C8A] transition-all cursor-pointer px-2 py-1"
                             >
-                                {pitchTitle}
+                                {pageTitle}
                             </a>
                             {navItems.map((item) => (
                                 <a
@@ -228,8 +245,8 @@ export default function Navigation({ content, lang }: NavigationProps) {
                                     href={item.href}
                                     onClick={(e) => handleNavClick(e, item.href)}
                                     className={`text-base font-medium transition-colors px-2 py-1 ${isActive(item.href)
-                                            ? 'text-[#00B4A0]'
-                                            : 'text-[#2D3748] hover:text-[#00B4A0]'
+                                        ? 'text-[#00B4A0]'
+                                        : 'text-[#2D3748] hover:text-[#00B4A0]'
                                         }`}
                                 >
                                     {item.label}

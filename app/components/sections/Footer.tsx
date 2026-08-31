@@ -1,6 +1,12 @@
 'use client';
+interface FooterContent {
+    text?: string;
+    brand?: string;
+}
 
-import { Content } from '@/types';
+interface Content {
+    footer?: FooterContent;
+}
 
 interface FooterProps {
     content: Content;

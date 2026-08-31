@@ -2,34 +2,199 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import AnimatedSection from '@/components/ui/AnimatedSection';
 import Navigation from '@/components/ui/Navigation';
-import ResolutionBadge from '@/components/ui/ResolutionBadge';
 import LanguageSelector from '@/components/ui/LanguageSelector';
-import Points from '@/components/ui/Points';
-import Pillars from '@/components/ui/Pillars';
-import BalanceDiagram from '@/components/ui/BalanceDiagram';
-import Cards from '@/components/ui/Cards';
-import ContactButtons from '@/components/ui/ContactButtons';
+import ResolutionBadge from '@/components/ui/ResolutionBadge';
+import AnimatedSection from '@/components/ui/AnimatedSection';
 import Tags from '@/components/ui/Tags';
+import ContactButtons from '@/components/ui/ContactButtons';
 import { Language, getContent, languages } from './data';
+import {
+    componentRegistry,
+    hasComponent,
+    getComponent,
+    mapComponentProps
+} from '@/lib/content/component-registry';
+import { LandingPage } from '@/content-model/pages/landing-page';
 
-export default function Home() {
+// ── Component Renderer ────────────────────────────────────────────────────────
+
+function ComponentRenderer({ component, ...props }: { component: any;[key: string]: any }) {
+    if (!component) {
+        console.warn('⚠️ ComponentRenderer: component is null/undefined');
+        return null;
+    }
+
+    const { componentType, content } = component;
+
+    if (!componentType || !hasComponent(componentType)) {
+        console.warn(`❌ Unknown componentType: ${componentType}`);
+        return null;
+    }
+
+    const Component = getComponent(componentType);
+    if (!Component) {
+        console.warn(`❌ No component found for type: ${componentType}`);
+        return null;
+    }
+
+    const mappedProps = mapComponentProps(componentType, content);
+    const finalProps = { ...mappedProps, ...props };
+
+    return <Component {...finalProps} />;
+}
+
+// ── Section Renderer ──────────────────────────────────────────────────────────
+
+function SectionRenderer({ section }: { section: LandingPage['sections'][number] }) {
+    const { id, content } = section;
+
+    switch (id) {
+        case 'hero':
+            return (
+                <div className="w-full max-w-6xl mx-auto text-center px-4">
+                    <AnimatedSection direction="up" delay={50}>
+                        <div className="mt-8 flex items-center justify-center gap-4 mb-5">
+                            <div className="w-12 h-0.5 bg-[#00B4A0]" />
+                            <span className="text-sm font-medium text-[#00B4A0] tracking-widest uppercase">
+                                {content.heading}
+                            </span>
+                            <div className="w-12 h-0.5 bg-[#00B4A0]" />
+                        </div>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={150}>
+                        <h1 className="heading-1 text-[#0F4C8A] mb-9">
+                            {content.title}
+                        </h1>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={300}>
+                        <p className="body-text text-[#2D3748] max-w-3xl mx-auto mb-12">
+                            {content.subtitle}
+                        </p>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <Tags items={content.tags} />
+                    </AnimatedSection>
+                </div>
+            );
+
+        case 'focus':
+            return (
+                <div className="w-full max-w-6xl mx-auto">
+                    <AnimatedSection direction="up" delay={0}>
+                        <h2 className="heading-1 text-[#0F4C8A] text-center mb-2">
+                            {content.title}
+                        </h2>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={150}>
+                        <p className="body-text text-[#2D3748] text-center max-w-3xl mx-auto mb-8">
+                            {content.subtitle}
+                        </p>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={300}>
+                        <ComponentRenderer component={content.cards} />
+                    </AnimatedSection>
+                </div>
+            );
+
+        case 'architecture':
+            return (
+                <div className="w-full max-w-6xl mx-auto text-center px-4">
+                    <AnimatedSection direction="up" delay={0}>
+                        <h2 className="heading-1 text-[#0F4C8A] mb-2">
+                            {content.title}
+                        </h2>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={150}>
+                        <p className="body-text text-[#2D3748] max-w-3xl mx-auto mb-12">
+                            {content.subtitle}
+                        </p>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={300}>
+                        <div className="flex flex-col lg:flex-row items-center gap-8">
+                            <ComponentRenderer component={content.points} align="left" />
+                            <ComponentRenderer component={content.balanceDiagram} />
+                        </div>
+                    </AnimatedSection>
+                </div>
+            );
+
+        case 'pitch-decks':
+            return (
+                <div className="w-full max-w-6xl mx-auto">
+                    <AnimatedSection direction="up" delay={0}>
+                        <h2 className="heading-1 text-[#0F4C8A] text-center mb-2">
+                            {content.title}
+                        </h2>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={150}>
+                        <p className="body-text text-[#2D3748] text-center max-w-3xl mx-auto mb-8">
+                            {content.subtitle}
+                        </p>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={300}>
+                        <ComponentRenderer component={content.cards} />
+                    </AnimatedSection>
+                </div>
+            );
+
+        case 'case-studies':
+            return (
+                <div className="w-full max-w-6xl mx-auto">
+                    <AnimatedSection direction="up" delay={0}>
+                        <h2 className="heading-1 text-[#0F4C8A] text-center mb-2">
+                            {content.title}
+                        </h2>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={150}>
+                        <p className="body-text text-[#2D3748] text-center max-w-3xl mx-auto mb-8">
+                            {content.subtitle}
+                        </p>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={300}>
+                        <ComponentRenderer component={content.cards} />
+                    </AnimatedSection>
+                </div>
+            );
+
+        case 'contact':
+            return (
+                <div className="w-full max-w-6xl mx-auto text-center">
+                    <AnimatedSection direction="up" delay={0}>
+                        <span className="text-sm font-semibold text-[#00B4A0] tracking-widest uppercase">
+                            {content.badge}
+                        </span>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={150}>
+                        <h2 className="heading-1 text-[#0F4C8A] mt-2 mb-4">
+                            {content.title}
+                        </h2>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={300}>
+                        <p className="body-text text-[#2D3748] max-w-3xl mx-auto mb-8">
+                            {content.subtitle}
+                        </p>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <ContactButtons contact={content.contact} />
+                    </AnimatedSection>
+                </div>
+            );
+
+        default:
+            console.warn(`Unknown section id: ${id}`);
+            return null;
+    }
+}
+
+// ── Page Content ──────────────────────────────────────────────────────────────
+
+export default function PageContent() {
     const searchParams = useSearchParams();
     const [isClient, setIsClient] = useState(false);
     const [lang, setLang] = useState<Language>('en');
-    const content = getContent(lang);
-    const focus = content.focus;
-    const architecture = content.architecture;
-    const pitch_decks = content.pitch_decks;
-    const contact = content.contact;
-
-    const validColumns = [2, 3, 4].includes(focus?.columns ?? 3)
-        ? (focus?.columns ?? 3) as 2 | 3 | 4
-        : 3; 3;
-    const validPitchColumns = [2, 3, 4].includes(pitch_decks?.columns ?? 2)
-        ? (pitch_decks?.columns ?? 2) as 2 | 3 | 4
-        : 2;
+    const content = getContent(lang) as LandingPage;
+    const isDev = process.env.NODE_ENV === 'development';
 
     useEffect(() => {
         setIsClient(true);
@@ -53,7 +218,25 @@ export default function Home() {
         window.history.pushState({}, '', `?lang=${newLang}`);
     };
 
-    const isDev = process.env.NODE_ENV === 'development';
+    if (!content || !content.sections || content.sections.length < 1) {
+        return (
+            <main className="relative min-h-screen bg-white flex items-center justify-center">
+                <div className="text-[#0F4C8A]">Loading...</div>
+            </main>
+        );
+    }
+
+    const sectionsMap = content.sections.reduce((acc, section) => {
+        acc[section.id] = section;
+        return acc;
+    }, {} as Record<string, typeof content.sections[number]>);
+
+    const heroSection = sectionsMap['hero'];
+    const focusSection = sectionsMap['focus'];
+    const architectureSection = sectionsMap['architecture'];
+    const pitchDecksSection = sectionsMap['pitch-decks'];
+    const caseStudiesSection = sectionsMap['case-studies'];
+    const contactSection = sectionsMap['contact'];
 
     return (
         <main className="relative min-h-screen bg-white">
@@ -74,128 +257,77 @@ export default function Home() {
                     <ResolutionBadge />
                 </div>
             )}
+
             <div className="snap-container">
-                {/* ── HERO ── */}
-                <section id="hero" className="snap-section relative">
-                    {isDev && (
-                        <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-yellow-400 text-black text-xs font-mono font-bold rounded">
-                            HERO
-                        </div>
-                    )}
-                    <div className="w-full max-w-6xl mx-auto text-center px-4">
-                        <AnimatedSection direction="up" delay={50}>
-                            <div className="mt-8 flex items-center justify-center gap-4 mb-5">
-                                <div className="w-12 h-0.5 bg-[#00B4A0]" />
-                                <span className="text-sm font-medium text-[#00B4A0] tracking-widest uppercase">
-                                    {content.hero.heading}
-                                </span>
-                                <div className="w-12 h-0.5 bg-[#00B4A0]" />
+                {/* HERO */}
+                {heroSection && (
+                    <section id="hero" className="snap-section relative flex flex-col items-center justify-center min-h-screen">
+                        {isDev && (
+                            <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-yellow-400 text-black text-xs font-mono font-bold rounded">
+                                HERO
                             </div>
-                        </AnimatedSection>
-                        <AnimatedSection direction="up" delay={150}>
-                            <h1 className="heading-1 text-[#0F4C8A] mb-9">
-                                {content.hero.title}
-                            </h1>
-                        </AnimatedSection>
-                        <AnimatedSection direction="up" delay={300}>
-                            <p className="body-text text-[#2D3748] max-w-3xl mx-auto">
-                                {content.hero.subtitle}
-                            </p>
-                        </AnimatedSection>
-                        <AnimatedSection direction="up" delay={450}>
-                            <Tags items={content.hero.tags} />
-                        </AnimatedSection>
-                    </div>
-                </section>
-                {/* ── FOCUS ── */}
-                {focus && (
-                    <section id="focus" className="snap-section min-h-screen flex items-center justify-center py-20 px-4 bg-[#F8FAFC] relative">
+                        )}
+                        <SectionRenderer section={heroSection} />
+                    </section>
+                )}
+
+                {/* FOCUS */}
+                {focusSection && (
+                    <section id="focus" className="snap-section relative flex flex-col items-center justify-center py-20 px-4 bg-[#F8FAFC]">
                         {isDev && (
                             <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-yellow-400 text-black text-xs font-mono font-bold rounded">
                                 FOCUS
                             </div>
                         )}
-                        <div className="w-full max-w-6xl mx-auto">
-                            <AnimatedSection direction="up" delay={150}>
-                                <h2 className="heading-1 text-[#0F4C8A] text-center mb-8">
-                                    {focus.title}
-                                </h2>
-                            </AnimatedSection>
-                            <AnimatedSection direction="up" delay={300}>
-                                <Pillars items={focus.items} columns={validColumns} />
-                            </AnimatedSection>
-                        </div>
+                        <SectionRenderer section={focusSection} />
                     </section>
                 )}
-                {/* ── ARCHITECTURE BALANCE ── */}
-                {architecture && (
-                    <section id="architecture" className="snap-section relative flex flex-col items-center justify-center">
+
+                {/* ARCHITECTURE */}
+                {architectureSection && (
+                    <section id="architecture" className="snap-section relative flex flex-col items-center justify-center py-20">
                         {isDev && (
                             <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-yellow-400 text-black text-xs font-mono font-bold rounded">
                                 ARCHITECTURE
                             </div>
                         )}
-                        <div className="w-full max-w-6xl mx-auto text-center px-4">
-                            <AnimatedSection direction="up" delay={0}>
-                                <h2 className="heading-1 text-[#0F4C8A] mb-2">
-                                    {architecture.title}
-                                </h2>
-                            </AnimatedSection>
-                            <AnimatedSection direction="up" delay={150}>
-                                <p className="body-text text-[#2D3748] max-w-3xl mx-auto mb-12">
-                                    {architecture.subtitle}
-                                </p>
-                            </AnimatedSection>
-
-                        </div>
-                        <AnimatedSection direction="up" delay={300}>
-                            <div className="w-full max-w-6xl mx-auto px-4 flex items-center gap-8">
-                                {architecture.points && <Points items={architecture.points} />}
-                                {architecture.balance && <BalanceDiagram data={architecture.balance} />}
-                            </div>
-                        </AnimatedSection>
+                        <SectionRenderer section={architectureSection} />
                     </section>
                 )}
 
-                {/* ── PITCH DECKS ── */}
-                {pitch_decks && (
-                    <section id="pitch-decks" className="snap-section relative flex flex-col items-center justify-center bg-[#F8FAFC] relative">
+                {/* PITCH DECKS */}
+                {pitchDecksSection && (
+                    <section id="pitch-decks" className="snap-section relative flex flex-col items-center justify-center py-20 bg-[#F8FAFC]">
                         {isDev && (
                             <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-yellow-400 text-black text-xs font-mono font-bold rounded">
                                 PITCH DECKS
                             </div>
                         )}
-                        <div className="w-full max-w-6xl mx-auto">
-                            <h2 className="heading-1 text-[#0F4C8A] text-center mb-2">
-                                {pitch_decks.title}
-                            </h2>
-                            <p className="body-text text-[#2D3748] text-center max-w-3xl mx-auto mb-8">
-                                {pitch_decks.subtitle}
-                            </p>
-                            <Cards items={pitch_decks.items} columns={validPitchColumns} />
-                        </div>
+                        <SectionRenderer section={pitchDecksSection} />
                     </section>
                 )}
-                {/* ── CONTACT ── */}
-                {contact && (
-                    <section id="contact" className="snap-section relative flex flex-col items-center justify-center relative">
+
+                {/* CASE STUDIES */}
+                {caseStudiesSection && (
+                    <section id="case-studies" className="snap-section relative flex flex-col items-center justify-center py-20">
+                        {isDev && (
+                            <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-yellow-400 text-black text-xs font-mono font-bold rounded">
+                                CASE STUDIES
+                            </div>
+                        )}
+                        <SectionRenderer section={caseStudiesSection} />
+                    </section>
+                )}
+
+                {/* CONTACT */}
+                {contactSection && (
+                    <section id="contact" className="snap-section relative flex flex-col items-center justify-center py-20 bg-[#F8FAFC]">
                         {isDev && (
                             <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-yellow-400 text-black text-xs font-mono font-bold rounded">
                                 CONTACT
                             </div>
                         )}
-                        <div className="w-full max-w-6xl mx-auto text-center">
-                            <span className="text-sm font-semibold text-[#00B4A0] tracking-widest uppercase">
-                                {contact.badge}
-                            </span>
-                            <h2 className="heading-1 text-[#0F4C8A] mt-2 mb-4">
-                                {contact.title}
-                            </h2>
-                            <p className="body-text text-[#2D3748] max-w-3xl mx-auto mb-8">
-                                {contact.description}
-                            </p>
-                            <ContactButtons contact={contact.contact} />
-                        </div>
+                        <SectionRenderer section={contactSection} />
                     </section>
                 )}
 
@@ -207,7 +339,7 @@ export default function Home() {
                         <p className="text-xs text-white/40 mt-1">~Å~</p>
                     </div>
                 </footer>
-            </div >
-        </main >
+            </div>
+        </main>
     );
 }

@@ -31,7 +31,7 @@ export function generateMarkdown(): string {
     data.problem.points.forEach((point: string) => {
         markdown += `- ${point}\n`;
     });
-    markdown += `\n**SAP Perspective:** ${data.problem.sapPerspective}\n\n`;
+    markdown += `\n**SAP Perspective:** ${data.problem.SAPPerspective}\n\n`;
     markdown += `---\n\n`;
 
     // Approach
@@ -41,7 +41,7 @@ export function generateMarkdown(): string {
         markdown += `### ${step.step}\n`;
         markdown += `${step.description}\n\n`;
     });
-    markdown += `**SAP Perspective:** ${data.approach.sapPerspective}\n\n`;
+    markdown += `**SAP Perspective:** ${data.approach.SAPPerspective}\n\n`;
     markdown += `---\n\n`;
 
     // Results
@@ -52,7 +52,7 @@ export function generateMarkdown(): string {
         markdown += `- ${card.description}\n`;
         markdown += `- *Impact:* ${card.impact}\n\n`;
     });
-    markdown += `**SAP Perspective:** ${data.results.sapPerspective}\n\n`;
+    markdown += `**SAP Perspective:** ${data.results.SAPPerspective}\n\n`;
     markdown += `---\n\n`;
 
     // Bridge
@@ -62,7 +62,7 @@ export function generateMarkdown(): string {
         markdown += `- ${point}\n`;
     });
     markdown += `\n**Legacy:** ${data.bridge.legacyLabel} → **${data.bridge.governanceLabel}** → **${data.bridge.modernLabel}**\n\n`;
-    markdown += `**SAP Perspective:** ${data.bridge.sapPerspective}\n\n`;
+    markdown += `**SAP Perspective:** ${data.bridge.SAPPerspective}\n\n`;
     markdown += `---\n\n`;
 
     // CTA
@@ -71,7 +71,7 @@ export function generateMarkdown(): string {
         markdown += `### ${pillar.icon} ${pillar.title}\n`;
         markdown += `${pillar.description}\n\n`;
     });
-    markdown += `**SAP Perspective:** ${data.cta.sapPerspective}\n\n`;
+    markdown += `**SAP Perspective:** ${data.cta.SAPPerspective}\n\n`;
     markdown += `---\n\n`;
 
     // Contact
@@ -131,7 +131,7 @@ export function generateHTML(): string {
   </ul>
   <div class="sap">
     <div class="sap-label">SAP Perspective</div>
-    <p>${data.problem.sapPerspective}</p>
+    <p>${data.problem.SAPPerspective}</p>
   </div>
   <hr>
 
@@ -143,7 +143,7 @@ export function generateHTML(): string {
   `).join('')}
   <div class="sap">
     <div class="sap-label">SAP Perspective</div>
-    <p>${data.approach.sapPerspective}</p>
+    <p>${data.approach.SAPPerspective}</p>
   </div>
   <hr>
 
@@ -156,7 +156,7 @@ export function generateHTML(): string {
   `).join('')}
   <div class="sap">
     <div class="sap-label">SAP Perspective</div>
-    <p>${data.results.sapPerspective}</p>
+    <p>${data.results.SAPPerspective}</p>
   </div>
   <hr>
 
@@ -168,7 +168,7 @@ export function generateHTML(): string {
   <p><strong>${data.bridge.legacyLabel}</strong> → <strong>${data.bridge.governanceLabel}</strong> → <strong>${data.bridge.modernLabel}</strong></p>
   <div class="sap">
     <div class="sap-label">SAP Perspective</div>
-    <p>${data.bridge.sapPerspective}</p>
+    <p>${data.bridge.SAPPerspective}</p>
   </div>
   <hr>
 
@@ -179,7 +179,7 @@ export function generateHTML(): string {
   `).join('')}
   <div class="sap">
     <div class="sap-label">SAP Perspective</div>
-    <p>${data.cta.sapPerspective}</p>
+    <p>${data.cta.SAPPerspective}</p>
   </div>
   <hr>
 

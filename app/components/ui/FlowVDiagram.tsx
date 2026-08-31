@@ -1,6 +1,6 @@
 'use client';
 
-interface VertFlowProps {
+interface FlowVDiagramProps {
     steps: string[];
     title?: string;
     className?: string;
@@ -55,11 +55,11 @@ function Arrow({
     );
 }
 
-export default function VertFlow({
+export default function FlowVDiagram({
     steps,
     title,
     className = '',
-}: VertFlowProps) {
+}: FlowVDiagramProps) {
     if (!steps || steps.length === 0) return null;
 
     const rows: {
