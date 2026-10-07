@@ -1,0 +1,271 @@
+{
+    "page": {
+        "id": "modeling-sap-and-non-sap-data-at-the-right-grain",
+        "pageType": "case-study-detail",
+        "language": "en",
+        "title": "",
+        "filename": "modeling-sap-and-non-sap-data-at-the-right-grain-detailed"
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Case Study",
+                "href": "#case-study"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "badge": "Hero",
+                "title": "Modeling SAP and Non-SAP Data at the Right Grain",
+                "subtitle": "A design reasoning case on combining financial, billing and non-SAP data at the right grain.",
+                "heading": "Enterprise analytics design case",
+                "brand": "~Å~",
+                "tags": []
+            }
+        },
+        {
+            "id": "1-organizational-context",
+            "content": {
+                "heading": "1. Organizational Context",
+                "items": [
+                    "An analytical solution had to support business analysis at different levels: month, customer, region, material and individual document.",
+                    "The solution needed to combine data from two SAP domains and one non-SAP system: SAP financial data, SAP billing data and additional information from a non-SAP system.",
+                    "A financial document may reference a billing document. The final output would usually be aggregated by month or customer, but some business rules could only be calculated correctly at the document level."
+                ]
+            }
+        },
+        {
+            "id": "2-the-real-problem",
+            "content": {
+                "heading": "2. The Real Problem",
+                "items": [
+                    "The visible problem was how to connect SAP and non-SAP data.",
+                    "The real problem was that the datasets did not necessarily share the same granularity, and the cost of getting this wrong was asymmetric in both directions:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "joining too early could process significantly more records than necessary;",
+                                "aggregating too early could eliminate information required by later calculations;",
+                                "joining datasets with different grains could duplicate records and inflate measures without any visible error."
+                            ]
+                        }
+                    },
+                    "A model could appear to work and still return incorrect numbers."
+                ]
+            }
+        },
+        {
+            "id": "3-architectural-ambiguity",
+            "content": {
+                "heading": "3. Architectural Ambiguity",
+                "items": [
+                    "The main ambiguity was not which datasets to connect, but at what grain they should be combined and where each business rule should be applied.",
+                    "Several questions were implicit and had to be made explicit before any join was designed:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "What does one row represent in each dataset?",
+                                "Which keys identify that row, and which keys relate it to the other datasets?",
+                                "Is each relationship 1:1, 1:N or N:M?",
+                                "Which rules require document-level data, and which can be calculated on aggregated data?",
+                                "Which levels of analysis does the business actually need?"
+                            ]
+                        }
+                    },
+                    "Until these questions were answered, any decision about joins, unions or aggregations would be a guess."
+                ]
+            }
+        },
+        {
+            "id": "4-architectural-approach",
+            "content": {
+                "heading": "4. Architectural Approach",
+                "items": [
+                    "The reasoning followed a fixed sequence, in which each step constrains the next:",
+                    {
+                        "componentType": "flowHDiagram",
+                        "content": {
+                            "title": "Reasoning sequence",
+                            "steps": [
+                                "Business requirement",
+                                "Grain",
+                                "Keys and relationships",
+                                "Cardinality",
+                                "Combination strategy",
+                                "Calculation level",
+                                "Analytical model",
+                                "Performance"
+                            ]
+                        }
+                    },
+                    "Business requirement. Determine which levels of analysis are needed and which business rules exist, before looking at the data structures.",
+                    "Grain. Establish what one row represents in each dataset. The grain is a statement about the business event, not about the table. It is confirmed by checking which combination of fields uniquely identifies a row and by validating that definition with the business or data owner.",
+                    "Keys and relationships. Identify the keys that connect the datasets, including the reference between financial and billing documents, and the keys the non-SAP system actually offers. Verify that those keys are complete, consistent between systems and available at the grain at which they will be used.",
+                    "Cardinality. Determine whether each relationship is 1:1, 1:N or N:M by profiling the data: comparing row counts with distinct key counts on each side and looking for duplicates in the supposedly unique key. The result decides whether a join is safe or whether it will repeat records.",
+                    "Combination strategy. Choose the operation that matches the relationship: join, union, enrichment or aggregation.",
+                    "Calculation level. Decide, rule by rule, whether the rule must be calculated at document level or can be calculated after aggregation.",
+                    "Analytical model. Define the layers in which data is combined, calculated and aggregated.",
+                    "Performance. Evaluate the design last, by the volume of data processed at each step, not as a premature optimization."
+                ]
+            }
+        },
+        {
+            "id": "5-alternatives-considered",
+            "content": {
+                "heading": "5. Alternatives Considered",
+                "items": [
+                    "The two obvious designs fail in opposite directions.",
+                    "Join everything at the most detailed grain, then aggregate. This preserves all information and makes document-level rules possible. However, it processes the full volume of detail for every consumer, including those that only need monthly totals, and increases the risk of duplication when relationships are not 1:1.",
+                    "Aggregate each dataset first, then join. This is cheaper and simpler to consume. However, once a dataset is aggregated to month or customer, the document-level relationship between financial and billing documents is lost, and any rule that depends on it can no longer be calculated correctly.",
+                    "The selected approach did not choose one of these globally. It made the decision per business rule and per level of analysis:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "keep the detail where a rule requires it;",
+                                "reduce the data volume before the join wherever the grain allows it;",
+                                "aggregate only after the rules that depend on the lower grain have been calculated."
+                            ]
+                        }
+                    },
+                    "If the analysis required only monthly data and no rule depended on document-level information, aggregating each dataset to the common grain before combining them would be the simpler and cheaper option."
+                ]
+            }
+        },
+        {
+            "id": "6-trade-offs-accepted",
+            "content": {
+                "heading": "6. Trade-offs Accepted",
+                "items": [
+                    "The layered approach introduces more than one analytical layer, which increases the initial design effort and the number of objects to maintain.",
+                    "This was accepted because it allowed:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "document-level rules to be calculated once, at the grain where they are correct;",
+                                "aggregated consumers to avoid processing document-level volume;",
+                                "new analytical requirements to be added by deciding which layer they belong to, instead of reworking a single large model."
+                            ]
+                        }
+                    },
+                    "A second trade-off is storage versus processing: persisting a document-level result avoids recalculating it for every consumer, at the cost of additional data to store and keep consistent."
+                ]
+            }
+        },
+        {
+            "id": "7-proposed-design",
+            "content": {
+                "heading": "7. Proposed Design",
+                "items": [
+                    "Source-aligned datasets. Each source is kept at its native grain, with its keys, and with only the filtering and projection needed. Nothing is joined at this stage.",
+                    "Document-level integration layer. The financial and billing datasets are combined at a declared grain, using the document reference. The non-SAP data is added at the level of its own key: if it describes documents, it is joined at document level; if it describes customers or materials, it is added as enrichment without changing the grain. Business rules that require document-level information are calculated here, once.",
+                    "Aggregated analytical layer. The results are aggregated to the levels the business needs: month, customer, region and material. Additive measures are summed. Ratios and other non-additive measures are rebuilt from their aggregated components instead of being averaged.",
+                    "Consumption layer. Reports read the aggregated layer and stay simple. When document-level inspection is needed, consumers drill through to the document-level layer.",
+                    "Operations used in each step:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Join: combine datasets that describe the same business entity at a compatible grain and whose relationship has been verified.",
+                                "Union: stack datasets that have the same grain and the same measure semantics.",
+                                "Enrichment: add descriptive attributes through a lookup without changing the grain of the main dataset.",
+                                "Aggregation: reduce the grain to what the consumer needs, only after the rules that depend on the lower grain have been applied."
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "8-safeguards-and-outcomes",
+            "content": {
+                "heading": "8. Safeguards and Expected Outcomes",
+                "items": [
+                    "Because this is a design reasoning case, the outcomes below are the properties the design is built to guarantee, and not measured results.",
+                    "Safeguards against duplicated records and incorrect measures:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "declare the grain of every dataset and layer explicitly;",
+                                "verify key uniqueness on the side of each join that is expected to be unique;",
+                                "compare record counts before and after every join;",
+                                "reconcile totals between the source, the document-level layer and the aggregated layer;",
+                                "never carry a header-level measure through a 1:N join without deciding how it will be allocated;",
+                                "calculate rules at the grain where they are valid before aggregating them;",
+                                "treat ratios and other non-additive measures separately from additive ones."
+                            ]
+                        }
+                    },
+                    "Expected outcomes:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "aggregated results that reconcile with document-level results;",
+                                "document-level rules calculated once and reused by all consumers;",
+                                "lower data volume processed for consumers that only need aggregated data;",
+                                "a model in which a new requirement has a clear layer to go to."
+                            ]
+                        }
+                    },
+                    "How performance is evaluated:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "number of records processed at each step;",
+                                "where the data volume is reduced, and whether it is reduced before the expensive joins;",
+                                "cardinality of each join;",
+                                "which results are reused often enough to justify persisting them;",
+                                "the effort required to maintain the model as requirements grow."
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "9-architectural-lessons",
+            "content": {
+                "heading": "9. Architectural Lessons",
+                "items": [
+                    "The main lesson is that the key architectural question is not \"How do I connect SAP and non-SAP data?\" but \"At what grain should these datasets be combined, and where should each business rule be applied?\"",
+                    "Joins, unions and aggregations are implementation choices. The grain determines which of them is valid, and the calculation level determines where each rule can live.",
+                    "Two supporting lessons follow:",
+                    {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Timing matters in both directions. Joining too early wastes processing; aggregating too early destroys information. The right moment depends on the rule, not on the platform.",
+                                "Correctness comes before performance. A fast model that duplicates records is not an optimized model. Performance is evaluated after the grain, keys and cardinality are established."
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "10-relevance-to-modern-architectures",
+            "content": {
+                "heading": "10. Relevance to Modern Architectures",
+                "items": [
+                    "The reasoning is independent of the technology. It applies whether the combination is implemented in SAP BW transformations, SAP HANA calculation views, SAP Datasphere models, a data lakehouse or any other platform that combines data from different systems.",
+                    "It also connects to the same principle that appears in the KPI calculation architecture case: determine where processing belongs, identify what can be calculated once and reused, and keep the consumption layer simple.",
+                    "The architectural decision addresses a broader question: how to structure an analytical model so that new sources and new requirements do not multiply duplication, incorrect measures or processing cost."
+                ]
+            }
+        }
+    ],
+    "backLabel": "Back to case study",
+    "footer": {
+        "text": "Enterprise Analytics Architecture",
+        "brand": "~Å~"
+    }
+}

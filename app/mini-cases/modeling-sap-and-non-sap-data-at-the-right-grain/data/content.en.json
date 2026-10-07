@@ -1,0 +1,422 @@
+{
+    "page": {
+        "id": "modeling-sap-and-non-sap-data-at-the-right-grain",
+        "pageType": "case-study-overview",
+        "language": "en",
+        "title": "Modeling SAP and Non-SAP Data at the Right Grain"
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Problem",
+                "href": "#problem"
+            },
+            {
+                "label": "Grain",
+                "href": "#grain"
+            },
+            {
+                "label": "Combination",
+                "href": "#combination"
+            },
+            {
+                "label": "Calculation",
+                "href": "#calculation"
+            },
+            {
+                "label": "Safeguards",
+                "href": "#safeguards"
+            },
+            {
+                "label": "Takeaway",
+                "href": "#takeaway"
+            },
+            {
+                "label": "Next Steps",
+                "href": "#cta"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "badge": "Hero",
+                "title": "Modeling SAP and Non-SAP Data at the Right Grain",
+                "subtitle": "How to combine financial, billing and non-SAP data without duplicating records, losing document-level information or processing more data than necessary.",
+                "heading": "Enterprise analytics design case",
+                "brand": "~Å~",
+                "tags": {
+                    "componentType": "tags",
+                    "content": {
+                        "items": [
+                            "SAP + non-SAP data",
+                            "Grain, keys and cardinality",
+                            "Design reasoning case"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "problem",
+            "content": {
+                "badge": "The Problem",
+                "title": "Connecting the data is the easy part",
+                "subtitle": "Financial data, billing data and a non-SAP source had to support analysis by month, customer, region, material and individual document.",
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "The question is not how to connect SAP and non-SAP data. It is at what grain they should be combined."
+                    }
+                },
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "The sources can have different granularities.",
+                            "A financial document may reference a billing document.",
+                            "Some business rules can only be calculated correctly at document level.",
+                            "Joining too early can process far more records than necessary.",
+                            "Aggregating too early can remove information that later calculations need."
+                        ]
+                    }
+                },
+                "reasoning": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Reasoning path",
+                        "steps": [
+                            "Business requirement",
+                            "Grain",
+                            "Keys and relationships",
+                            "Cardinality",
+                            "Combination strategy",
+                            "Calculation level",
+                            "Analytical model",
+                            "Performance"
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "Two opposite risks: joining too early and aggregating too early."
+                    }
+                }
+            }
+        },
+        {
+            "id": "grain",
+            "content": {
+                "badge": "Before Any Join",
+                "title": "Establish the grain, the keys and the cardinality first",
+                "subtitle": "Joins, unions and aggregations are implementation choices. The grain decides which of them is valid.",
+                "steps": {
+                    "componentType": "steps",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "step": "Business requirement",
+                                "description": "Define which levels of analysis are needed and which business rules exist, before looking at table structures."
+                            },
+                            {
+                                "step": "Grain of each dataset",
+                                "description": "Define what one row represents. Confirm which fields identify it and validate that definition with the business or data owner."
+                            },
+                            {
+                                "step": "Keys and relationships",
+                                "description": "Identify the keys that connect the datasets, including the financial-to-billing reference, and check that they are complete, consistent and available at the grain where they will be used."
+                            },
+                            {
+                                "step": "Cardinality",
+                                "description": "Profile the data: compare row counts with distinct key counts on each side and look for duplicates in keys expected to be unique."
+                            }
+                        ]
+                    }
+                },
+                "cardinality": {
+                    "componentType": "cards",
+                    "content": {
+                        "columns": 3,
+                        "items": [
+                            {
+                                "icon": "1 : 1",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "",
+                                "description": "The join is safe. Records are neither repeated nor lost.",
+                                "impact": "Combine directly."
+                            },
+                            {
+                                "icon": "1 : N",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "",
+                                "description": "Measures on the \"one\" side are repeated for every matching record.",
+                                "impact": "Header-level measures must not be carried through the join without an allocation rule."
+                            },
+                            {
+                                "icon": "N : M",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "",
+                                "description": "The join multiplies records and inflates measures.",
+                                "impact": "Resolve it with a bridge or by reducing one side to the grain of the other."
+                            }
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "The grain is a statement about the business event, not about the table. Two tables with the same key can still describe different events."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "combination",
+            "content": {
+                "badge": "The Combination Strategy",
+                "title": "Choose the operation that matches the relationship",
+                "subtitle": "Each operation answers a different question about how the datasets relate to each other.",
+                "operations": {
+                    "componentType": "pillars",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "icon": "",
+                                "title": "Join",
+                                "description": "Combine datasets that describe the same business entity at a compatible grain and whose relationship has been verified."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Union",
+                                "description": "Stack datasets that have the same grain and the same measure semantics."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Enrichment",
+                                "description": "Add descriptive attributes through a lookup without changing the grain of the main dataset."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Aggregation",
+                                "description": "Reduce the grain to what the consumer needs, only after the rules that depend on the lower grain have been applied."
+                            }
+                        ]
+                    }
+                },
+                "tradeoffs": {
+                    "componentType": "tradeoffs",
+                    "content": {
+                        "title": "Trade-offs in these decisions",
+                        "items": [
+                            [
+                                "Join early",
+                                "Process more records"
+                            ],
+                            [
+                                "Aggregate early",
+                                "Lose document-level information"
+                            ],
+                            [
+                                "Document-level detail",
+                                "Higher processing volume"
+                            ],
+                            [
+                                "Aggregated model",
+                                "Simpler consumption"
+                            ]
+                        ]
+                    }
+                },
+                "monthly": {
+                    "componentType": "cards",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "When the analysis needs only monthly data",
+                                "description": "If no rule depends on document-level information, each dataset can be aggregated to the common grain before they are combined.",
+                                "impact": "Simpler model and lower processing volume."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "When a rule needs document-level data",
+                                "description": "The detail must be preserved up to the point where the rule is calculated. Aggregation happens after that.",
+                                "impact": "Correct results at every level of analysis."
+                            }
+                        ]
+                    }
+                },
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "Aggregate as early as the rules allow, and no earlier."
+                    }
+                }
+            }
+        },
+        {
+            "id": "calculation",
+            "content": {
+                "badge": "The Calculation Level",
+                "title": "Calculate each rule where it is correct, aggregate afterward",
+                "subtitle": "A business rule that requires document-level data is calculated at document level. The final reporting layer can still be aggregated.",
+                "layers": {
+                    "componentType": "flowVDiagram",
+                    "content": {
+                        "title": "Proposed layers",
+                        "steps": [
+                            "Source-aligned datasets",
+                            "Document-level integration",
+                            "Aggregated analytical layer",
+                            "Consumption"
+                        ]
+                    }
+                },
+                "placement": {
+                    "componentType": "pillars",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "icon": "",
+                                "title": "Source-aligned datasets",
+                                "description": "Each source is kept at its native grain with its keys. Only filtering and projection are applied."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Document-level integration",
+                                "description": "Financial and billing data are combined through the document reference. Non-SAP data is joined at the level of its own key. Document-level rules are calculated here, once."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Aggregated analytical layer",
+                                "description": "Results are aggregated to month, customer, region and material. Additive measures are summed; ratios are rebuilt from their components."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Consumption",
+                                "description": "Reports read the aggregated layer and stay simple. Document-level inspection is a drill-through to the integration layer."
+                            }
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "Calculate at the grain where the rule is valid. Report at the grain the business needs."
+                    }
+                }
+            }
+        },
+        {
+            "id": "safeguards",
+            "content": {
+                "badge": "Safeguards",
+                "title": "Preventing duplicated records and incorrect measures",
+                "subtitle": "Correctness comes before performance. A fast model that duplicates records is not an optimized model.",
+                "safeguards": {
+                    "title": "Controls built into the design",
+                    "list": {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Declare the grain of every dataset and layer explicitly.",
+                                "Verify key uniqueness on the side of each join expected to be unique.",
+                                "Compare record counts before and after every join.",
+                                "Reconcile totals between the source, the document-level layer and the aggregated layer.",
+                                "Do not carry header-level measures through a 1:N join without an allocation rule.",
+                                "Treat ratios and other non-additive measures separately from additive ones."
+                            ]
+                        }
+                    }
+                },
+                "performance": {
+                    "title": "How the performance implications are evaluated",
+                    "list": {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Number of records processed at each step.",
+                                "Where the data volume is reduced, and whether it is reduced before the expensive joins.",
+                                "Cardinality of each join.",
+                                "Which results are reused often enough to justify persisting them.",
+                                "The effort required to maintain the model as new requirements are added."
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "takeaway",
+            "content": {
+                "badge": "Architectural Takeaway",
+                "title": "The deeper lesson",
+                "subtitle": "The key architectural question is not how to connect the data, but where each business rule should be applied.",
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Establish the grain before choosing a join, a union or an aggregation.",
+                            "Verify keys and cardinality instead of assuming them.",
+                            "Decide per business rule and per level of analysis, not globally.",
+                            "Calculate once at the grain where the rule is valid, then aggregate for consumption."
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "The reasoning is independent of the platform. It applies in SAP BW, SAP HANA, SAP Datasphere or a lakehouse: determine at what grain datasets are combined, where each rule belongs and what can be reused."
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "Grain decides where each rule can live."
+                    }
+                }
+            }
+        },
+        {
+            "id": "cta",
+            "content": {
+                "badge": "Full Case Study",
+                "title": "Want the architectural details?",
+                "subtitle": "Read the complete case study covering the problem, alternatives, trade-offs, proposed design and safeguards.",
+                "button": {
+                    "label": "Read the full case study",
+                    "href": "/mini-cases/modeling-sap-and-non-sap-data-at-the-right-grain/case-study"
+                },
+                "contact": {
+                    "email": "aandradepro@aandradepro.com",
+                    "linkedin": "https://www.linkedin.com/in/aandradepro/",
+                    "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+                }
+            }
+        },
+        {
+            "id": "footer",
+            "content": {
+                "text": "Enterprise Analytics Architecture",
+                "brand": "~Å~"
+            }
+        }
+    ]
+}

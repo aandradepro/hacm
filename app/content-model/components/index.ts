@@ -4,6 +4,7 @@ import { QuoteComponentSchema } from './quote';
 import { PointsComponentSchema } from './points';
 import { FlowHDiagramComponentSchema } from './flowHDiagram';
 import { FlowVDiagramComponentSchema } from './flowVDiagram';
+import { FlowHInsetComponentSchema } from './flowHInset';
 import { MessageComponentSchema } from './message';
 import { SAPPerspectiveComponentSchema } from './SAPPerspective';
 import { OrbitDiagramComponentSchema } from './orbitDiagram';
@@ -17,6 +18,7 @@ import { PillsComponentSchema } from './pills';
 import { StepsComponentSchema } from './steps';
 import { FoundationDiagramComponentSchema } from './foundationDiagram';
 import { ContactButtonsComponentSchema } from './contactButtons';
+import { TradeoffsComponentSchema } from './tradeoffs';
 
 // Discriminated Union
 export const ComponentSchema = z.discriminatedUnion('componentType', [
@@ -25,6 +27,7 @@ export const ComponentSchema = z.discriminatedUnion('componentType', [
     PointsComponentSchema,
     FlowHDiagramComponentSchema,
     FlowVDiagramComponentSchema,
+    FlowHInsetComponentSchema,
     MessageComponentSchema,
     SAPPerspectiveComponentSchema,
     OrbitDiagramComponentSchema,
@@ -38,6 +41,7 @@ export const ComponentSchema = z.discriminatedUnion('componentType', [
     StepsComponentSchema,
     FoundationDiagramComponentSchema,
     ContactButtonsComponentSchema,
+    TradeoffsComponentSchema,
 ]);
 
 export type Component = z.infer<typeof ComponentSchema>;
@@ -48,6 +52,7 @@ export * from './quote';
 export * from './points';
 export * from './flowHDiagram';
 export * from './flowVDiagram';
+export * from './flowHInset';
 export * from './message';
 export * from './SAPPerspective';
 export * from './orbitDiagram';
@@ -61,3 +66,4 @@ export * from './pills';
 export * from './steps';
 export * from './foundationDiagram';
 export * from './contactButtons';
+export * from './tradeoffs';

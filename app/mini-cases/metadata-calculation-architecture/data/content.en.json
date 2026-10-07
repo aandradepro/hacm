@@ -28,7 +28,7 @@
                 "href": "#takeaway"
             },
             {
-                "label": "Contact",
+                "label": "Next Steps",
                 "href": "#cta"
             }
         ]
@@ -78,7 +78,7 @@
                     }
                 },
                 "actual": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "Actual",
                         "steps": [
@@ -105,7 +105,7 @@
                 "title": "Move the work upstream",
                 "subtitle": "The architecture moved as much processing as possible out of report execution and introduced a dedicated KPI layer between SAP BW persistence and reporting.",
                 "before": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "Before",
                         "steps": [
@@ -116,7 +116,7 @@
                     }
                 },
                 "after": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "After",
                         "steps": [
@@ -129,7 +129,7 @@
                     }
                 },
                 "common": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "BW Persistence",
                         "steps": [
@@ -330,6 +330,11 @@
                 "button": {
                     "label": "Read the full case study",
                     "href": "/mini-cases/metadata-calculation-architecture/case-study"
+                },
+                "contact": {
+                    "email": "aandradepro@aandradepro.com",
+                    "linkedin": "https://www.linkedin.com/in/aandradepro/",
+                    "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
                 }
             }
         },

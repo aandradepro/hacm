@@ -1,0 +1,422 @@
+{
+    "page": {
+        "id": "modeling-sap-and-non-sap-data-at-the-right-grain",
+        "pageType": "case-study-overview",
+        "language": "pt",
+        "title": "Modelando Dados SAP e Não-SAP no Grão Correto"
+    },
+    "nav": {
+        "items": [
+            {
+                "label": "Problema",
+                "href": "#problem"
+            },
+            {
+                "label": "Grão",
+                "href": "#grain"
+            },
+            {
+                "label": "Combinação",
+                "href": "#combination"
+            },
+            {
+                "label": "Cálculo",
+                "href": "#calculation"
+            },
+            {
+                "label": "Salvaguardas",
+                "href": "#safeguards"
+            },
+            {
+                "label": "Conclusão",
+                "href": "#takeaway"
+            },
+            {
+                "label": "Próximos Passos",
+                "href": "#cta"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "hero",
+            "content": {
+                "badge": "Hero",
+                "title": "Modelando Dados SAP e Não-SAP no Grão Correto",
+                "subtitle": "Como combinar dados financeiros, de faturamento e não-SAP sem duplicar registros, perder informação em nível de documento ou processar mais dados do que o necessário.",
+                "heading": "Caso de design de analytics empresarial",
+                "brand": "~Å~",
+                "tags": {
+                    "componentType": "tags",
+                    "content": {
+                        "items": [
+                            "Dados SAP + não-SAP",
+                            "Grão, chaves e cardinalidade",
+                            "Caso de raciocínio de design"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "problem",
+            "content": {
+                "badge": "O Problema",
+                "title": "Conectar os dados é a parte fácil",
+                "subtitle": "Dados financeiros, de faturamento e de uma fonte não-SAP precisavam suportar análise por mês, cliente, região, material e documento individual.",
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "A questão não é como conectar dados SAP e não-SAP. É em qual grão eles devem ser combinados."
+                    }
+                },
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "As fontes podem ter granularidades diferentes.",
+                            "Um documento financeiro pode referenciar um documento de faturamento.",
+                            "Algumas regras de negócio só podem ser calculadas corretamente em nível de documento.",
+                            "Fazer o join cedo demais pode processar muito mais registros do que o necessário.",
+                            "Agregar cedo demais pode remover informações que cálculos posteriores precisam."
+                        ]
+                    }
+                },
+                "reasoning": {
+                    "componentType": "flowHDiagram",
+                    "content": {
+                        "title": "Caminho de raciocínio",
+                        "steps": [
+                            "Requisito de negócio",
+                            "Grão",
+                            "Chaves e relacionamentos",
+                            "Cardinalidade",
+                            "Estratégia de combinação",
+                            "Nível de cálculo",
+                            "Modelo analítico",
+                            "Performance"
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "Dois riscos opostos: fazer o join cedo demais e agregar cedo demais."
+                    }
+                }
+            }
+        },
+        {
+            "id": "grain",
+            "content": {
+                "badge": "Antes de Qualquer Join",
+                "title": "Estabeleça primeiro o grão, as chaves e a cardinalidade",
+                "subtitle": "Joins, unions e agregações são escolhas de implementação. O grão decide qual delas é válida.",
+                "steps": {
+                    "componentType": "steps",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "step": "Requisito de negócio",
+                                "description": "Defina quais níveis de análise são necessários e quais regras de negócio existem, antes de olhar para as estruturas das tabelas."
+                            },
+                            {
+                                "step": "Grão de cada dataset",
+                                "description": "Defina o que uma linha representa. Confirme quais campos a identificam e valide essa definição com o negócio ou o dono do dado."
+                            },
+                            {
+                                "step": "Chaves e relacionamentos",
+                                "description": "Identifique as chaves que conectam os datasets, incluindo a referência entre financeiro e faturamento, e verifique se estão completas, consistentes e disponíveis no grão em que serão usadas."
+                            },
+                            {
+                                "step": "Cardinalidade",
+                                "description": "Faça o profiling dos dados: compare contagens de linhas com contagens de chaves distintas em cada lado e procure por duplicatas em chaves que se espera serem únicas."
+                            }
+                        ]
+                    }
+                },
+                "cardinality": {
+                    "componentType": "cards",
+                    "content": {
+                        "columns": 3,
+                        "items": [
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "1:1",
+                                "description": "O join é seguro. Registros não são repetidos nem perdidos.",
+                                "impact": "Combine diretamente."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "1:N",
+                                "description": "Medidas do lado \"um\" são repetidas para cada registro correspondente.",
+                                "impact": "Medidas em nível de cabeçalho não devem ser transportadas pelo join sem uma regra de alocação."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "N:M",
+                                "description": "O join multiplica registros e infla medidas.",
+                                "impact": "Resolva com uma bridge ou reduzindo um lado ao grão do outro."
+                            }
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "O grão é uma afirmação sobre o evento de negócio, não sobre a tabela. Duas tabelas com a mesma chave ainda podem descrever eventos diferentes."
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": "combination",
+            "content": {
+                "badge": "A Estratégia de Combinação",
+                "title": "Escolha a operação que corresponde ao relacionamento",
+                "subtitle": "Cada operação responde a uma pergunta diferente sobre como os datasets se relacionam.",
+                "operations": {
+                    "componentType": "pillars",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "icon": "",
+                                "title": "Join",
+                                "description": "Combine datasets que descrevem a mesma entidade de negócio em um grão compatível e cujo relacionamento foi verificado."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Union",
+                                "description": "Empilhe datasets que têm o mesmo grão e a mesma semântica de medidas."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Enriquecimento",
+                                "description": "Adicione atributos descritivos através de um lookup sem alterar o grão do dataset principal."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Agregação",
+                                "description": "Reduza o grão para o que o consumidor precisa, apenas depois que as regras que dependem do grão mais baixo foram aplicadas."
+                            }
+                        ]
+                    }
+                },
+                "tradeoffs": {
+                    "componentType": "tradeoffs",
+                    "content": {
+                        "title": "Trade-offs nestas decisões",
+                        "items": [
+                            [
+                                "Join cedo",
+                                "Processa mais registros"
+                            ],
+                            [
+                                "Agregar cedo",
+                                "Perde informação em nível de documento"
+                            ],
+                            [
+                                "Detalhe em nível de documento",
+                                "Maior volume de processamento"
+                            ],
+                            [
+                                "Modelo agregado",
+                                "Consumo mais simples"
+                            ]
+                        ]
+                    }
+                },
+                "monthly": {
+                    "componentType": "cards",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Quando a análise precisa apenas de dados mensais",
+                                "description": "Se nenhuma regra depende de informação em nível de documento, cada dataset pode ser agregado ao grão comum antes de serem combinados.",
+                                "impact": "Modelo mais simples e menor volume de processamento."
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Quando uma regra precisa de dados em nível de documento",
+                                "description": "O detalhe deve ser preservado até o ponto em que a regra é calculada. A agregação acontece depois disso.",
+                                "impact": "Resultados corretos em todos os níveis de análise."
+                            }
+                        ]
+                    }
+                },
+                "quote": {
+                    "componentType": "quote",
+                    "content": {
+                        "text": "Agregue o mais cedo que as regras permitirem, e não antes."
+                    }
+                }
+            }
+        },
+        {
+            "id": "calculation",
+            "content": {
+                "badge": "O Nível de Cálculo",
+                "title": "Calcule cada regra onde ela é correta, agregue depois",
+                "subtitle": "Uma regra de negócio que exige dados em nível de documento é calculada em nível de documento. A camada final de relatórios ainda pode ser agregada.",
+                "layers": {
+                    "componentType": "flowVDiagram",
+                    "content": {
+                        "title": "Camadas propostas",
+                        "steps": [
+                            "Datasets alinhados à fonte",
+                            "Integração em nível de documento",
+                            "Camada analítica agregada",
+                            "Consumo"
+                        ]
+                    }
+                },
+                "placement": {
+                    "componentType": "pillars",
+                    "content": {
+                        "columns": 2,
+                        "items": [
+                            {
+                                "icon": "",
+                                "title": "Datasets alinhados à fonte",
+                                "description": "Cada fonte é mantida em seu grão nativo com suas chaves. Apenas filtragem e projeção são aplicadas."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Integração em nível de documento",
+                                "description": "Dados financeiros e de faturamento são combinados através da referência de documento. Dados não-SAP são unidos no nível de sua própria chave. Regras em nível de documento são calculadas aqui, uma vez."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Camada analítica agregada",
+                                "description": "Os resultados são agregados por mês, cliente, região e material. Medidas aditivas são somadas; ratios são reconstruídos a partir de seus componentes."
+                            },
+                            {
+                                "icon": "",
+                                "title": "Consumo",
+                                "description": "Relatórios leem a camada agregada e permanecem simples. A inspeção em nível de documento é um drill-through para a camada de integração."
+                            }
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "Calcule no grão onde a regra é válida. Reporte no grão que o negócio precisa."
+                    }
+                }
+            }
+        },
+        {
+            "id": "safeguards",
+            "content": {
+                "badge": "Salvaguardas",
+                "title": "Prevenindo registros duplicados e medidas incorretas",
+                "subtitle": "Correção vem antes de performance. Um modelo rápido que duplica registros não é um modelo otimizado.",
+                "safeguards": {
+                    "title": "Controles embutidos no design",
+                    "list": {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Declare explicitamente o grão de cada dataset e camada.",
+                                "Verifique a unicidade das chaves no lado de cada join que se espera ser único.",
+                                "Compare contagens de registros antes e depois de cada join.",
+                                "Reconcilie totais entre a fonte, a camada em nível de documento e a camada agregada.",
+                                "Não transporte medidas em nível de cabeçalho através de um join 1:N sem uma regra de alocação.",
+                                "Trate ratios e outras medidas não-aditivas separadamente das aditivas."
+                            ]
+                        }
+                    }
+                },
+                "performance": {
+                    "title": "Como as implicações de performance são avaliadas",
+                    "list": {
+                        "componentType": "list",
+                        "content": {
+                            "items": [
+                                "Número de registros processados em cada etapa.",
+                                "Onde o volume de dados é reduzido, e se é reduzido antes dos joins caros.",
+                                "Cardinalidade de cada join.",
+                                "Quais resultados são reutilizados com frequência suficiente para justificar persistí-los.",
+                                "O esforço necessário para manter o modelo à medida que novos requisitos são adicionados."
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "takeaway",
+            "content": {
+                "badge": "Conclusão Arquitetural",
+                "title": "A lição mais profunda",
+                "subtitle": "A questão arquitetural central não é como conectar os dados, mas onde cada regra de negócio deve ser aplicada.",
+                "points": {
+                    "componentType": "points",
+                    "content": {
+                        "items": [
+                            "Estabeleça o grão antes de escolher um join, um union ou uma agregação.",
+                            "Verifique chaves e cardinalidade em vez de assumi-las.",
+                            "Decida por regra de negócio e por nível de análise, não globalmente.",
+                            "Calcule uma vez no grão onde a regra é válida, depois agregue para consumo."
+                        ]
+                    }
+                },
+                "SAPPerspective": {
+                    "componentType": "SAPPerspective",
+                    "content": {
+                        "items": [
+                            "O raciocínio é independente da plataforma. Aplica-se em SAP BW, SAP HANA, SAP Datasphere ou um lakehouse: determine em qual grão os datasets são combinados, onde cada regra pertence e o que pode ser reutilizado."
+                        ]
+                    }
+                },
+                "message": {
+                    "componentType": "message",
+                    "content": {
+                        "text": "O grão decide onde cada regra pode viver."
+                    }
+                }
+            }
+        },
+        {
+            "id": "cta",
+            "content": {
+                "badge": "Caso de Estudo Completo",
+                "title": "Quer os detalhes arquiteturais?",
+                "subtitle": "Leia o caso de estudo completo cobrindo o problema, alternativas, trade-offs, design proposto e salvaguardas.",
+                "button": {
+                    "label": "Leia o caso de estudo completo",
+                    "href": "/mini-cases/modeling-sap-and-non-sap-data-at-the-right-grain/case-study"
+                },
+                "contact": {
+                    "email": "aandradepro@aandradepro.com",
+                    "linkedin": "https://www.linkedin.com/in/aandradepro/",
+                    "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
+                }
+            }
+        },
+        {
+            "id": "footer",
+            "content": {
+                "text": "Arquitetura de Analytics Empresarial",
+                "brand": "~Å~"
+            }
+        }
+    ]
+}

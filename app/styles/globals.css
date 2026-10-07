@@ -1080,3 +1080,96 @@ body {
         print-color-adjust: exact !important;
     }
 }
+
+/* ============================================================
+   TRADEOFFS
+   Inserir em app/styles/globals.css, depois da seção
+   "ARCHITECTURE BALANCE - FULCRUM DIAGRAM" e antes do bloco final
+   de "Estilos para impressão".
+   ============================================================ */
+
+.tr-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.tr-item {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    gap: 10px;
+    background: #F8FAFC;
+    border: 1px solid #E8EEF4;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 12px rgba(15, 76, 138, 0.07);
+}
+
+.tr-term {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+    font-family: system-ui, sans-serif;
+    border: 1px solid transparent;
+}
+
+/* Esquerda — azul (mesma paleta de .rd-subject / .ab-pill-left) */
+.tr-left {
+    background: #D6E4F5;
+    color: #0F4C8A;
+    border-color: #B8D0EC;
+}
+
+/* Direita — teal (mesma paleta de .rd-object / .ab-pill-right) */
+.tr-right {
+    background: #C8EDE9;
+    color: #006B5E;
+    border-color: #A3DDD7;
+}
+
+.tr-arrow {
+    align-self: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #2E86AB;
+    font-family: system-ui, sans-serif;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .tr-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 580px) {
+    .tr-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .tr-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+@media print {
+
+    .tr-left,
+    .tr-right,
+    .tr-item {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

@@ -44,7 +44,7 @@
                 "items": [
                     "KPIs were primarily calculated during report execution.",
                     {
-                        "componentType": "flowHDiagram",
+                        "componentType": "flowHInset",
                         "content": {
                             "title": "",
                             "steps": [
@@ -82,7 +82,7 @@
                 "items": [
                     "A dedicated KPI layer was created:",
                     {
-                        "componentType": "flowHDiagram",
+                        "componentType": "flowHInset",
                         "content": {
                             "title": "",
                             "steps": [

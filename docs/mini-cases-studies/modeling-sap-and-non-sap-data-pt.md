@@ -1,0 +1,156 @@
+## Modelando Dados SAP e Não-SAP na Granularidade Correta
+
+*Tipo de case: case de raciocínio de design. Descreve como o problema é analisado e onde cada decisão deve ser tomada; não é o relato de um projeto entregue.*
+
+### 1. Contexto Organizacional
+
+Uma solução analítica precisava sustentar análises de negócio em diferentes níveis: mês, cliente, região, material e documento individual.
+
+A solução precisava combinar dados de dois domínios SAP e de um sistema não-SAP:
+
+* **dados financeiros SAP**;
+* **dados de faturamento SAP**;
+* **informações adicionais de um sistema não-SAP**.
+
+Um documento financeiro pode referenciar um documento de faturamento. O resultado final normalmente seria agregado por mês ou por cliente, mas algumas regras de negócio só podiam ser calculadas corretamente no nível de documento.
+
+### 2. O Problema Real
+
+O problema visível era como conectar dados SAP e não-SAP.
+
+O problema real era que os conjuntos de dados não tinham necessariamente a mesma granularidade, e o custo de errar era assimétrico nas duas direções:
+
+* combinar cedo demais podia processar muito mais registros do que o necessário;
+* agregar cedo demais podia eliminar informações exigidas por cálculos posteriores;
+* combinar conjuntos de dados com granularidades diferentes podia duplicar registros e inflar medidas, sem nenhum erro visível.
+
+Um modelo podia parecer funcionar e, ainda assim, retornar números incorretos.
+
+### 3. Ambiguidade Arquitetural
+
+A principal ambiguidade não era *quais* conjuntos de dados conectar, mas **em qual granularidade eles deveriam ser combinados e onde cada regra de negócio deveria ser aplicada**.
+
+Várias perguntas estavam implícitas e precisavam ser explicitadas antes de desenhar qualquer join:
+
+* O que uma linha representa em cada conjunto de dados?
+* Quais chaves identificam essa linha, e quais chaves a relacionam com os demais conjuntos?
+* Cada relacionamento é 1:1, 1:N ou N:M?
+* Quais regras exigem dados no nível de documento, e quais podem ser calculadas sobre dados agregados?
+* Quais níveis de análise o negócio realmente precisa?
+
+Enquanto essas perguntas não fossem respondidas, qualquer decisão sobre joins, unions ou agregações seria um palpite.
+
+### 4. Abordagem Arquitetural
+
+O raciocínio seguiu uma sequência fixa, em que cada etapa restringe a seguinte:
+
+**Requisito de negócio → Granularidade → Chaves/relacionamentos → Cardinalidade → Estratégia de combinação → Nível de cálculo → Modelo analítico → Performance**
+
+**Requisito de negócio.** Determinar quais níveis de análise são necessários e quais regras de negócio existem, antes de olhar para as estruturas de dados.
+
+**Granularidade.** Estabelecer o que uma linha representa em cada conjunto de dados. A granularidade é uma afirmação sobre o evento de negócio, não sobre a tabela. Ela é confirmada verificando qual combinação de campos identifica uma linha de forma única e validando essa definição com o responsável de negócio ou de dados.
+
+**Chaves e relacionamentos.** Identificar as chaves que conectam os conjuntos de dados, incluindo a referência entre documentos financeiros e de faturamento, e as chaves que o sistema não-SAP realmente oferece. Verificar se essas chaves são completas, consistentes entre os sistemas e estão disponíveis na granularidade em que serão usadas.
+
+**Cardinalidade.** Determinar se cada relacionamento é 1:1, 1:N ou N:M por meio de profiling dos dados: comparar a contagem de linhas com a contagem de chaves distintas em cada lado e procurar duplicidades na chave que deveria ser única. O resultado define se um join é seguro ou se vai repetir registros.
+
+**Estratégia de combinação.** Escolher a operação que corresponde ao relacionamento: join, union, enriquecimento ou agregação.
+
+**Nível de cálculo.** Decidir, regra por regra, se a regra precisa ser calculada no nível de documento ou pode ser calculada após a agregação.
+
+**Modelo analítico.** Definir as camadas em que os dados são combinados, calculados e agregados.
+
+**Performance.** Avaliar o desenho por último, pelo volume de dados processado em cada etapa, e não como uma otimização prematura.
+
+### 5. Alternativas Consideradas
+
+Os dois desenhos mais óbvios falham em direções opostas.
+
+**Combinar tudo na granularidade mais detalhada e depois agregar.** Isso preserva toda a informação e viabiliza as regras no nível de documento. Porém, processa o volume completo de detalhe para todos os consumidores, inclusive os que só precisam de totais mensais, e aumenta o risco de duplicação quando os relacionamentos não são 1:1.
+
+**Agregar cada conjunto de dados primeiro e depois combinar.** É mais barato e mais simples de consumir. Porém, uma vez que um conjunto de dados é agregado por mês ou por cliente, o relacionamento no nível de documento entre documentos financeiros e de faturamento se perde, e qualquer regra que dependa dele deixa de poder ser calculada corretamente.
+
+A abordagem escolhida não optou por uma dessas alternativas de forma global. A decisão foi tomada **por regra de negócio e por nível de análise**:
+
+* manter o detalhe onde uma regra o exige;
+* reduzir o volume de dados antes do join sempre que a granularidade permitir;
+* agregar somente depois que as regras que dependem da granularidade mais baixa tiverem sido calculadas.
+
+Se a análise exigisse apenas dados mensais e nenhuma regra dependesse de informação no nível de documento, agregar cada conjunto de dados para a granularidade comum antes de combiná-los seria a opção mais simples e mais barata.
+
+### 6. Trade-offs Aceitos
+
+A abordagem em camadas introduz mais de uma camada analítica, o que aumenta o esforço inicial de design e o número de objetos a manter.
+
+Isso foi aceito porque permitiu:
+
+* calcular as regras no nível de documento uma única vez, na granularidade em que elas estão corretas;
+* evitar que consumidores agregados processem o volume no nível de documento;
+* incorporar novos requisitos analíticos decidindo a qual camada eles pertencem, em vez de retrabalhar um único modelo grande.
+
+Um segundo trade-off é armazenamento versus processamento: persistir um resultado no nível de documento evita recalculá-lo para cada consumidor, ao custo de mais dados para armazenar e manter consistentes.
+
+### 7. Design Proposto
+
+**Conjuntos de dados alinhados à origem.** Cada fonte é mantida em sua granularidade nativa, com suas chaves, e apenas com a filtragem e a projeção necessárias. Nada é combinado nesta etapa.
+
+**Camada de integração no nível de documento.** Os conjuntos de dados financeiro e de faturamento são combinados em uma granularidade declarada, usando a referência entre documentos. Os dados não-SAP são adicionados no nível da sua própria chave: se descrevem documentos, entram por join no nível de documento; se descrevem clientes ou materiais, entram como enriquecimento, sem alterar a granularidade. As regras de negócio que exigem informação no nível de documento são calculadas aqui, uma única vez.
+
+**Camada analítica agregada.** Os resultados são agregados nos níveis que o negócio precisa: mês, cliente, região e material. Medidas aditivas são somadas. Razões e outras medidas não aditivas são reconstruídas a partir de seus componentes agregados, em vez de serem calculadas por média.
+
+**Camada de consumo.** Os relatórios leem a camada agregada e permanecem simples. Quando é necessária a inspeção no nível de documento, os consumidores fazem drill-through até a camada no nível de documento.
+
+**Operações usadas em cada etapa:**
+
+* **Join**: combinar conjuntos de dados que descrevem a mesma entidade de negócio em uma granularidade compatível e cujo relacionamento foi verificado.
+* **Union**: empilhar conjuntos de dados que têm a mesma granularidade e a mesma semântica de medidas.
+* **Enriquecimento**: adicionar atributos descritivos por meio de uma consulta (lookup) sem alterar a granularidade do conjunto de dados principal.
+* **Agregação**: reduzir a granularidade ao que o consumidor precisa, somente depois que as regras que dependem da granularidade mais baixa tiverem sido aplicadas.
+
+### 8. Salvaguardas e Resultados Esperados
+
+Como este é um case de raciocínio de design, os resultados abaixo são as propriedades que o desenho foi concebido para garantir, e não resultados medidos.
+
+**Salvaguardas contra registros duplicados e medidas incorretas:**
+
+* declarar explicitamente a granularidade de cada conjunto de dados e de cada camada;
+* verificar a unicidade das chaves no lado de cada join em que se espera unicidade;
+* comparar a contagem de registros antes e depois de cada join;
+* reconciliar os totais entre a origem, a camada no nível de documento e a camada agregada;
+* nunca propagar uma medida de nível de cabeçalho por um join 1:N sem decidir como ela será rateada;
+* calcular as regras na granularidade em que são válidas antes de agregá-las;
+* tratar razões e outras medidas não aditivas separadamente das aditivas.
+
+**Resultados esperados:**
+
+* resultados agregados que reconciliam com os resultados no nível de documento;
+* regras no nível de documento calculadas uma única vez e reutilizadas por todos os consumidores;
+* menor volume de dados processado para consumidores que só precisam de dados agregados;
+* um modelo em que cada novo requisito tem uma camada clara para onde ir.
+
+**Como a performance é avaliada:**
+
+* número de registros processados em cada etapa;
+* onde o volume de dados é reduzido, e se essa redução ocorre antes dos joins mais caros;
+* cardinalidade de cada join;
+* quais resultados são reutilizados com frequência suficiente para justificar sua persistência;
+* o esforço necessário para manter o modelo à medida que os requisitos crescem.
+
+### 9. Lições Arquiteturais
+
+A principal lição é que a pergunta arquitetural central não é *"Como conecto dados SAP e não-SAP?"*, mas ***"Em qual granularidade esses conjuntos de dados devem ser combinados, e onde cada regra de negócio deve ser aplicada?"***
+
+Joins, unions e agregações são escolhas de implementação. A granularidade determina qual delas é válida, e o nível de cálculo determina onde cada regra pode viver.
+
+Duas lições complementares decorrem disso:
+
+1. **O momento importa nas duas direções.** Combinar cedo demais desperdiça processamento; agregar cedo demais destrói informação. O momento certo depende da regra, não da plataforma.
+2. **Correção vem antes de performance.** Um modelo rápido que duplica registros não é um modelo otimizado. A performance é avaliada depois que a granularidade, as chaves e a cardinalidade estão estabelecidas.
+
+### 10. Relevância para Arquiteturas Modernas
+
+O raciocínio é independente da tecnologia. Ele se aplica seja a combinação implementada em transformações do SAP BW, em calculation views do SAP HANA, em modelos do SAP Datasphere, em um data lakehouse ou em qualquer outra plataforma que combine dados de sistemas diferentes.
+
+Ele também se conecta ao mesmo princípio presente no case de arquitetura de cálculo de KPIs: determinar onde o processamento deve ocorrer, identificar o que pode ser calculado uma vez e reutilizado, e manter a camada de consumo simples.
+
+A decisão arquitetural responde a uma pergunta mais ampla: **como estruturar um modelo analítico para que novas fontes e novos requisitos não multipliquem duplicação, medidas incorretas ou custo de processamento.**

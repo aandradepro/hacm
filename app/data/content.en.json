@@ -171,9 +171,18 @@
                                 "description": "How moving KPI processing out of the reporting layer created a reusable analytical layer inside SAP BW.",
                                 "impact": "View Case Study",
                                 "href": "/mini-cases/metadata-calculation-architecture"
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Modeling SAP and Non-SAP Data at the Right Grain",
+                                "description": "How to combine financial, billing and non-SAP data without duplicating records, losing document-level information or processing more data than necessary.",
+                                "impact": "View Case Study",
+                                "href": "/mini-cases/modeling-sap-and-non-sap-data-at-the-right-grain"
                             }
                         ],
-                        "columns": 1
+                        "columns": 2
                     }
                 }
             }

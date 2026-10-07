@@ -3,29 +3,46 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navigation from '@/components/ui/Navigation';
-import LanguageSelector from '@/components/ui/LanguageSelector';
 import ResolutionBadge from '@/components/ui/ResolutionBadge';
+import LanguageSelector from '@/components/ui/LanguageSelector';
+import ExportButton from '@/components/ui/ExportButton';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import ContactButtons from '@/components/ui/ContactButtons';
+import { getFileName } from '@/lib/content/getFileName';
+import { exportPDF } from '@/lib/exportPDF';
 import { Language, getContent, languages } from './data';
-import { componentRegistry, hasComponent, getComponent, mapComponentProps } from '@/lib/content/component-registry';
-import { MovingKpiProcessingPage } from '@/content-model/pages/moving-kpi-processing-overview';
+import {
+    componentRegistry,
+    hasComponent,
+    getComponent,
+    mapComponentProps
+} from '@/lib/content/component-registry';
+import { ModelingSapAndNonSapDataPage } from '@/content-model/pages/modeling-sap-and-non-sap-data-at-the-right-grain';
 
 // ── Component Renderer ────────────────────────────────────────────────────────
 
 function ComponentRenderer({ component }: { component: any }) {
-    if (!component) return null;
+    if (!component) {
+        console.warn('⚠️ ComponentRenderer: component is null/undefined');
+        return null;
+    }
 
     const { componentType, content } = component;
 
-    if (!componentType || !hasComponent(componentType)) {
-        console.warn(`Unknown componentType: ${componentType}`);
+    if (!componentType) {
+        console.warn('⚠️ ComponentRenderer: no componentType');
+        return null;
+    }
+
+    if (!hasComponent(componentType)) {
+        console.warn(`❌ Unknown componentType: ${componentType}`);
+        console.log('📋 Available types:', Object.keys(componentRegistry));
         return null;
     }
 
     const Component = getComponent(componentType);
     if (!Component) {
-        console.warn(`No component found for type: ${componentType}`);
+        console.warn(`❌ No component found for type: ${componentType}`);
         return null;
     }
 
@@ -33,27 +50,9 @@ function ComponentRenderer({ component }: { component: any }) {
     return <Component {...props} />;
 }
 
-// ── Section Header ────────────────────────────────────────────────────────────
-
-function SectionHeader({ badge, title, subtitle }: { badge?: string; title: string; subtitle?: string }) {
-    return (
-        <>
-            {badge && (
-                <span className="text-sm font-semibold text-[#00B4A0] tracking-widest uppercase">
-                    {badge}
-                </span>
-            )}
-            <h2 className="heading-1 text-[#0F4C8A] mt-2 mb-2">{title}</h2>
-            {subtitle && (
-                <p className="body-text text-[#2D3748] max-w-3xl mb-6">{subtitle}</p>
-            )}
-        </>
-    );
-}
-
 // ── Section Renderer ──────────────────────────────────────────────────────────
 
-function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
+function SectionRenderer({ section }: { section: ModelingSapAndNonSapDataPage['sections'][number] }) {
     const { id, content } = section;
 
     switch (id) {
@@ -70,12 +69,12 @@ function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
                         </div>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={150}>
-                        <h1 className="heading-1 text-[#0F4C8A] mb-6">
+                        <h1 className="heading-1 text-[#0F4C8A] mb-4">
                             {content.title}
                         </h1>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={300}>
-                        <p className="body-text text-[#2D3748] max-w-3xl mx-auto mb-8">
+                        <p className="body-text text-[#2D3748] max-w-3xl mx-auto">
                             {content.subtitle}
                         </p>
                     </AnimatedSection>
@@ -104,14 +103,12 @@ function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
                         </p>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                            <div>
-                                <ComponentRenderer component={content.points} />
-                            </div>
-                            <div>
-                                <ComponentRenderer component={content.actual} />
-                            </div>
+                        <div className="mt-2 mb-6">
+                            <ComponentRenderer component={content.points} />
                         </div>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <ComponentRenderer component={content.reasoning} />
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
                         <ComponentRenderer component={content.quote} />
@@ -122,7 +119,7 @@ function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
                 </div>
             );
 
-        case 'decision':
+        case 'grain':
             return (
                 <div className="w-full max-w-6xl mx-auto px-4">
                     <AnimatedSection direction="up" delay={0}>
@@ -141,33 +138,59 @@ function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
                         </p>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                            <div className="flex flex-col items-center justify-center h-full">
-                                {/* Título removido - agora vem do FlowHDiagram */}
-                                <ComponentRenderer component={content.common} />
+                        <div className="mt-2 mb-6">
+                            <ComponentRenderer component={content.steps} />
+                        </div>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <div className="mt-2 mb-6">
+                            <ComponentRenderer component={content.cardinality} />
+                        </div>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <ComponentRenderer component={content.SAPPerspective} />
+                    </AnimatedSection>
+                </div>
+            );
+
+        case 'combination':
+            return (
+                <div className="w-full max-w-6xl mx-auto px-4">
+                    <AnimatedSection direction="up" delay={0}>
+                        <span className="text-sm font-semibold text-[#00B4A0] tracking-widest uppercase">
+                            {content.badge}
+                        </span>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={150}>
+                        <h2 className="heading-1 text-[#0F4C8A] mt-2 mb-2">
+                            {content.title}
+                        </h2>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={300}>
+                        <p className="body-text text-[#2D3748] max-w-3xl mb-6">
+                            {content.subtitle}
+                        </p>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mt-2 mb-6">
+                            <div>
+                                <ComponentRenderer component={content.operations} />
                             </div>
-                            <div className="space-y-6">
-                                <div>
-                                    {/* Título removido - agora vem do FlowHDiagram */}
-                                    <ComponentRenderer component={content.before} />
-                                </div>
-                                <div>
-                                    {/* Título removido - agora vem do FlowHDiagram */}
-                                    <ComponentRenderer component={content.after} />
-                                </div>
+                            <div>
+                                <ComponentRenderer component={content.tradeoffs} />
                             </div>
                         </div>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
-                        <ComponentRenderer component={content.quote} />
+                        <ComponentRenderer component={content.monthly} />
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
-                        <ComponentRenderer component={content.sapPerspective} />
+                        <ComponentRenderer component={content.quote} />
                     </AnimatedSection>
                 </div>
             );
 
-        case 'metadata':
+        case 'calculation':
             return (
                 <div className="w-full max-w-6xl mx-auto px-4">
                     <AnimatedSection direction="up" delay={0}>
@@ -186,15 +209,20 @@ function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
                         </p>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
-                        <ComponentRenderer component={content.orbit} />
+                        <div className="mt-2 mb-6">
+                            <ComponentRenderer component={content.layers} />
+                        </div>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
-                        <ComponentRenderer component={content.cards} />
+                        <ComponentRenderer component={content.placement} />
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <ComponentRenderer component={content.message} />
                     </AnimatedSection>
                 </div>
             );
 
-        case 'results':
+        case 'safeguards':
             return (
                 <div className="w-full max-w-6xl mx-auto px-4">
                     <AnimatedSection direction="up" delay={0}>
@@ -203,23 +231,31 @@ function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
                         </span>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={150}>
-                        <h2 className="heading-1 text-[#0F4C8A] mt-2 mb-6">
+                        <h2 className="heading-1 text-[#0F4C8A] mt-2 mb-2">
                             {content.title}
                         </h2>
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={300}>
-                        <ComponentRenderer component={content.cards} />
+                        <p className="body-text text-[#2D3748] max-w-3xl mb-6">
+                            {content.subtitle}
+                        </p>
                     </AnimatedSection>
-                    {content.improvements && (
-                        <AnimatedSection direction="up" delay={450}>
-                            <div className="mt-8 p-6 bg-[#F8FAFC] rounded-lg border border-[#E8EEF4]">
-                                <h3 className="text-lg font-semibold text-[#0F4C8A] mb-4">
-                                    {content.improvements.title}
-                                </h3>
-                                <ComponentRenderer component={content.improvements.listImprovements} />
-                            </div>
-                        </AnimatedSection>
-                    )}
+                    <AnimatedSection direction="up" delay={450}>
+                        <div className="mb-8">
+                            <h3 className="text-lg font-semibold text-[#0F4C8A] mb-4">
+                                {content.safeguards.title}
+                            </h3>
+                            <ComponentRenderer component={content.safeguards.list} />
+                        </div>
+                    </AnimatedSection>
+                    <AnimatedSection direction="up" delay={450}>
+                        <div className="mb-8">
+                            <h3 className="text-lg font-semibold text-[#0F4C8A] mb-4">
+                                {content.performance.title}
+                            </h3>
+                            <ComponentRenderer component={content.performance.list} />
+                        </div>
+                    </AnimatedSection>
                 </div>
             );
 
@@ -245,7 +281,7 @@ function SectionRenderer({ section, isDev }: { section: any; isDev: boolean }) {
                         <ComponentRenderer component={content.points} />
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
-                        <ComponentRenderer component={content.sapPerspective} />
+                        <ComponentRenderer component={content.SAPPerspective} />
                     </AnimatedSection>
                     <AnimatedSection direction="up" delay={450}>
                         <ComponentRenderer component={content.message} />
@@ -307,7 +343,9 @@ export default function PageContent() {
     const searchParams = useSearchParams();
     const [isClient, setIsClient] = useState(false);
     const [lang, setLang] = useState<Language>('en');
-    const content = getContent(lang) as MovingKpiProcessingPage;
+    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const content = getContent(lang) as ModelingSapAndNonSapDataPage;
     const isDev = process.env.NODE_ENV === 'development';
 
     useEffect(() => {
@@ -330,6 +368,36 @@ export default function PageContent() {
         setLang(newLang);
         localStorage.setItem('hacm-lang', newLang);
         window.history.pushState({}, '', `?lang=${newLang}`);
+    };
+
+    const handleExportPDF = async () => {
+        if (isGeneratingPDF) return;
+
+        setIsGeneratingPDF(true);
+        setProgress(0);
+
+        try {
+            const fileName = getFileName(content);
+
+            await exportPDF({
+                element: document.querySelector('.snap-container') as HTMLElement,
+                fileName,
+                contentWidth: 1152,
+                margin: 40,
+                scale: 2,
+                includeFooter: true,
+                onProgress: setProgress,
+            });
+
+            setIsGeneratingPDF(false);
+            setProgress(100);
+
+        } catch (error) {
+            console.error('Export failed:', error);
+            alert('Ocorreu um erro ao gerar o PDF. Tente novamente.');
+            setIsGeneratingPDF(false);
+            setProgress(0);
+        }
     };
 
     if (!content || !content.sections || content.sections.length < 1) {
@@ -355,6 +423,15 @@ export default function PageContent() {
             )}
 
             {isClient && (
+                <div className="fixed bottom-6 right-6 z-50">
+                    <ExportButton
+                        fileName={getFileName(content)}
+                        label="Export PDF"
+                    />
+                </div>
+            )}
+
+            {isClient && (
                 <div className="fixed bottom-6 left-6 z-50 hidden md:block">
                     <ResolutionBadge />
                 </div>
@@ -363,12 +440,12 @@ export default function PageContent() {
             <div className="snap-container">
                 {content.sections.map((section, index) => {
                     let bgClass = '';
-                    if (section.id === 'hero' || section.id === 'decision' || section.id === 'results' || section.id === 'cta') {
+                    if (section.id === 'hero' || section.id === 'grain' || section.id === 'calculation' || section.id === 'cta') {
                         bgClass = '';
-                    } else if (section.id === 'problem' || section.id === 'metadata' || section.id === 'takeaway') {
+                    } else if (section.id === 'problem' || section.id === 'combination' || section.id === 'safeguards') {
                         bgClass = 'bg-[#F8FAFC]';
                     } else if (section.id === 'footer') {
-                        return <SectionRenderer key={index} section={section} isDev={isDev} />;
+                        return <SectionRenderer key={index} section={section} />;
                     }
 
                     return (
@@ -382,7 +459,7 @@ export default function PageContent() {
                                     {section.id.toUpperCase()}
                                 </div>
                             )}
-                            <SectionRenderer section={section} isDev={isDev} />
+                            <SectionRenderer section={section} />
                         </section>
                     );
                 })}

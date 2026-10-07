@@ -28,7 +28,7 @@
                 "href": "#takeaway"
             },
             {
-                "label": "Contato",
+                "label": "Próximos Passos",
                 "href": "#cta"
             }
         ]
@@ -78,7 +78,7 @@
                     }
                 },
                 "actual": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "Atual",
                         "steps": [
@@ -105,7 +105,7 @@
                 "title": "Mover o trabalho para upstream",
                 "subtitle": "A arquitetura moveu o máximo de processamento possível para fora da execução de relatórios e introduziu uma camada dedicada de KPI entre a persistência do SAP BW e os relatórios.",
                 "before": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "Antes",
                         "steps": [
@@ -116,7 +116,7 @@
                     }
                 },
                 "after": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "Depois",
                         "steps": [
@@ -129,7 +129,7 @@
                     }
                 },
                 "common": {
-                    "componentType": "flowHDiagram",
+                    "componentType": "flowHInset",
                     "content": {
                         "title": "Persistência BW",
                         "steps": [
@@ -330,6 +330,11 @@
                 "button": {
                     "label": "Leia o caso de estudo completo",
                     "href": "/mini-cases/metadata-calculation-architecture/case-study"
+                },
+                "contact": {
+                    "email": "aandradepro@aandradepro.com",
+                    "linkedin": "https://www.linkedin.com/in/aandradepro/",
+                    "calendar": "https://calendar.app.google/WtH3YrkRVvDZTFbo9"
                 }
             }
         },

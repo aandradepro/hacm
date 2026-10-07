@@ -171,9 +171,18 @@
                                 "description": "Como mover o processamento de KPIs para fora da camada de relatórios criou uma camada analítica reutilizável dentro do SAP BW.",
                                 "impact": "Ver Estudo de Caso",
                                 "href": "/mini-cases/metadata-calculation-architecture"
+                            },
+                            {
+                                "icon": "",
+                                "metric": "",
+                                "metricLabel": "",
+                                "title": "Modelando Dados SAP e Não-SAP no Grão Correto",
+                                "description": "Como combinar dados financeiros, de faturamento e não-SAP sem duplicar registros, perder informação em nível de documento ou processar mais dados do que o necessário.",
+                                "impact": "Ver Estudo de Caso",
+                                "href": "/mini-cases/modeling-sap-and-non-sap-data-at-the-right-grain"
                             }
                         ],
-                        "columns": 1
+                        "columns": 2
                     }
                 }
             }

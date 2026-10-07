@@ -6,7 +6,7 @@ import PageContent from './PageContent';
 export async function generateMetadata(): Promise<Metadata> {
     const content = getContent('en');
     const heroSection = content.sections?.find(s => s.id === 'hero');
-    const title = content.page?.title || 'Metadata Calculation Architecture';
+    const title = content.page?.title || 'Modeling SAP and Non-SAP Data at the Right Grain';
     const description = heroSection?.content?.subtitle || '';
 
     return {
@@ -15,11 +15,11 @@ export async function generateMetadata(): Promise<Metadata> {
         openGraph: {
             title: `${title} | Alexandre de Andrade`,
             description,
-            url: 'https://aandradepro.com/mini-cases/metadata-calculation-architecture',
+            url: 'https://aandradepro.com/mini-cases/modeling-sap-and-non-sap-data-at-the-right-grain',
             siteName: 'Alexandre de Andrade',
             images: [
                 {
-                    url: 'https://aandradepro.com/images/og-image-metadata.png',
+                    url: 'https://aandradepro.com/images/og-image-modeling.png',
                     width: 1200,
                     height: 630,
                     alt: title,
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
             card: 'summary_large_image',
             title: `${title} | Alexandre de Andrade`,
             description,
-            images: ['https://aandradepro.com/images/og-image-metadata.png'],
+            images: ['https://aandradepro.com/images/og-image-modeling.png'],
         },
     };
 }

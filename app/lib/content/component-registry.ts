@@ -3,6 +3,7 @@ import Quote from '@/components/ui/Quote';
 import Points from '@/components/ui/Points';
 import FlowHDiagram from '@/components/ui/FlowHDiagram';
 import FlowVDiagram from '@/components/ui/FlowVDiagram';
+import FlowHInset from '@/components/ui/FlowHInset';
 import Message from '@/components/ui/Message';
 import SAPPerspective from '@/components/ui/SAPPerspective';
 import OrbitDiagram from '@/components/ui/OrbitDiagram';
@@ -13,9 +14,10 @@ import ConvergenceDiagram from '@/components/ui/ConvergenceDiagram';
 import RelationshipDiagram from '@/components/ui/RelationshipDiagram';
 import Pillars from '@/components/ui/Pillars';
 import Pills from '@/components/ui/Pills';
-import Steps from '@/components/ui/Steps';                              // ← Corrigido: Steps (não ApproachSteps)
+import Steps from '@/components/ui/Steps';
 import FoundationDiagram from '@/components/ui/FoundationDiagram';
 import ContactButtons from '@/components/ui/ContactButtons';
+import Tradeoffs from '@/components/ui/Tradeoffs';
 
 export const componentRegistry = {
     tags: Tags,
@@ -23,6 +25,7 @@ export const componentRegistry = {
     points: Points,
     flowHDiagram: FlowHDiagram,
     flowVDiagram: FlowVDiagram,
+    flowHInset: FlowHInset,
     message: Message,
     SAPPerspective: SAPPerspective,
     orbitDiagram: OrbitDiagram,
@@ -36,6 +39,7 @@ export const componentRegistry = {
     steps: Steps,                                 // ← Corrigido: steps (não approachSteps)
     foundationDiagram: FoundationDiagram,
     contactButtons: ContactButtons,
+    tradeoffs: Tradeoffs,
 } as const;
 
 export type ComponentType = keyof typeof componentRegistry;
@@ -46,6 +50,7 @@ export const componentPropsMapper: Record<ComponentType, (content: any) => any> 
     points: (content) => ({ items: content.items }),
     flowHDiagram: (content) => ({ title: content.title, steps: content.steps }),
     flowVDiagram: (content) => ({ title: content.title, steps: content.steps }),
+    flowHInset: (content) => ({ title: content.title, steps: content.steps }),
     message: (content) => ({ text: content.text }),
     SAPPerspective: (content) => ({ text: content.items }),
     orbitDiagram: (content) => ({
@@ -81,6 +86,10 @@ export const componentPropsMapper: Record<ComponentType, (content: any) => any> 
     }),
     foundationDiagram: (content) => ({ data: content }),
     contactButtons: (content) => ({ contact: content }),
+    tradeoffs: (content) => ({
+        title: content.title,
+        items: content.items
+    }),
 };
 
 export function getComponent(type: ComponentType) {
